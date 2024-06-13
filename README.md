@@ -1,40 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CoWorkerMatch-web
 
-## Getting Started
+## 概要
 
-First, run the development server:
+CoWorkerMatchは、内定者をマッチングさせるためのWebアプリケーションです。
+フロントエンドのリポジトリです。
+
+## セットアップ
+
+### 前提条件
+
+- Node.js >= v18.17.1
+- pnpm >= v9.1.0
+
+pnpmがインストールされていない場合は以下のコマンドでインストール：
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install -g pnpm@9.1.0
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### クローン
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+リポジトリをクローンする。
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```bash
+git clone https://github.com/HackU-2024-team3/CoWorkerMatch-web.git
+cd CoWorkerMatch-web
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### 開発サーバーの起動
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+pnpm install
+pnpm dev
+```
 
-## Learn More
+ローカルで開発サーバーが起動し、`http://localhost:3000`でアプリケーションにアクセスできます。
 
-To learn more about Next.js, take a look at the following resources:
+### Dockerを使った起動方法
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Dockerを使って、起動することもできます。
+プロジェクトのルートディレクトリで以下のコマンドを実行してください。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+docker-compose build
+docker-compose up
+```
 
-## Deploy on Vercel
+ローカルでサーバーが起動し、`http://localhost:3000`でアプリケーションにアクセスできます。
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 使用技術
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- TypeScript 5
+- Next.js 14.2.3 (Pages Router)
+- React 18
+- Tailwind CSS 3.4.1
