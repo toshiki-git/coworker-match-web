@@ -1,0 +1,442 @@
+openapi: 3.0.0
+info:
+  title: CoWorkerMatch API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local Server
+tags:
+  - name: Users
+    description: ユーザに関するCRUD操作
+  - name: Hobbies
+    description: 趣味に関するCRUD操作(ユーザが趣味の項目を追加する必要ない(ユーザは決められた趣味の項目だけを選んで追加できない)なら、いらないかも)
+  - name: UserHobbies
+    description: ユーザの趣味に関する操作(一括で趣味を追加したり、削除するAPI必要かも)
+  - name: Matches
+    description: マッチングに関するCRUD操作(UpdateとDeleteはいらないかも)
+
+paths:
+  /users:
+    post:
+      tags:
+        - Users
+      summary: Create a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUser'
+      responses:
+        '201':
+          description: 新規ユーザの作成。ユーザが初めてサービスにGoogleログインしたときに呼び出される
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /users/{user_id}:
+    get:
+      tags:
+        - Users
+      summary: Get a user by ID
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: クエリパラメータのuser_idからユーザ取得
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      tags:
+        - Users
+      summary: Update a user by ID
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: 2回目以降ユーザがログインしたときに、Googleのアカウントの名前などが変更されている場合に情報を更新する or 単純にline_accountなどを追加・更新する時に呼ばれる。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    delete:
+      tags:
+        - Users
+      summary: Delete a user by ID
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: ユーザの削除をする
+
+  /hobbies:
+    post:
+      tags:
+        - Hobbies
+      summary: Create a new hobby
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewHobby'
+      responses:
+        '201':
+          description: Hobby created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hobby'
+  /hobbies/{hobby_id}:
+    get:
+      tags:
+        - Hobbies
+      summary: Get a hobby by ID
+      parameters:
+        - name: hobby_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: このAPIは必要ないかも
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hobby'
+    put:
+      tags:
+        - Hobbies
+      summary: Update a hobby by ID
+      parameters:
+        - name: hobby_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Hobby'
+      responses:
+        '200':
+          description: Hobby updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hobby'
+    delete:
+      tags:
+        - Hobbies
+      summary: Delete a hobby by ID
+      parameters:
+        - name: hobby_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Hobby deleted
+
+  /user_hobbies:
+    post:
+      tags:
+        - UserHobbies
+      summary: Add a new user hobby
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUserHobby'
+      responses:
+        '201':
+          description: ユーザの趣味を1個追加する
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserHobby'
+  /user_hobbies/{user_id}/{hobby_id}:
+    delete:
+      tags:
+        - UserHobbies
+      summary: Delete a user hobby by user ID and hobby ID
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: hobby_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: ユーザの趣味を1個削除する
+  /user_hobbies/{user_id}:
+    get:
+      tags:
+        - UserHobbies
+      summary: Get all hobbies of a user
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: クエリパラメータのuser_idからユーザの趣味リストを取得
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Hobby'
+
+  /matches:
+    post:
+      tags:
+        - Matches
+      summary: Create a new match
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewMatch'
+      responses:
+        '201':
+          description: ユーザをマッチングさせるAPI
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Match'
+  /matches/{match_id}:
+    get:
+      tags:
+        - Matches
+      summary: Get a match by ID
+      parameters:
+        - name: match_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: あるマッチ情報を返す
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Match'
+    put:
+      tags:
+        - Matches
+      summary: Update a match by ID
+      parameters:
+        - name: match_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Match'
+      responses:
+        '200':
+          description: マッチの情報を更新する(必要ないかも)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Match'
+    delete:
+      tags:
+        - Matches
+      summary: Delete a match by ID
+      parameters:
+        - name: match_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: マッチを解消する
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        email:
+          type: string
+        avatar_url:
+          type: string
+          nullable: true
+        age:
+          type: integer
+          nullable: true
+        gender:
+          type: string
+          enum: ['男性', '女性', 'その他']
+          nullable: true
+        birthplace:
+          type: string
+          nullable: true
+        job_type:
+          type: string
+          nullable: true
+        line_account:
+          type: string
+          nullable: true
+        discord_account:
+          type: string
+          nullable: true
+        biography:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    NewUser:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        avatar_url:
+          type: string
+          nullable: true
+        age:
+          type: integer
+          nullable: true
+        gender:
+          type: string
+          enum: ['男性', '女性', 'その他']
+          nullable: true
+        birthplace:
+          type: string
+          nullable: true
+        job_type:
+          type: string
+          nullable: true
+        line_account:
+          type: string
+          nullable: true
+        discord_account:
+          type: string
+          nullable: true
+        biography:
+          type: string
+          nullable: true
+    Hobby:
+      type: object
+      properties:
+        hobby_id:
+          type: string
+          format: uuid
+        hobby_name:
+          type: string
+    NewHobby:
+      type: object
+      properties:
+        hobby_name:
+          type: string
+    Match:
+      type: object
+      properties:
+        match_id:
+          type: string
+          format: uuid
+        sender_user_id:
+          type: string
+          format: uuid
+        receiver_user_id:
+          type: string
+          format: uuid
+        match_date:
+          type: string
+          format: date-time
+    NewMatch:
+      type: object
+      properties:
+        sender_user_id:
+          type: string
+          format: uuid
+        receiver_user_id:
+          type: string
+          format: uuid
+    UserHobby:
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        hobby_id:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    NewUserHobby:
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        hobby_id:
+          type: string
+          format: uuid
