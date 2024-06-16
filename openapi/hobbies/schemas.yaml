@@ -1,0 +1,15 @@
+components:
+  schemas:
+    HobbyResponse:
+      type: object
+      properties:
+        hobby_id:
+          type: string
+          format: uuid
+        hobby_name:
+          type: string
+    HobbyPOSTRequest:
+      type: object
+      properties:
+        hobby_name:
+          type: string

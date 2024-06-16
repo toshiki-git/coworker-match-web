@@ -1,0 +1,38 @@
+components:
+  schemas:
+    HobbyResponse:
+      type: object
+      properties:
+        hobby_id:
+          type: string
+          format: uuid
+        hobby_name:
+          type: string
+    UserHobbyResponse:
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        hobby_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    UserHobbiesPOSTRequest:
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        hobby_ids:
+          type: array
+          items:
+            type: string
+            format: uuid

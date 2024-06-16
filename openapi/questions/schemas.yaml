@@ -1,0 +1,14 @@
+components:
+  schemas:
+    Question:
+      type: object
+      properties:
+        question_id:
+          type: string
+          format: uuid
+        question_text:
+          type: string
+        choice1:
+          type: string
+        choice2:
+          type: string

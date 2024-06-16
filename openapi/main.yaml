@@ -21,26 +21,22 @@ tags:
 
 paths:
   /users:
-    $ref: './users.yaml#/paths/~1users'
+    $ref: './users/users.yaml#/paths/~1users'
   /users/{user_id}:
-    $ref: './users.yaml#/paths/~1users~1{user_id}'
+    $ref: './users/users.yaml#/paths/~1users~1{user_id}'
   /hobbies:
-    $ref: './hobbies.yaml#/paths/~1hobbies'
+    $ref: './hobbies/hobbies.yaml#/paths/~1hobbies'
   /hobbies/{hobby_id}:
-    $ref: './hobbies.yaml#/paths/~1hobbies~1{hobby_id}'
+    $ref: './hobbies/hobbies.yaml#/paths/~1hobbies~1{hobby_id}'
   /user_hobbies:
-    $ref: './user_hobbies.yaml#/paths/~1user_hobbies'
+    $ref: './user_hobbies/user_hobbies.yaml#/paths/~1user_hobbies'
   /user_hobbies/{user_id}/{hobby_id}:
-    $ref: './user_hobbies.yaml#/paths/~1user_hobbies~1{user_id}~1{hobby_id}'
+    $ref: './user_hobbies/user_hobbies.yaml#/paths/~1user_hobbies~1{user_id}~1{hobby_id}'
   /user_hobbies/{user_id}:
-    $ref: './user_hobbies.yaml#/paths/~1user_hobbies~1{user_id}'
+    $ref: './user_hobbies/user_hobbies.yaml#/paths/~1user_hobbies~1{user_id}'
   /matches/{match_id}:
-    $ref: './matches.yaml#/paths/~1matches~1{match_id}'
+    $ref: './matches/matches.yaml#/paths/~1matches~1{match_id}'
   /questions:
-    $ref: './questions.yaml#/paths/~1questions'
+    $ref: './questions/questions.yaml#/paths/~1questions'
   /answers:
-    $ref: './answers.yaml#/paths/~1answers'
-
-components:
-  schemas:
-    $ref: './schemas.yaml'
+    $ref: './answers/answers.yaml#/paths/~1answers'

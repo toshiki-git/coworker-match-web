@@ -1,0 +1,75 @@
+components:
+  schemas:
+    UserResponse:
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        email:
+          type: string
+        avatar_url:
+          type: string
+          nullable: true
+        age:
+          type: integer
+          nullable: true
+        gender:
+          type: string
+          enum: ['男性', '女性', 'その他']
+          nullable: true
+        birthplace:
+          type: string
+          nullable: true
+        job_type:
+          type: string
+          nullable: true
+        line_account:
+          type: string
+          nullable: true
+        discord_account:
+          type: string
+          nullable: true
+        biography:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    UserPOSTRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        avatar_url:
+          type: string
+          nullable: true
+        age:
+          type: integer
+          nullable: true
+        gender:
+          type: string
+          enum: ['男性', '女性', 'その他']
+          nullable: true
+        birthplace:
+          type: string
+          nullable: true
+        job_type:
+          type: string
+          nullable: true
+        line_account:
+          type: string
+          nullable: true
+        discord_account:
+          type: string
+          nullable: true
+        biography:
+          type: string
+          nullable: true
