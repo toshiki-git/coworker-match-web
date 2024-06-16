@@ -9,6 +9,16 @@ components:
         question_text:
           type: string
         choice1:
-          type: string
+          type: object
+          properties:
+            choice_text:
+              type: string
+            choice_image_url:
+              type: string
         choice2:
-          type: string
+          type: object
+          properties:
+            choice_text:
+              type: string
+            choice_image_url:
+              type: string
