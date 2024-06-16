@@ -1,0 +1,176 @@
+components:
+  schemas:
+    UserResponse:
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        email:
+          type: string
+        avatar_url:
+          type: string
+          nullable: true
+        age:
+          type: integer
+          nullable: true
+        gender:
+          type: string
+          enum: ['男性', '女性', 'その他']
+          nullable: true
+        birthplace:
+          type: string
+          nullable: true
+        job_type:
+          type: string
+          nullable: true
+        line_account:
+          type: string
+          nullable: true
+        discord_account:
+          type: string
+          nullable: true
+        biography:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    UserPOSTRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        avatar_url:
+          type: string
+          nullable: true
+        age:
+          type: integer
+          nullable: true
+        gender:
+          type: string
+          enum: ['男性', '女性', 'その他']
+          nullable: true
+        birthplace:
+          type: string
+          nullable: true
+        job_type:
+          type: string
+          nullable: true
+        line_account:
+          type: string
+          nullable: true
+        discord_account:
+          type: string
+          nullable: true
+        biography:
+          type: string
+          nullable: true
+    HobbyResponse:
+      type: object
+      properties:
+        hobby_id:
+          type: string
+          format: uuid
+        hobby_name:
+          type: string
+    HobbyPOSTRequest:
+      type: object
+      properties:
+        hobby_name:
+          type: string
+    MatchResponse:
+      type: object
+      properties:
+        match_id:
+          type: string
+          format: uuid
+        sender_user_id:
+          type: string
+          format: uuid
+        receiver_user_id:
+          type: string
+          format: uuid
+        match_date:
+          type: string
+          format: date-time
+    MatchPOSTRequest:
+      type: object
+      properties:
+        sender_user_id:
+          type: string
+          format: uuid
+        receiver_user_id:
+          type: string
+          format: uuid
+    UserHobbyResponse:
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        hobby_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    UserHobbiesPOSTRequest:
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        hobby_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+    Question:
+      type: object
+      properties:
+        question_id:
+          type: string
+          format: uuid
+        question_text:
+          type: string
+        choice1:
+          type: string
+        choice2:
+          type: string
+    AnswerPOSTRequest:
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        question_id:
+          type: string
+          format: uuid
+        answer:
+          type: string
+          example: 'choice1'
+    MatchUserResponse:
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        match_id:
+          type: string
+          format: uuid
+        match_date:
+          type: string
+          format: date-time

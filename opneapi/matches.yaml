@@ -1,0 +1,20 @@
+paths:
+  /matches/{match_id}:
+    get:
+      tags:
+        - Matches
+      summary: Get a match by ID
+      parameters:
+        - name: match_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: マッチングした相手の情報を取得
+          content:
+            application/json:
+              schema:
+                $ref: './schemas.yaml#/components/schemas/UserResponse'
