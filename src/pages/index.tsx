@@ -43,6 +43,7 @@ export default function Home() {
           >
             Sign out
           </button>
+          <div className="text-center">Access Token:{session.accessToken}</div>
         </>
       )}
     </div>
