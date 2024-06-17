@@ -18,9 +18,6 @@ components:
     AnswerPOSTRequest:
       type: object
       properties:
-        user_id:
-          type: string
-          format: uuid
         question_id:
           type: string
           format: uuid
