@@ -8,12 +8,28 @@ export function SigninPage() {
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       {!session ? (
         <>
-          <p className="mb-4 text-lg">Not signed in</p>
-          <button
-            onClick={() => signIn('google')}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >
-            Sign in with Google
+          <div className="flex gap-3 mb-8">
+            <Image
+              src="/CwM-logo-green-transparent.png"
+              alt="login_icon"
+              width={140}
+              height={140}
+            />
+            <Image
+              src="/CowokerMatch-green.png"
+              alt="login_logo"
+              width={400}
+              height={140}
+            />
+          </div>
+          <p className="font-bold mb-4">ログインまたは新規登録</p>
+          <button onClick={() => signIn('google')}>
+            <Image
+              src="/web_light_sq_SU.svg"
+              alt="Google Icon"
+              width={250}
+              height={56}
+            />
           </button>
         </>
       ) : (
