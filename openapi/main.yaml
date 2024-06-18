@@ -16,8 +16,12 @@ tags:
     description: マッチングに関する操作
   - name: Questions
     description: 質問に関する操作
-  - name: Anserwers
+  - name: Answers
     description: 回答に関する操作
+  - name: QuestionCards
+    description: 質問カードに関する操作
+  - name: UserQuestionCards
+    description: ユーザの質問カードに関する操作
 
 paths:
   /users:
@@ -40,3 +44,9 @@ paths:
     $ref: './questions/questions.yaml#/paths/~1questions'
   /answers:
     $ref: './answers/answers.yaml#/paths/~1answers'
+  /question_cards:
+    $ref: './question_cards/question_cards.yaml#/paths/~1question_cards'
+  /user_question_cards:
+    $ref: './user_question_cards/user_question_cards.yaml#/paths/~1user_question_cards'
+  /user_question_card/{user_question_card_id}:
+    $ref: './user_question_cards/user_question_cards.yaml#/paths/~1user_question_card~1{user_question_card_id}'
