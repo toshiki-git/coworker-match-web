@@ -25,5 +25,8 @@ export default NextAuth({
       session.accessToken = token.accessToken as string;
       return session;
     },
+    async redirect({ baseUrl }) {
+      return baseUrl + '/questions';
+    },
   },
 });
