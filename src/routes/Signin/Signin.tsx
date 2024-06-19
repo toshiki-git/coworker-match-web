@@ -4,6 +4,9 @@ import Image from 'next/image';
 export function SigninPage() {
   const { data: session } = useSession();
 
+  console.log(`accessToken: ${session?.accessToken}`);
+  console.log(`idToken: ${session?.idToken}`);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       {!session ? (
@@ -59,7 +62,6 @@ export function SigninPage() {
           >
             Sign out
           </button>
-          <div className=" text-sm">Access Token:{session.accessToken}</div>
         </>
       )}
     </div>
