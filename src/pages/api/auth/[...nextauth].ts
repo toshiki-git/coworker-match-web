@@ -1,9 +1,13 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
-if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+if (
+  !process.env.GOOGLE_CLIENT_ID ||
+  !process.env.GOOGLE_CLIENT_SECRET ||
+  !process.env.NEXTAUTH_SECRET
+) {
   throw new Error(
-    'Missing GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET in environment variables'
+    'Missing GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET or NEXTAUTH_SECRET in environment variables (.env.local)'
   );
 }
 
@@ -19,6 +23,7 @@ export default NextAuth({
       },
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async signIn({ account }) {
       if (account?.provider === 'google') {
@@ -48,5 +53,8 @@ export default NextAuth({
     async redirect({ baseUrl }) {
       return baseUrl + '/questions';
     },
+  },
+  jwt: {
+    secret: process.env.NEXTAUTH_SECRET,
   },
 });

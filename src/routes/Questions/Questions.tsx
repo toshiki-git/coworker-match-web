@@ -1,76 +1,21 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import useSWR from 'swr';
 
-const questions = [
-  {
-    question_id: '1',
-    question_text: 'あなたの出身地はどこですか？',
-    choice1: {
-      choice_text: '東京',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
-    },
-    choice2: {
-      choice_text: '大阪',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
-    },
-  },
-  {
-    question_id: '2',
-    question_text: 'あなたの職種は？',
-    choice1: {
-      choice_text: 'エンジニア',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
-    },
-    choice2: {
-      choice_text: 'デザイナー',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
-    },
-  },
-  {
-    question_id: '3',
-    question_text: '好きな趣味は何ですか？',
-    choice1: {
-      choice_text: 'ゲーム',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
-    },
-    choice2: {
-      choice_text: 'ランニング',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
-    },
-  },
-  {
-    question_id: '4',
-    question_text: '好きな食べ物は？',
-    choice1: {
-      choice_text: '寿司',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
-    },
-    choice2: {
-      choice_text: 'ピザ',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
-    },
-  },
-  {
-    question_id: '5',
-    question_text: '週末に何をしますか？',
-    choice1: {
-      choice_text: '映画を見る',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
-    },
-    choice2: {
-      choice_text: '旅行する',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
-    },
-  },
-];
+export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export function QuestionsPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const router = useRouter();
 
+  const { data, error } = useSWR('/questions', fetcher);
+
+  if (error) return <div>Failed to load questions</div>;
+  if (!data) return <div>Loading...</div>;
+
   const handleChoiceClick = () => {
-    if (currentQuestionIndex < questions.length - 1) {
+    if (currentQuestionIndex < data.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       router.push('/matching');
@@ -83,13 +28,15 @@ export function QuestionsPage() {
     }
   };
 
-  const currentQuestion = questions[currentQuestionIndex];
+  const currentQuestion = data[currentQuestionIndex];
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <div className="text-center mb-6">
         <h1 className="text-2xl font-bold">{currentQuestion.question_text}</h1>
-        <p className="text-sm">{currentQuestionIndex + 1}/5</p>
+        <p className="text-sm">
+          {currentQuestionIndex + 1}/{data.length}
+        </p>
       </div>
       <div className="flex space-x-4">
         <div
