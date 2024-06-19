@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import useSWR from 'swr';
+import { Layout } from '@/layouts';
 
 export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -31,49 +32,53 @@ export function QuestionsPage() {
   const currentQuestion = data[currentQuestionIndex];
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <div className="text-center mb-6">
-        <h1 className="text-2xl font-bold">{currentQuestion.question_text}</h1>
-        <p className="text-sm">
-          {currentQuestionIndex + 1}/{data.length}
-        </p>
-      </div>
-      <div className="flex space-x-4">
-        <div
-          className="border p-4 rounded-lg cursor-pointer"
-          onClick={handleChoiceClick}
-        >
-          <Image
-            src={currentQuestion.choice1.choice_image_url}
-            alt={currentQuestion.choice1.choice_text}
-            width={50}
-            height={50}
-          />
-          <p>{currentQuestion.choice1.choice_text}</p>
+    <Layout>
+      <div className="flex flex-col items-center justify-center py-2">
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-bold">
+            {currentQuestion.question_text}
+          </h1>
+          <p className="text-sm">
+            {currentQuestionIndex + 1}/{data.length}
+          </p>
         </div>
-        <div
-          className="border p-4 rounded-lg cursor-pointer"
-          onClick={handleChoiceClick}
-        >
-          <Image
-            src={currentQuestion.choice2.choice_image_url}
-            alt={currentQuestion.choice2.choice_text}
-            width={50}
-            height={50}
-          />
-          <p>{currentQuestion.choice2.choice_text}</p>
-        </div>
-      </div>
-      <div className="mt-6">
-        {currentQuestionIndex > 0 && (
-          <button
-            onClick={handlePreviousQuestion}
-            className="px-4 py-2 bg-gray-500 text-white rounded"
+        <div className="flex space-x-4">
+          <div
+            className="border p-4 rounded-lg cursor-pointer"
+            onClick={handleChoiceClick}
           >
-            前の質問に戻る
-          </button>
-        )}
+            <Image
+              src={currentQuestion.choice1.choice_image_url}
+              alt={currentQuestion.choice1.choice_text}
+              width={50}
+              height={50}
+            />
+            <p>{currentQuestion.choice1.choice_text}</p>
+          </div>
+          <div
+            className="border p-4 rounded-lg cursor-pointer"
+            onClick={handleChoiceClick}
+          >
+            <Image
+              src={currentQuestion.choice2.choice_image_url}
+              alt={currentQuestion.choice2.choice_text}
+              width={50}
+              height={50}
+            />
+            <p>{currentQuestion.choice2.choice_text}</p>
+          </div>
+        </div>
+        <div className="mt-6">
+          {currentQuestionIndex > 0 && (
+            <button
+              onClick={handlePreviousQuestion}
+              className="px-4 py-2 bg-gray-500 text-white rounded"
+            >
+              前の質問に戻る
+            </button>
+          )}
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }
