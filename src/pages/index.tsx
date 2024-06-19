@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 
 export default function Home() {
   const [data, setData] = useState(null);
@@ -16,7 +17,7 @@ export default function Home() {
   return (
     <div>
       <h1>Mock Service Worker Test</h1>
-      <button onClick={fetchData}>Fetch Data</button>
+      <Button onClick={fetchData}>Fetch Data</Button>
       {data ? <pre>{JSON.stringify(data, null, 2)}</pre> : <p>No data</p>}
     </div>
   );
