@@ -27,6 +27,10 @@ git clone https://github.com/HackU-2024-team3/CoWorkerMatch-web.git
 cd CoWorkerMatch-web
 ```
 
+### .env.localの作成
+
+.env.local.exampleを参考にして, .env.localを作成してください。
+
 ### 開発サーバーの起動
 
 ```bash
