@@ -1,14 +1,13 @@
 import { ReactNode } from 'react';
 import { Header } from '@/layouts/componets/Header';
+import { Footer } from '@/layouts/componets/Footer';
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen">
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <main>{children}</main>
-      <footer>
-        <p>© 2024 My Website</p>
-      </footer>
+      <main className="flex-grow">{children}</main>
+      <Footer />
     </div>
   );
 }
