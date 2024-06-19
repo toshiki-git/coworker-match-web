@@ -51,7 +51,7 @@ export default NextAuth({
       return session;
     },
     async redirect({ baseUrl }) {
-      return baseUrl + '/questions';
+      return baseUrl + '/mypage';
     },
   },
   jwt: {
