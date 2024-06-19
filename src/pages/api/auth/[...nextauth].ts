@@ -20,6 +20,19 @@ export default NextAuth({
     }),
   ],
   callbacks: {
+    async signIn({ account }) {
+      if (account?.provider === 'google') {
+        const idToken = account.id_token;
+
+        console.log('ID Token:', idToken);
+
+        if (!idToken) {
+          console.error('Failed to retrieve ID Token');
+          return false;
+        }
+      }
+      return true;
+    },
     async jwt({ token, account }) {
       if (account) {
         token.accessToken = account.access_token;
