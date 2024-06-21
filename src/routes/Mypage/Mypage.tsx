@@ -16,7 +16,7 @@ export function MyPage() {
             asChild
             className="flex-1 px-8 py-7 text-lg bg-white border-2 border-orange-500 text-black hover:bg-orange-100"
           >
-            <Link href="/####">
+            <Link href="/matchings">
               <Mail className="mr-2 h-6 w-6" />
               Messages
             </Link>
