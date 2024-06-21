@@ -4,32 +4,23 @@ import { useRouter } from 'next/router';
 import { Layout } from '@/layouts';
 import { HobbyCheckbox } from '@/components/HobbyCheckbox';
 import { Button } from '@/components/ui/button';
-
-export const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
-interface Hobby {
-  hobby_id: string;
-  hobby_name: string;
-}
-
-interface HobbiesData {
-  indoor: Hobby[];
-  games: Hobby[];
-  technicalHobbies: Hobby[];
-  sports: Hobby[];
-  outdoor: Hobby[];
-  music: Hobby[];
-}
+import { HobbiesWithCategory, Hobby } from '@/types/Hobby';
+import { Plus } from 'lucide-react';
+import { fetcher } from '@/api/fetcher';
 
 export function HobbiesPage() {
   const router = useRouter();
-  const { data, error } = useSWR<HobbiesData>('/hobbies', fetcher);
+  const { data, error } = useSWR<HobbiesWithCategory>('/hobbies', fetcher);
   const [selectedHobbies, setSelectedHobbies] = useState<string[]>([]);
+  const [hobbies, setHobbies] = useState<HobbiesWithCategory | null>(null);
 
   if (error) return <div>Failed to load hobbies</div>;
   if (!data) return <div>Loading...</div>;
 
-  // Categorize hobbies
+  if (!hobbies) {
+    setHobbies(data);
+  }
+
   const categories = {
     indoor: 'インドア',
     games: 'ゲーム',
@@ -39,10 +30,9 @@ export function HobbiesPage() {
     music: '音楽',
   };
 
-  // Group hobbies by category
   const groupedHobbies = Object.keys(categories).reduce(
     (acc, key) => {
-      acc[key] = data[key as keyof HobbiesData];
+      acc[key] = hobbies ? hobbies[key as keyof HobbiesWithCategory] : [];
       return acc;
     },
     {} as Record<string, Hobby[]>
@@ -82,10 +72,13 @@ export function HobbiesPage() {
                   onChange={() => handleCheckboxChange(hobby.hobby_id)}
                 />
               ))}
+              <Button size="icon">
+                <Plus />
+              </Button>
             </div>
           </div>
         ))}
-        <div className="flex justify-center mt-8 ">
+        <div className="flex justify-center mt-8">
           <Button onClick={() => handleRegister()} className="w-28">
             登録
           </Button>

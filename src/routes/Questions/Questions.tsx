@@ -3,8 +3,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import useSWR from 'swr';
 import { Layout } from '@/layouts';
-
-export const fetcher = (url: string) => fetch(url).then((res) => res.json());
+import { fetcher } from '@/api/fetcher';
 
 export function QuestionsPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
