@@ -18,7 +18,7 @@ export function QuestionsPage() {
     if (currentQuestionIndex < data.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      router.push('/matching');
+      router.push('/matchings/matching_id'); //TODO: matching_idを指定して遷移
     }
   };
 
