@@ -1,6 +1,5 @@
 export const matchings = [
   {
-    user_id: '550e8400-e29b-41d4-a716-446655440000',
     matching_id: '123e4567-e89b-12d3-a456-426614174000',
     image_url: '/icon_sample.jpg',
     user_name: '田中 太郎',
@@ -8,7 +7,6 @@ export const matchings = [
     unread_count: 5,
   },
   {
-    user_id: '550e8400-e29b-41d4-a716-446655440001',
     matching_id: '123e4567-e89b-12d3-a456-426614174001',
     image_url: '/icon_sample.jpg',
     user_name: 'Jane Smith',
@@ -16,7 +14,6 @@ export const matchings = [
     unread_count: 2,
   },
   {
-    user_id: '550e8400-e29b-41d4-a716-446655440002',
     matching_id: '123e4567-e89b-12d3-a456-426614174002',
     image_url: '/icon_sample.jpg',
     user_name: 'Emily Johnson',
@@ -24,7 +21,6 @@ export const matchings = [
     unread_count: 0,
   },
   {
-    user_id: '550e8400-e29b-41d4-a716-446655440003',
     matching_id: '123e4567-e89b-12d3-a456-426614174003',
     image_url: '/icon_sample.jpg',
     user_name: 'Michael Brown',
@@ -32,7 +28,6 @@ export const matchings = [
     unread_count: 1,
   },
   {
-    user_id: '550e8400-e29b-41d4-a716-446655440004',
     matching_id: '123e4567-e89b-12d3-a456-426614174004',
     image_url: '/icon_sample.jpg',
     user_name: 'Jessica Davis',
@@ -40,7 +35,6 @@ export const matchings = [
     unread_count: 3,
   },
   {
-    user_id: '550e8400-e29b-41d4-a716-446655440005',
     matching_id: '123e4567-e89b-12d3-a456-426614174005',
     image_url: '/icon_sample.jpg',
     user_name: 'David Wilson',
@@ -48,7 +42,6 @@ export const matchings = [
     unread_count: 0,
   },
   {
-    user_id: '550e8400-e29b-41d4-a716-446655440006',
     matching_id: '123e4567-e89b-12d3-a456-426614174006',
     image_url: '/icon_sample.jpg',
     user_name: 'Laura Martinez',
@@ -56,7 +49,6 @@ export const matchings = [
     unread_count: 4,
   },
   {
-    user_id: '550e8400-e29b-41d4-a716-446655440007',
     matching_id: '123e4567-e89b-12d3-a456-426614174007',
     image_url: '/icon_sample.jpg',
     user_name: 'James Anderson',
@@ -64,7 +56,6 @@ export const matchings = [
     unread_count: 2,
   },
   {
-    user_id: '550e8400-e29b-41d4-a716-446655440008',
     matching_id: '123e4567-e89b-12d3-a456-426614174008',
     image_url: '/icon_sample.jpg',
     user_name: 'Sarah Thomas',
@@ -72,7 +63,6 @@ export const matchings = [
     unread_count: 1,
   },
   {
-    user_id: '550e8400-e29b-41d4-a716-446655440009',
     matching_id: '123e4567-e89b-12d3-a456-426614174009',
     image_url: '/icon_sample.jpg',
     user_name: 'Daniel Harris',
