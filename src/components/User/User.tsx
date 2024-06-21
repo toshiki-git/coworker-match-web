@@ -1,15 +1,26 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface UserProps {
+  matching_id: string;
   image_url: string;
   userName: string;
   message: string;
   unreadCount: number;
 }
 
-export function User({ image_url, userName, message, unreadCount }: UserProps) {
+export function User({
+  matching_id,
+  image_url,
+  userName,
+  message,
+  unreadCount,
+}: UserProps) {
   return (
-    <div className="cursor-pointer max-w-md mx-auto flex items-center p-4 border-b border-gray-300 bg-white hover:bg-gray-100 transition duration-200 ease-in-out">
+    <Link
+      href={`/matchings/${matching_id}`}
+      className="cursor-pointer max-w-md mx-auto flex items-center p-4 border-b border-gray-300 bg-white hover:bg-gray-100 transition duration-200 ease-in-out"
+    >
       <div className="flex-shrink-0">
         <Image
           src={image_url}
@@ -34,6 +45,6 @@ export function User({ image_url, userName, message, unreadCount }: UserProps) {
           {unreadCount}
         </div>
       )}
-    </div>
+    </Link>
   );
 }
