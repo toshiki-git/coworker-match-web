@@ -3,6 +3,7 @@ import { questions } from '@/mocks/fixtures/questions';
 import { hobbies } from '@/mocks/fixtures/hobbies';
 import { matchings } from '@/mocks/fixtures/matchings';
 import { messages } from '@/mocks/fixtures/messages';
+import { question_cards } from '@/mocks/fixtures/question_cards';
 
 export const handlers = [
   http.get('/resource', () => HttpResponse.json({ id: 'abc-123' })),
@@ -18,4 +19,7 @@ export const handlers = [
     })
   ),
   http.get('/messages/:matching_id', () => HttpResponse.json(messages)),
+  http.get('/question_cards/:matching_id', () =>
+    HttpResponse.json(question_cards)
+  ),
 ];
