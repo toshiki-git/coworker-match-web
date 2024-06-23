@@ -16,6 +16,7 @@ import {
 import { Message } from '@/components/Message';
 import { fetcher } from '@/api/fetcher';
 import { MessageType } from '@/types/Message';
+import { QuestionCardType } from '@/types/QuestionCard';
 
 export function MatchingPage() {
   const { data: session } = useSession();
@@ -23,23 +24,12 @@ export function MatchingPage() {
     '/messages/matching_id', //TODO: matching_idを適切に設定する
     fetcher
   );
-
-  console.log(messages);
+  const { data: questionCards } = useSWR<QuestionCardType[]>(
+    '/question_cards/matching_id', //TODO: matching_idを適切に設定する
+    fetcher
+  );
   const [questions, setQuestions] = useState<string[]>([]);
   const dialogCloseRef = useRef<HTMLButtonElement>(null);
-
-  const questionOptions = [
-    '子供の頃の夢はなんですか？',
-    'あなたの好きな食べ物は？',
-    '旅行に行きたい場所は？',
-    '最近読んだ本は？',
-    '好きな映画は？',
-    '趣味はなんですか？',
-    '休日の過ごし方は？',
-    '好きな音楽は？',
-    'ペットを飼っていますか？',
-    '将来の目標は？',
-  ];
 
   const addQuestion = (question: string) => {
     setQuestions([...questions, question]);
@@ -52,7 +42,7 @@ export function MatchingPage() {
         <div className="mb-5">
           Aさんとマッチングしました。さっそく質問を追加してみましょう。
         </div>
-        {questions.length === 0 && (
+        {messages?.length === 0 && (
           <div className="mb-5 text-center text-gray-500">
             まだ質問がありません。「質問を追加する」ボタンをクリックして質問を追加してください。
           </div>
@@ -84,13 +74,13 @@ export function MatchingPage() {
                 </DialogDescription>
               </DialogHeader>
               <div className="grid grid-cols-1 gap-4 mt-4">
-                {questionOptions.map((option, index) => (
+                {questionCards?.map((questionCard) => (
                   <Button
-                    key={index}
-                    onClick={() => addQuestion(option)}
+                    key={questionCard.question_card_id}
+                    onClick={() => addQuestion(questionCard.question_text)}
                     className="text-left p-4 rounded-lg shadow-md"
                   >
-                    {option}
+                    {questionCard.question_text}
                   </Button>
                 ))}
               </div>
