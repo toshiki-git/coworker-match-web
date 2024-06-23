@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -27,6 +28,7 @@ import {
 import Link from 'next/link';
 
 export function Header() {
+  const router = useRouter();
   const { data: session } = useSession();
   return (
     <header className="flex items-center justify-between p-3 shadow-md">
@@ -47,17 +49,17 @@ export function Header() {
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/mypage')}>
               <User className="mr-2 h-4 w-4" />
-              <span>Profile Item</span>
+              <span>MyPage</span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/matchings')}>
               <Mail className="mr-2 h-4 w-4" />
               <span>Messages</span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/mypage/hobbies')}>
               <Settings className="mr-2 h-4 w-4" />
-              <span>Settings</span>
+              <span>Hobby Settings</span>
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />

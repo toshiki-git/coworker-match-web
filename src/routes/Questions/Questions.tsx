@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import useSWR from 'swr';
@@ -7,6 +7,7 @@ import { fetcher } from '@/api/fetcher';
 
 export function QuestionsPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const { data, error } = useSWR('/questions', fetcher);
@@ -18,7 +19,11 @@ export function QuestionsPage() {
     if (currentQuestionIndex < data.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      router.push('/matching');
+      setLoading(true);
+      // 2秒後に次のページに遷移
+      setTimeout(() => {
+        router.push('/matchings/matching_id'); //TODO: matching_idを指定して遷移
+      }, 2000);
     }
   };
 
@@ -29,6 +34,17 @@ export function QuestionsPage() {
   };
 
   const currentQuestion = data[currentQuestionIndex];
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+          <p className="mt-4 text-lg">マッチング中です...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <Layout>

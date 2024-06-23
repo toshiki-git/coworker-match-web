@@ -1,13 +1,13 @@
-import { MatchingPage } from '@/routes/Matching';
+import { MatchingsPage } from '@/routes/Matchings';
 import Head from 'next/head';
 
 function Page() {
   return (
     <div>
       <Head>
-        <title>matching</title>
+        <title>Matching</title>
       </Head>
-      <MatchingPage />
+      <MatchingsPage />
     </div>
   );
 }
