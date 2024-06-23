@@ -2,6 +2,7 @@ import { http, HttpResponse } from 'msw';
 import { questions } from '@/mocks/fixtures/questions';
 import { hobbies } from '@/mocks/fixtures/hobbies';
 import { matchings } from '@/mocks/fixtures/matchings';
+import { messages } from '@/mocks/fixtures/messages';
 
 export const handlers = [
   http.get('/resource', () => HttpResponse.json({ id: 'abc-123' })),
@@ -16,4 +17,5 @@ export const handlers = [
       match_date: new Date().toISOString(),
     })
   ),
+  http.get('/messages/:matching_id', () => HttpResponse.json(messages)),
 ];
