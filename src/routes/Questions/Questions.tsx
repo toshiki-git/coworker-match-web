@@ -19,7 +19,7 @@ export function QuestionsPage() {
   if (error) return <div>Failed to load questions</div>;
   if (!data) return <div>Loading...</div>;
 
-  const handleChoiceClick = (choiceIndex: number) => {
+  const handleChoiceClick = async (choiceIndex: number) => {
     const newSelectedChoices = [...selectedChoices];
     newSelectedChoices[currentQuestionIndex] = choiceIndex;
     setSelectedChoices(newSelectedChoices);
@@ -28,10 +28,38 @@ export function QuestionsPage() {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       setLoading(true);
-      // 2秒後に次のページに遷移
-      setTimeout(() => {
-        router.push('/matchings/matching_id'); //TODO: matching_idを指定して遷移
-      }, 2000);
+
+      const answers = newSelectedChoices.map((choice, index) => ({
+        question_id: data[index].question_id,
+        answer: choice === 1 ? 'yes' : 'no',
+      }));
+
+      const requestBody = {
+        user_id: '3fa85f64-5717-4562-b3fc-2c963f66afa1', // ユーザーIDを適切に設定してください
+        answers,
+      };
+
+      try {
+        const response = await fetch('/questions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to submit answers');
+        }
+
+        const result = await response.json();
+        setTimeout(() => {
+          router.push(`/matchings/${result.matching_id}`);
+        }, 2000);
+      } catch (error) {
+        console.error('Error submitting answers:', error);
+        setLoading(false);
+      }
     }
   };
 
@@ -59,12 +87,12 @@ export function QuestionsPage() {
             <span className="text-xl">/{data.length}</span>
           </div>
           <div>
-            <p className="text-xl">あなたが友達になりたいのは...</p>
-            <p className="text-xl">You want to be friends...</p>
+            <p className="text-xl font-bold">あなたが友達になりたいのは...</p>
+            <p className="text-xl font-bold">You want to be friends...</p>
           </div>
         </div>
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold">
+          <h1 className="text-3xl font-bold">
             {currentQuestion.question_text}
           </h1>
         </div>
@@ -82,7 +110,7 @@ export function QuestionsPage() {
             onClick={() => handleChoiceClick(2)}
           />
         </div>
-        <div className="mt-6">
+        <div className="mt-6 h-12 flex items-center">
           {currentQuestionIndex > 0 && (
             <Button onClick={handlePreviousQuestion} className="px-4 py-2">
               ← 前の質問に戻る
