@@ -1,62 +1,62 @@
 export const questions = [
   {
     question_id: '1',
-    question_text: 'あなたの出身地はどこですか？',
+    question_text: 'インドア派ですか？',
     choice1: {
-      choice_text: '東京',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
+      choice_text: 'YES',
+      choice_image_url: '/yes_image.png',
     },
     choice2: {
-      choice_text: '大阪',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
+      choice_text: 'NO',
+      choice_image_url: '/no_image.png',
     },
   },
   {
     question_id: '2',
-    question_text: 'あなたの職種は？',
+    question_text: '国内旅行が好きな人ですか？',
     choice1: {
-      choice_text: 'エンジニア',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
+      choice_text: 'YES',
+      choice_image_url: '/yes_image.png',
     },
     choice2: {
-      choice_text: 'デザイナー',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
+      choice_text: 'NO',
+      choice_image_url: '/no_image.png',
     },
   },
   {
     question_id: '3',
-    question_text: '好きな趣味は何ですか？',
+    question_text: '競技プログラミングが趣味の人ですか？',
     choice1: {
-      choice_text: 'ゲーム',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
+      choice_text: 'YES',
+      choice_image_url: '/yes_image.png',
     },
     choice2: {
-      choice_text: 'ランニング',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
+      choice_text: 'NO',
+      choice_image_url: '/no_image.png',
     },
   },
   {
     question_id: '4',
-    question_text: '好きな食べ物は？',
+    question_text: 'スポーツが好きな人ですか？',
     choice1: {
-      choice_text: '寿司',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
+      choice_text: 'YES',
+      choice_image_url: '/yes_image.png',
     },
     choice2: {
-      choice_text: 'ピザ',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
+      choice_text: 'NO',
+      choice_image_url: '/no_image.png',
     },
   },
   {
     question_id: '5',
-    question_text: '週末に何をしますか？',
+    question_text: 'アニメが趣味の人ですか？',
     choice1: {
-      choice_text: '映画を見る',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
+      choice_text: 'YES',
+      choice_image_url: '/yes_image.png',
     },
     choice2: {
-      choice_text: '旅行する',
-      choice_image_url: 'https://www.svgrepo.com/show/530661/genetic-data.svg',
+      choice_text: 'NO',
+      choice_image_url: '/no_image.png',
     },
   },
 ];
