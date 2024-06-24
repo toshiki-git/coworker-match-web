@@ -26,6 +26,9 @@ interface MessageInputProps {
 export function MessageInput({ message_id, setAnswer }: MessageInputProps) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      message: '',
+    },
   });
 
   const handleAnswerSubmit = async (answer: string) => {
