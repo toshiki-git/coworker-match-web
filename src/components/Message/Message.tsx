@@ -22,10 +22,10 @@ export function Message({
   const [answer, setAnswer] = useState<string>(my_answer);
 
   return (
-    <div className="w-[40rem] flex flex-col space-y-4 p-4 mb-2">
+    <div className="w-[25rem] sm:w-[40rem] flex flex-col space-y-4 p-4 mb-2">
       <p className="font-bold text-center text-xl">{question_text}</p>
       <div className="flex items-center justify-end space-x-2">
-        <div className="bg-green-200 p-4 rounded-lg shadow-md max-w-sm text-right">
+        <div className="bg-green-200 p-4 rounded-lg shadow-md max-w-[13rem] sm:max-w-sm text-right">
           {answer === '' ? (
             <MessageInput message_id={message_id} setAnswer={setAnswer} />
           ) : (
@@ -42,7 +42,7 @@ export function Message({
           <AvatarImage src={other_icon_url} alt="Other Icon" />
           <AvatarFallback>other</AvatarFallback>
         </Avatar>
-        <div className="bg-green-200 p-4 rounded-lg shadow-md max-w-sm">
+        <div className="bg-green-200 p-4 rounded-lg shadow-md max-w-[13rem] sm:max-w-sm">
           <p className="text-gray-700">
             {other_answer === '' ? '相手は未回答です' : other_answer}
           </p>

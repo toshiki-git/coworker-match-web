@@ -42,9 +42,13 @@ export function MatchingPage() {
   return (
     <Layout>
       <main className="flex flex-col items-center mt-10">
-        <div className="mb-5">
-          {messages?.other_user_name}
-          さんとマッチングしました。さっそく質問を追加してみましょう。
+        <div className="mb-5 font-bold">
+          <p className="block sm:inline">
+            {messages?.other_user_name} さんとマッチングしました。
+          </p>
+          <p className="block sm:inline text-center">
+            さっそく質問を追加してみましょう。
+          </p>
         </div>
         {messages?.messages?.length === 0 && questions.length === 0 && (
           <div className="mb-5 text-center text-gray-500">
@@ -77,7 +81,6 @@ export function MatchingPage() {
             </div>
           ))}
         </div>
-
         <div className="flex space-x-4 my-4">
           <QuestionCardsDialog
             questionCards={questionCards ?? []}

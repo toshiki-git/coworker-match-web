@@ -26,7 +26,7 @@ export function QuestionCardsDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>質問を追加する</Button>
+        <Button>+ 質問を追加する</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
