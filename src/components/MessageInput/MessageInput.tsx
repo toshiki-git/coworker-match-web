@@ -13,7 +13,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 
 const FormSchema = z.object({
-  message: z.string().min(1, {
+  message: z.string().trim().min(1, {
     message: '回答を入力してください。',
   }),
 });
