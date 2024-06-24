@@ -2,6 +2,8 @@ import { http, HttpResponse } from 'msw';
 import { questions } from '@/mocks/fixtures/questions';
 import { hobbies } from '@/mocks/fixtures/hobbies';
 import { matchings } from '@/mocks/fixtures/matchings';
+import { messages } from '@/mocks/fixtures/messages';
+import { question_cards } from '@/mocks/fixtures/question_cards';
 
 export const handlers = [
   http.get('/resource', () => HttpResponse.json({ id: 'abc-123' })),
@@ -15,5 +17,9 @@ export const handlers = [
       receiver_user_id: '3fa85f64-5717-4562-b3fc-2c963f66afa2',
       match_date: new Date().toISOString(),
     })
+  ),
+  http.get('/messages/:matching_id', () => HttpResponse.json(messages)),
+  http.get('/question_cards/:matching_id', () =>
+    HttpResponse.json(question_cards)
   ),
 ];
