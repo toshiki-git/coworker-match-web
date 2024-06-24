@@ -29,7 +29,7 @@ export default NextAuth({
       if (account?.provider === 'google') {
         const idToken = account.id_token;
 
-        console.log('ID Token:', idToken);
+        //console.log('ID Token:', idToken);
 
         if (!idToken) {
           console.error('Failed to retrieve ID Token');
@@ -51,7 +51,7 @@ export default NextAuth({
       return session;
     },
     async redirect({ baseUrl }) {
-      return baseUrl + '/mypage';
+      return baseUrl + '/mypage/hobbies';
     },
   },
   jwt: {
