@@ -15,10 +15,6 @@
       "prettier --write"
     ]
   },
-  "engines": {
-    "node": "18.17.1",
-    "pnpm": "9.1.0"
-  },
   "dependencies": {
     "@hookform/resolvers": "^3.6.0",
     "@radix-ui/react-avatar": "^1.0.4",
