@@ -17,6 +17,7 @@ export function SigninPage() {
               alt="login_icon"
               width={140}
               height={140}
+              className="hidden md:inline-block"
             />
             <Image
               src="/CowokerMatch-green.png"
