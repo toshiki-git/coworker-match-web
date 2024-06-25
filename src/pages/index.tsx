@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Layout } from '@/layouts';
 
 export default function Home() {
   const [data, setData] = useState(null);
@@ -15,10 +16,10 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <Layout>
       <h1>Mock Service Worker Test</h1>
       <Button onClick={fetchData}>Fetch Data</Button>
       {data ? <pre>{JSON.stringify(data, null, 2)}</pre> : <p>No data</p>}
-    </div>
+    </Layout>
   );
 }
