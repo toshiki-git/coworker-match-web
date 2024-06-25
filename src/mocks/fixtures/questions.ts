@@ -4,11 +4,11 @@ export const questions = [
     question_text: 'インドア派ですか？',
     choice1: {
       choice_text: 'YES',
-      choice_image_url: '/yes_image.png',
+      choice_image_url: '/yes1_image.png',
     },
     choice2: {
       choice_text: 'NO',
-      choice_image_url: '/no_image.png',
+      choice_image_url: '/no1_image.png',
     },
   },
   {
@@ -16,11 +16,11 @@ export const questions = [
     question_text: '国内旅行が好きな人ですか？',
     choice1: {
       choice_text: 'YES',
-      choice_image_url: '/yes_image.png',
+      choice_image_url: '/yes2_image.png',
     },
     choice2: {
       choice_text: 'NO',
-      choice_image_url: '/no_image.png',
+      choice_image_url: '/no2_image.png',
     },
   },
   {
@@ -28,11 +28,11 @@ export const questions = [
     question_text: '競技プログラミングが趣味の人ですか？',
     choice1: {
       choice_text: 'YES',
-      choice_image_url: '/yes_image.png',
+      choice_image_url: '/yes3_image.png',
     },
     choice2: {
       choice_text: 'NO',
-      choice_image_url: '/no_image.png',
+      choice_image_url: '/no3_image.png',
     },
   },
   {
@@ -40,11 +40,11 @@ export const questions = [
     question_text: 'スポーツが好きな人ですか？',
     choice1: {
       choice_text: 'YES',
-      choice_image_url: '/yes_image.png',
+      choice_image_url: '/yes4_image.png',
     },
     choice2: {
       choice_text: 'NO',
-      choice_image_url: '/no_image.png',
+      choice_image_url: '/no4_image.png',
     },
   },
   {
@@ -52,11 +52,11 @@ export const questions = [
     question_text: 'アニメが趣味の人ですか？',
     choice1: {
       choice_text: 'YES',
-      choice_image_url: '/yes_image.png',
+      choice_image_url: '/yes5_image.png',
     },
     choice2: {
       choice_text: 'NO',
-      choice_image_url: '/no_image.png',
+      choice_image_url: '/no5_image.png',
     },
   },
 ];
