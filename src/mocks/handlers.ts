@@ -5,6 +5,7 @@ import { matchings } from '@/mocks/fixtures/matchings';
 import { messages } from '@/mocks/fixtures/messages';
 import { question_cards } from '@/mocks/fixtures/question_cards';
 import { token } from '@/mocks/fixtures/auth_token';
+import { user_hobbies } from '@/mocks/fixtures/user_hobbies';
 
 export const handlers = [
   http.get('/resource', () => HttpResponse.json({ id: 'abc-123' })),
@@ -24,4 +25,5 @@ export const handlers = [
     HttpResponse.json(question_cards)
   ),
   http.post('/auth/google', () => HttpResponse.json(token)),
+  http.get('/user_hobbies/:user_id', () => HttpResponse.json(user_hobbies)),
 ];
