@@ -7,7 +7,7 @@ if (
   !process.env.NEXTAUTH_SECRET
 ) {
   throw new Error(
-    'Missing GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET or NEXTAUTH_SECRET in environment variables (.env.local)'
+    'Missing GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET or NEXTAUTH_SECRET in environment variables'
   );
 }
 
@@ -29,29 +29,34 @@ export default NextAuth({
       if (account?.provider === 'google') {
         const idToken = account.id_token;
 
-        //console.log('ID Token:', idToken);
-
         if (!idToken) {
           console.error('Failed to retrieve ID Token');
           return false;
         }
+        console.log('idToken:', idToken);
+        return true;
       }
+
       return true;
     },
-    async jwt({ token, account }) {
+    async jwt({ token, account, profile }) {
       if (account) {
         token.accessToken = account.access_token;
         token.idToken = account.id_token;
+      }
+      if (profile) {
+        token.sub = profile.sub;
       }
       return token;
     },
     async session({ session, token }) {
       session.accessToken = token.accessToken as string;
       session.idToken = token.idToken as string;
+      session.userId = token.sub as string;
       return session;
     },
     async redirect({ baseUrl }) {
-      return baseUrl + '/mypage/hobbies';
+      return baseUrl + '/auth';
     },
   },
   jwt: {
