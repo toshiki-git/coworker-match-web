@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Layout } from '@/layouts';
 import { HobbyCheckbox } from '@/components/HobbyCheckbox';
@@ -10,16 +10,26 @@ import { fetcher } from '@/api/fetcher';
 
 export function HobbiesPage() {
   const router = useRouter();
-  const { data, error } = useSWR<HobbiesWithCategory>('/hobbies', fetcher);
+  const userId = 'user-id-placeholder'; // ここを適切なユーザーIDに置き換える
+  const { data: allHobbies, error: hobbiesError } = useSWR<HobbiesWithCategory>(
+    '/hobbies',
+    fetcher
+  );
+  const { data: userHobbies, error: userHobbiesError } = useSWR<Hobby[]>(
+    `/user_hobbies/${userId}`,
+    fetcher
+  );
   const [selectedHobbies, setSelectedHobbies] = useState<string[]>([]);
-  const [hobbies, setHobbies] = useState<HobbiesWithCategory | null>(null);
 
-  if (error) return <div>Failed to load hobbies</div>;
-  if (!data) return <div>Loading...</div>;
+  useEffect(() => {
+    if (userHobbies) {
+      setSelectedHobbies(userHobbies.map((hobby) => hobby.hobby_id));
+    }
+  }, [userHobbies]);
 
-  if (!hobbies) {
-    setHobbies(data);
-  }
+  if (hobbiesError || userHobbiesError)
+    return <div>Failed to load hobbies</div>;
+  if (!allHobbies || !userHobbies) return <div>Loading...</div>;
 
   const categories = {
     indoor: 'インドア',
@@ -32,7 +42,7 @@ export function HobbiesPage() {
 
   const groupedHobbies = Object.keys(categories).reduce(
     (acc, key) => {
-      acc[key] = hobbies ? hobbies[key as keyof HobbiesWithCategory] : [];
+      acc[key] = allHobbies ? allHobbies[key as keyof HobbiesWithCategory] : [];
       return acc;
     },
     {} as Record<string, Hobby[]>
@@ -46,9 +56,24 @@ export function HobbiesPage() {
     );
   };
 
-  const handleRegister = () => {
-    //TODO: 趣味登録するAPIを呼び出す
-    router.push('/mypage');
+  const handleRegister = async () => {
+    try {
+      const response = await fetch(`/user_hobbies/${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ hobby_ids: selectedHobbies }),
+      });
+
+      /* if (!response.ok) {
+        throw new Error('Failed to update hobbies');
+      } */
+
+      router.push('/mypage');
+    } catch (error) {
+      console.error('Failed to update hobbies', error);
+    }
   };
 
   return (
@@ -70,6 +95,7 @@ export function HobbiesPage() {
                   id={hobby.hobby_id}
                   label={hobby.hobby_name}
                   onChange={() => handleCheckboxChange(hobby.hobby_id)}
+                  initialChecked={selectedHobbies.includes(hobby.hobby_id)}
                 />
               ))}
               <Button size="icon">
