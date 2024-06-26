@@ -3,11 +3,16 @@ export interface Hobby {
   hobby_name: string;
 }
 
-export interface HobbiesWithCategory {
-  indoor: Hobby[];
-  games: Hobby[];
-  technicalHobbies: Hobby[];
-  sports: Hobby[];
-  outdoor: Hobby[];
-  music: Hobby[];
+export type HobbyCategory = {
+  category_id: string;
+  hobbies: Hobby[];
+};
+
+export interface Hobbies {
+  games: HobbyCategory;
+  indoor: HobbyCategory;
+  music: HobbyCategory;
+  outdoor: HobbyCategory;
+  sports: HobbyCategory;
+  technicalHobbies: HobbyCategory;
 }

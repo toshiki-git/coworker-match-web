@@ -1,8 +1,9 @@
 export interface Matchings {
-  user_id: string;
+  avatar_url: string;
+  last_message: string;
+  last_message_time: string;
   matching_id: string;
-  image_url: string;
-  user_name: string;
-  message: string;
+  name: string;
   unread_count: number;
+  user_id: string;
 }

@@ -1,39 +1,54 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import { fetchAndSetAuthToken, registerUser, updateUser } from '@/api/auth';
-import { isFirstLogin } from '@/utils/auth';
+import {
+  fetchAndSetAuthToken,
+  registerUser,
+  updateUser,
+  createEmptyUserHobby,
+} from '@/api/auth';
+import { isUserExist } from '@/utils/auth';
 import Head from 'next/head';
 import { Loading } from '@/components/Loading';
 
 function Page() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    const handleAuth = async () => {
-      const idToken = session?.idToken ?? '';
-      await fetchAndSetAuthToken(idToken);
+    if (status === 'loading') return;
 
-      if (isFirstLogin()) {
-        await registerUser(
-          session?.user?.name ?? '',
-          session?.user?.email ?? '',
-          session?.user?.image ?? ''
-        );
-        router.push('/mypage/hobbies');
-      } else {
-        await registerUser(
-          session?.user?.name ?? '',
-          session?.user?.email ?? '',
-          session?.user?.image ?? ''
-        );
-        router.push('/mypage');
+    const handleAuth = async () => {
+      try {
+        const idToken = session?.idToken ?? 'unget';
+        await fetchAndSetAuthToken(idToken);
+
+        const isExist = await isUserExist();
+        if (isExist) {
+          await updateUser(
+            session?.userId ?? '',
+            session?.user?.name ?? '',
+            session?.user?.email ?? '',
+            session?.user?.image ?? ''
+          );
+          router.push('/mypage');
+        } else {
+          await registerUser(
+            session?.user?.name ?? '',
+            session?.user?.email ?? '',
+            session?.user?.image ?? ''
+          );
+          await createEmptyUserHobby();
+          router.push('/mypage/hobbies');
+        }
+      } catch (error) {
+        console.error('Authentication error:', error);
+        // エラーハンドリング
       }
     };
 
     handleAuth();
-  }, [session, router]);
+  }, [status]);
 
   return (
     <div>
