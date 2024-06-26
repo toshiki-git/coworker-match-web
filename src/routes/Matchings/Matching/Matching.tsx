@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import useSWR, { mutate } from 'swr';
 import { useSession } from 'next-auth/react';
 import { Layout } from '@/layouts';
@@ -7,7 +6,7 @@ import { Message } from '@/components/Message';
 import { fetcher, post } from '@/api/fetcher';
 import { QuestionCard } from '@/types/QuestionCard';
 import { QuestionCardsDialog } from '@/components/QuestionCardsDialog';
-import { MainData, Message as MessageType } from '@/types/Message';
+import { MainData } from '@/types/Message';
 import { useRouter } from 'next/router';
 
 export function MatchingPage() {
@@ -21,16 +20,13 @@ export function MatchingPage() {
   const { data: questionCardsData } = useSWR<{
     question_cards: QuestionCard[];
   }>(`/question_cards?matching_id=${matching_id}`, fetcher);
-  const [questions, setQuestions] = useState<MessageType[]>([]);
 
   const addQuestion = async (question_card_id: string) => {
     const requestBody = {
       matching_id,
       question_card_id,
     };
-    const newQuestion = await post('/messages', requestBody);
-
-    setQuestions((prevQuestions) => [...prevQuestions, newQuestion]);
+    await post('/messages', requestBody);
 
     // Mutate messages data to revalidate SWR
     mutate(`/messages?matching_id=${matching_id}`);
@@ -51,28 +47,20 @@ export function MatchingPage() {
   return (
     <Layout>
       <main className="flex flex-col items-center mt-10">
-        <div className="mb-5 font-bold">
-          {messages?.messages ? (
-            <>
-              <p className="block sm:inline">
-                {messages.match_user.user_name} さんとマッチングしました。
-              </p>
-              <p className="block sm:inline text-center">
-                さっそく質問を追加してみましょう。
-              </p>
-            </>
-          ) : (
-            <p className="block sm:inline text-center">
-              データが見つかりませんでした。もう一度お試しください。
-            </p>
-          )}
-        </div>
-        {!messages && questions.length === 0 && (
-          <div className="mb-5 text-center text-gray-500">
-            まだ質問がありません。「質問を追加する」ボタンをクリックして質問を追加してください。
-          </div>
-        )}
         <div>
+          <div className="mb-5 font-bold text-center">
+            <p className="block sm:inline ">
+              {messages?.match_user.user_name} さんとマッチングしました。
+            </p>
+            <p className="block sm:inline">
+              さっそく質問を追加してみましょう。
+            </p>
+          </div>
+          {!messages?.messages && (
+            <div className="mb-5 text-center text-gray-500">
+              まだ質問がありません。「質問を追加する」ボタンをクリックして質問を追加してください。
+            </div>
+          )}
           {messages?.messages?.map((message, index) => (
             <div key={index} className="mb-6">
               <Message
