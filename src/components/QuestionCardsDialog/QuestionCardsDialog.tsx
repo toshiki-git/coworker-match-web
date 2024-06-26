@@ -10,10 +10,10 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { QuestionCardType } from '@/types/QuestionCard';
+import { QuestionCard } from '@/types/QuestionCard';
 
 interface QuestionCardsDialogProps {
-  questionCards: QuestionCardType[];
+  questionCards: QuestionCard[];
   addQuestion: (question: string) => void;
 }
 
@@ -36,16 +36,16 @@ export function QuestionCardsDialog({
           </DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-1 gap-4 mt-4">
-          {questionCards?.map((questionCard) => (
+          {questionCards.map((questionCard) => (
             <Button
               key={questionCard.question_card_id}
               onClick={() => {
-                addQuestion(questionCard.question_text);
+                addQuestion(questionCard.question_card_id);
                 dialogCloseRef.current?.click();
               }}
               className="text-left p-4 rounded-lg shadow-md"
             >
-              {questionCard.question_text}
+              {questionCard.question_card_text}
             </Button>
           ))}
         </div>
