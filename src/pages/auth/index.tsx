@@ -7,15 +7,21 @@ import Head from 'next/head';
 import { Loading } from '@/components/Loading';
 
 function Page() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
+    if (status === 'loading') return;
     const handleAuth = async () => {
-      const idToken = session?.idToken ?? '';
+      const idToken = session?.idToken ?? 'unget';
       await fetchAndSetAuthToken(idToken);
-
-      if (isFirstLogin()) {
+      await registerUser(
+        session?.user?.name ?? '',
+        session?.user?.email ?? '',
+        session?.user?.image ?? ''
+      );
+      router.push('/mypage');
+      /* if (isFirstLogin()) {
         await registerUser(
           session?.user?.name ?? '',
           session?.user?.email ?? '',
@@ -23,17 +29,18 @@ function Page() {
         );
         router.push('/mypage/hobbies');
       } else {
-        await registerUser(
+        await updateUser(
+          session?.userId ?? '',
           session?.user?.name ?? '',
           session?.user?.email ?? '',
           session?.user?.image ?? ''
         );
         router.push('/mypage');
-      }
+      } */
     };
 
     handleAuth();
-  }, [session, router]);
+  }, [status]);
 
   return (
     <div>

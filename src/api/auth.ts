@@ -2,7 +2,6 @@ import { setCookie, getCookie } from '@/utils/cookie';
 
 const CWM_TOKEN_COOKIE_NAME = 'cwm-token';
 const apiURL = process.env.NEXT_PUBLIC_API_URL ?? '';
-const token = getCookie(CWM_TOKEN_COOKIE_NAME);
 
 export const fetchAndSetAuthToken = async (
   idToken: string
@@ -26,7 +25,7 @@ export const fetchAndSetAuthToken = async (
     const data = await response.json();
     const cwmToken = data.token;
 
-    setCookie(CWM_TOKEN_COOKIE_NAME, cwmToken, { expires: 30 });
+    setCookie(CWM_TOKEN_COOKIE_NAME, cwmToken);
 
     return true;
   } catch (error) {
@@ -41,6 +40,7 @@ export const registerUser = async (
   avatar_url: string
 ) => {
   try {
+    const token = getCookie(CWM_TOKEN_COOKIE_NAME);
     const response = await fetch(`${apiURL}/users`, {
       method: 'POST',
       headers: {
@@ -60,9 +60,7 @@ export const registerUser = async (
     }
 
     const data = await response.json();
-    const cwmToken = data.token;
-
-    setCookie(CWM_TOKEN_COOKIE_NAME, cwmToken, { expires: 30 });
+    console.log(data);
 
     return true;
   } catch (error) {
@@ -78,6 +76,7 @@ export const updateUser = async (
   avatar_url: string
 ) => {
   try {
+    const token = getCookie(CWM_TOKEN_COOKIE_NAME);
     const response = await fetch(`${apiURL}/users/${user_id}`, {
       method: 'PUT',
       headers: {
@@ -85,7 +84,7 @@ export const updateUser = async (
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        name: user_name,
+        user_name: user_name,
         email,
         avatar_url,
       }),
@@ -97,9 +96,7 @@ export const updateUser = async (
     }
 
     const data = await response.json();
-    const cwmToken = data.token;
-
-    setCookie(CWM_TOKEN_COOKIE_NAME, cwmToken, { expires: 30 });
+    console.log(data);
 
     return true;
   } catch (error) {
