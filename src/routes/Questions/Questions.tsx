@@ -2,15 +2,12 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { Layout } from '@/layouts';
-import { fetcher } from '@/api/fetcher';
+import { fetcher, post } from '@/api/fetcher';
 import { Button } from '@/components/ui/button';
 import { ChoiceCard } from '@/components/ChoiceCard';
 import { Loading } from '@/components/Loading';
 import { Question } from '@/types/Question';
 import { useSession } from 'next-auth/react';
-import { getCookie } from '@/utils/cookie';
-
-const apiURL = process.env.NEXT_PUBLIC_API_URL;
 
 export function QuestionsPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -43,29 +40,11 @@ export function QuestionsPage() {
         user_id: session?.userId,
         answers,
       };
+      const result = await post('/matching_questions', requestBody);
 
-      try {
-        const response = await fetch(`${apiURL}/matching_questions`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${getCookie('cwm-token')}`,
-          },
-          body: JSON.stringify(requestBody),
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to submit answers');
-        }
-
-        const result = await response.json();
-        setTimeout(() => {
-          router.push(`/matchings/${result.matching_id}`);
-        }, 2000);
-      } catch (error) {
-        console.error('Error submitting answers:', error);
-        setLoading(false);
-      }
+      setTimeout(() => {
+        router.push(`/matchings/${result.matching_id}`);
+      }, 2000);
     }
   };
 

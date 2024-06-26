@@ -4,14 +4,11 @@ import { useSession } from 'next-auth/react';
 import { Layout } from '@/layouts';
 import { Button } from '@/components/ui/button';
 import { Message } from '@/components/Message';
-import { fetcher } from '@/api/fetcher';
+import { fetcher, post } from '@/api/fetcher';
 import { QuestionCard } from '@/types/QuestionCard';
 import { QuestionCardsDialog } from '@/components/QuestionCardsDialog';
 import { MainData, Message as MessageType } from '@/types/Message';
 import { useRouter } from 'next/router';
-import { getCookie } from '@/utils/cookie';
-
-const apiURL = process.env.NEXT_PUBLIC_API_URL;
 
 export function MatchingPage() {
   const { data: session } = useSession();
@@ -27,36 +24,16 @@ export function MatchingPage() {
   const [questions, setQuestions] = useState<MessageType[]>([]);
 
   const addQuestion = async (question_card_id: string) => {
-    try {
-      const requestBody = {
-        matching_id: matching_id,
-        question_card_id: question_card_id,
-      };
+    const requestBody = {
+      matching_id,
+      question_card_id,
+    };
+    const newQuestion = await post('/messages', requestBody);
 
-      // API call to add question
-      const response = await fetch(`${apiURL}/messages`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${getCookie('cwm-token')}`,
-        },
-        body: JSON.stringify(requestBody),
-      });
+    setQuestions((prevQuestions) => [...prevQuestions, newQuestion]);
 
-      if (!response.ok) {
-        throw new Error('Failed to add question');
-      }
-
-      const newQuestion = await response.json();
-
-      // Update questions state
-      setQuestions((prevQuestions) => [...prevQuestions, newQuestion]);
-
-      // Mutate messages data to revalidate SWR
-      mutate(`/messages?matching_id=${matching_id}`);
-    } catch (error) {
-      console.error(error);
-    }
+    // Mutate messages data to revalidate SWR
+    mutate(`/messages?matching_id=${matching_id}`);
   };
 
   if (error) {

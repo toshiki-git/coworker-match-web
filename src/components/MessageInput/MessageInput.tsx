@@ -11,9 +11,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { getCookie } from '@/utils/cookie';
-
-const apiURL = process.env.NEXT_PUBLIC_API_URL;
+import { put } from '@/api/fetcher';
 
 const FormSchema = z.object({
   message: z.string().trim().min(1, {
@@ -35,19 +33,8 @@ export function MessageInput({ message_id, setAnswer }: MessageInputProps) {
   });
 
   const handleAnswerSubmit = async (answer: string) => {
-    try {
-      await fetch(`${apiURL}/messages/${message_id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${getCookie('cwm-token')}`,
-        },
-        body: JSON.stringify({ answer: answer }),
-      });
-      setAnswer(answer);
-    } catch (error) {
-      console.error('Error updating answer:', error);
-    }
+    await put(`/messages/${message_id}`, { answer });
+    setAnswer(answer);
   };
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
