@@ -4,21 +4,25 @@ import { useRouter } from 'next/router';
 import { Layout } from '@/layouts';
 import { HobbyCheckbox } from '@/components/HobbyCheckbox';
 import { Button } from '@/components/ui/button';
-import { HobbiesWithCategory, Hobby } from '@/types/Hobby';
+import { Hobbies, Hobby } from '@/types/Hobby';
 import { Plus } from 'lucide-react';
 import { fetcher } from '@/api/fetcher';
 import { useSession } from 'next-auth/react';
+import { getCookie } from '@/utils/cookie';
+
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export function HobbiesPage() {
+  const cwm_token = getCookie('cwm-token');
   const router = useRouter();
   const { data: session } = useSession();
   const userId = session?.userId;
-  const { data: allHobbies, error: hobbiesError } = useSWR<HobbiesWithCategory>(
+  const { data: allHobbies, error: hobbiesError } = useSWR<Hobbies>(
     '/hobbies',
     fetcher
   );
   const { data: userHobbies, error: userHobbiesError } = useSWR<Hobby[]>(
-    `/user_hobbies/${userId}`,
+    userId ? `/user_hobbies/${userId}` : null,
     fetcher
   );
   const [selectedHobbies, setSelectedHobbies] = useState<string[]>([]);
@@ -44,7 +48,7 @@ export function HobbiesPage() {
 
   const groupedHobbies = Object.keys(categories).reduce(
     (acc, key) => {
-      acc[key] = allHobbies ? allHobbies[key as keyof HobbiesWithCategory] : [];
+      acc[key] = allHobbies[key as keyof Hobbies].hobbies;
       return acc;
     },
     {} as Record<string, Hobby[]>
@@ -60,10 +64,11 @@ export function HobbiesPage() {
 
   const handleRegister = async () => {
     try {
-      const response = await fetch(`/user_hobbies/${userId}`, {
-        method: 'PUT',
+      const response = await fetch(`${apiUrl}/user_hobbies`, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${cwm_token}`,
         },
         body: JSON.stringify({ hobby_ids: selectedHobbies }),
       });
@@ -94,15 +99,11 @@ export function HobbiesPage() {
               {groupedHobbies[category]?.length > 0 ? (
                 groupedHobbies[category].map((hobby) => (
                   <HobbyCheckbox
-                    key={hobby.hobbies.hobby_id}
-                    id={hobby.hobbies.hobby_id}
-                    label={hobby.hobbies.hobby_name}
-                    onChange={() =>
-                      handleCheckboxChange(hobby.hobbies.hobby_id)
-                    }
-                    initialChecked={selectedHobbies.includes(
-                      hobby.hobbies.hobby_id
-                    )}
+                    key={hobby.hobby_id}
+                    id={hobby.hobby_id}
+                    label={hobby.hobby_name}
+                    onChange={() => handleCheckboxChange(hobby.hobby_id)}
+                    initialChecked={selectedHobbies.includes(hobby.hobby_id)}
                   />
                 ))
               ) : (
@@ -123,5 +124,3 @@ export function HobbiesPage() {
     </Layout>
   );
 }
-
-export default HobbiesPage;
