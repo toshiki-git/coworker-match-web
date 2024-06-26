@@ -6,14 +6,10 @@ import { HobbyCheckbox } from '@/components/HobbyCheckbox';
 import { Button } from '@/components/ui/button';
 import { Hobbies, Hobby } from '@/types/Hobby';
 import { Plus } from 'lucide-react';
-import { fetcher } from '@/api/fetcher';
+import { fetcher, put } from '@/api/fetcher';
 import { useSession } from 'next-auth/react';
-import { getCookie } from '@/utils/cookie';
-
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export function HobbiesPage() {
-  const cwm_token = getCookie('cwm-token');
   const router = useRouter();
   const { data: session } = useSession();
   const userId = session?.userId;
@@ -63,24 +59,8 @@ export function HobbiesPage() {
   };
 
   const handleRegister = async () => {
-    try {
-      const response = await fetch(`${apiUrl}/user_hobbies/${userId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${cwm_token}`,
-        },
-        body: JSON.stringify({ hobby_ids: selectedHobbies }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update hobbies');
-      }
-
-      router.push('/mypage');
-    } catch (error) {
-      console.error('Failed to update hobbies', error);
-    }
+    await put(`/user_hobbies/${userId}`, { hobby_ids: selectedHobbies });
+    router.push('/mypage');
   };
 
   return (
