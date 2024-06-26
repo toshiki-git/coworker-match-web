@@ -36,7 +36,9 @@ export function User({
             {userName}
           </h3>
         </div>
-        <p className="text-sm text-gray-600 mt-1 truncate">{message}</p>
+        <p className="text-sm text-gray-600 mt-1 truncate">
+          {message || 'メッセージはありません'}
+        </p>
       </div>
       {unreadCount > 0 && (
         <div
