@@ -28,7 +28,7 @@ export function ChoiceCard({
           alt={choice_text}
           width={100}
           height={100}
-          className="mx-auto mb-2"
+          className="mx-auto mb-2 h-auto w-auto"
         />
       </CardContent>
     </Card>

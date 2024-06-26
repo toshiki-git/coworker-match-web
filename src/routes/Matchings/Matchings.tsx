@@ -5,7 +5,7 @@ import { Matchings } from '@/types/Matching';
 import useSWR from 'swr';
 
 export function MatchingsPage() {
-  const { data, error } = useSWR<Matchings[]>('/matchings', fetcher);
+  const { data, error } = useSWR<Matchings[]>('/matches', fetcher);
 
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
