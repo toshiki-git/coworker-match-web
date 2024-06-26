@@ -7,10 +7,9 @@ if (!API_URL) {
   );
 }
 
-const cwm_token = getCookie('cwm-token');
-
 // 共通のAPIクライアント関数
 const apiClient = async (url: string, options: RequestInit = {}) => {
+  const cwm_token = getCookie('cwm-token');
   const headers = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${cwm_token}`,

@@ -1,4 +1,5 @@
-import { setCookie, getCookie } from '@/utils/cookie';
+import { setCookie } from '@/utils/cookie';
+import { post, put } from '@/api/fetcher';
 
 const CWM_TOKEN_COOKIE_NAME = 'cwm-token';
 const apiURL = process.env.NEXT_PUBLIC_API_URL ?? '';
@@ -39,34 +40,11 @@ export const registerUser = async (
   email: string,
   avatar_url: string
 ) => {
-  try {
-    const token = getCookie(CWM_TOKEN_COOKIE_NAME);
-    const response = await fetch(`${apiURL}/users`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        name: user_name,
-        email,
-        avatar_url,
-      }),
-    });
-
-    if (!response.ok) {
-      console.error('Failed to authenticate with backend');
-      return false;
-    }
-
-    const data = await response.json();
-    console.log(data);
-
-    return true;
-  } catch (error) {
-    console.error('Error fetching token:', error);
-    return false;
-  }
+  await post('/users', {
+    name: user_name,
+    email,
+    avatar_url,
+  });
 };
 
 export const updateUser = async (
@@ -75,52 +53,13 @@ export const updateUser = async (
   email: string,
   avatar_url: string
 ) => {
-  try {
-    const token = getCookie(CWM_TOKEN_COOKIE_NAME);
-    const response = await fetch(`${apiURL}/users/${user_id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        user_name: user_name,
-        email,
-        avatar_url,
-      }),
-    });
-
-    if (!response.ok) {
-      console.error('Failed to authenticate with backend');
-      return false;
-    }
-
-    const data = await response.json();
-    console.log(data);
-
-    return true;
-  } catch (error) {
-    console.error('Error fetching token:', error);
-    return false;
-  }
+  await put(`/users/${user_id}`, {
+    user_name,
+    email,
+    avatar_url,
+  });
 };
 
 export const createEmptyUserHobby = async () => {
-  try {
-    const token = getCookie(CWM_TOKEN_COOKIE_NAME);
-    const response = await fetch(`${apiURL}/user_hobbies`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ hobby_ids: [] }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to create user hobbies');
-    }
-  } catch (error) {
-    console.error('Failed to create user hobbies', error);
-  }
+  await post('/user_hobbies', { hobby_ids: [] });
 };
