@@ -8,6 +8,9 @@ import { ChoiceCard } from '@/components/ChoiceCard';
 import { Loading } from '@/components/Loading';
 import { Question } from '@/types/Question';
 import { useSession } from 'next-auth/react';
+import { getCookie } from '@/utils/cookie';
+
+const apiURL = process.env.NEXT_PUBLIC_API_URL;
 
 export function QuestionsPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -42,10 +45,11 @@ export function QuestionsPage() {
       };
 
       try {
-        const response = await fetch('/matching_quesions', {
+        const response = await fetch(`${apiURL}/matching_questions`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${getCookie('cwm-token')}`,
           },
           body: JSON.stringify(requestBody),
         });
