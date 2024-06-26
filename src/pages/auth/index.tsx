@@ -1,8 +1,13 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import { fetchAndSetAuthToken, registerUser, updateUser } from '@/api/auth';
-import { isFirstLogin } from '@/utils/auth';
+import {
+  fetchAndSetAuthToken,
+  registerUser,
+  updateUser,
+  createEmptyUserHobby,
+} from '@/api/auth';
+import { isUserExist } from '@/utils/auth';
 import Head from 'next/head';
 import { Loading } from '@/components/Loading';
 
@@ -12,31 +17,34 @@ function Page() {
 
   useEffect(() => {
     if (status === 'loading') return;
+
     const handleAuth = async () => {
-      const idToken = session?.idToken ?? 'unget';
-      await fetchAndSetAuthToken(idToken);
-      await registerUser(
-        session?.user?.name ?? '',
-        session?.user?.email ?? '',
-        session?.user?.image ?? ''
-      );
-      router.push('/mypage');
-      /* if (isFirstLogin()) {
-        await registerUser(
-          session?.user?.name ?? '',
-          session?.user?.email ?? '',
-          session?.user?.image ?? ''
-        );
-        router.push('/mypage/hobbies');
-      } else {
-        await updateUser(
-          session?.userId ?? '',
-          session?.user?.name ?? '',
-          session?.user?.email ?? '',
-          session?.user?.image ?? ''
-        );
-        router.push('/mypage');
-      } */
+      try {
+        const idToken = session?.idToken ?? 'unget';
+        await fetchAndSetAuthToken(idToken);
+
+        const isExist = await isUserExist();
+        if (isExist) {
+          await updateUser(
+            session?.userId ?? '',
+            session?.user?.name ?? '',
+            session?.user?.email ?? '',
+            session?.user?.image ?? ''
+          );
+          router.push('/mypage');
+        } else {
+          await registerUser(
+            session?.user?.name ?? '',
+            session?.user?.email ?? '',
+            session?.user?.image ?? ''
+          );
+          await createEmptyUserHobby();
+          router.push('/mypage/hobbies');
+        }
+      } catch (error) {
+        console.error('Authentication error:', error);
+        // エラーハンドリング
+      }
     };
 
     handleAuth();

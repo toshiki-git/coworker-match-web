@@ -104,3 +104,23 @@ export const updateUser = async (
     return false;
   }
 };
+
+export const createEmptyUserHobby = async () => {
+  try {
+    const token = getCookie(CWM_TOKEN_COOKIE_NAME);
+    const response = await fetch(`${apiURL}/user_hobbies`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ hobby_ids: [] }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to create user hobbies');
+    }
+  } catch (error) {
+    console.error('Failed to create user hobbies', error);
+  }
+};

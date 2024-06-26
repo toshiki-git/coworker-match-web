@@ -64,8 +64,8 @@ export function HobbiesPage() {
 
   const handleRegister = async () => {
     try {
-      const response = await fetch(`${apiUrl}/user_hobbies`, {
-        method: 'POST',
+      const response = await fetch(`${apiUrl}/user_hobbies/${userId}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${cwm_token}`,
