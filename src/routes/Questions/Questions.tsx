@@ -7,14 +7,16 @@ import { Button } from '@/components/ui/button';
 import { ChoiceCard } from '@/components/ChoiceCard';
 import { Loading } from '@/components/Loading';
 import { Question } from '@/types/Question';
+import { useSession } from 'next-auth/react';
 
 export function QuestionsPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedChoices, setSelectedChoices] = useState<number[]>([]);
   const [loading, setLoading] = useState(false);
+  const { data: session } = useSession();
   const router = useRouter();
 
-  const { data, error } = useSWR<Question[]>('/questions', fetcher);
+  const { data, error } = useSWR<Question[]>('/matching_questions', fetcher);
 
   if (error) return <div>Failed to load questions</div>;
   if (!data) return <div>Loading...</div>;
@@ -35,12 +37,12 @@ export function QuestionsPage() {
       }));
 
       const requestBody = {
-        user_id: '3fa85f64-5717-4562-b3fc-2c963f66afa1', // ユーザーIDを適切に設定してください
+        user_id: session?.userId,
         answers,
       };
 
       try {
-        const response = await fetch('/questions', {
+        const response = await fetch('/matching_quesions', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -93,19 +95,19 @@ export function QuestionsPage() {
         </div>
         <div className="text-center mb-6">
           <h1 className="text-3xl font-bold">
-            {currentQuestion.question_text}
+            {currentQuestion?.question_text}
           </h1>
         </div>
         <div className="flex space-x-4">
           <ChoiceCard
-            choice_text={currentQuestion.choice1.choice_text}
-            choice_image_url={currentQuestion.choice1.choice_image_url}
+            choice_text={currentQuestion?.choice1.choice_text}
+            choice_image_url={currentQuestion?.choice1.choice_image_url}
             isSelected={selectedChoice === 1}
             onClick={() => handleChoiceClick(1)}
           />
           <ChoiceCard
-            choice_text={currentQuestion.choice2.choice_text}
-            choice_image_url={currentQuestion.choice2.choice_image_url}
+            choice_text={currentQuestion?.choice2.choice_text}
+            choice_image_url={currentQuestion?.choice2.choice_image_url}
             isSelected={selectedChoice === 2}
             onClick={() => handleChoiceClick(2)}
           />

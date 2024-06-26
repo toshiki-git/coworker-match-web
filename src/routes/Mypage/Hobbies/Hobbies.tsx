@@ -7,10 +7,12 @@ import { Button } from '@/components/ui/button';
 import { HobbiesWithCategory, Hobby } from '@/types/Hobby';
 import { Plus } from 'lucide-react';
 import { fetcher } from '@/api/fetcher';
+import { useSession } from 'next-auth/react';
 
 export function HobbiesPage() {
   const router = useRouter();
-  const userId = 'user-id-placeholder'; // ここを適切なユーザーIDに置き換える
+  const { data: session } = useSession();
+  const userId = session?.userId;
   const { data: allHobbies, error: hobbiesError } = useSWR<HobbiesWithCategory>(
     '/hobbies',
     fetcher
@@ -66,9 +68,9 @@ export function HobbiesPage() {
         body: JSON.stringify({ hobby_ids: selectedHobbies }),
       });
 
-      /* if (!response.ok) {
+      if (!response.ok) {
         throw new Error('Failed to update hobbies');
-      } */
+      }
 
       router.push('/mypage');
     } catch (error) {
@@ -89,15 +91,23 @@ export function HobbiesPage() {
               {categories[category as keyof typeof categories]}
             </h2>
             <div className="flex flex-wrap gap-2">
-              {groupedHobbies[category].map((hobby) => (
-                <HobbyCheckbox
-                  key={hobby.hobby_id}
-                  id={hobby.hobby_id}
-                  label={hobby.hobby_name}
-                  onChange={() => handleCheckboxChange(hobby.hobby_id)}
-                  initialChecked={selectedHobbies.includes(hobby.hobby_id)}
-                />
-              ))}
+              {groupedHobbies[category]?.length > 0 ? (
+                groupedHobbies[category].map((hobby) => (
+                  <HobbyCheckbox
+                    key={hobby.hobbies.hobby_id}
+                    id={hobby.hobbies.hobby_id}
+                    label={hobby.hobbies.hobby_name}
+                    onChange={() =>
+                      handleCheckboxChange(hobby.hobbies.hobby_id)
+                    }
+                    initialChecked={selectedHobbies.includes(
+                      hobby.hobbies.hobby_id
+                    )}
+                  />
+                ))
+              ) : (
+                <p>このカテゴリには趣味が登録されていません。</p>
+              )}
               <Button size="icon">
                 <Plus />
               </Button>
@@ -113,3 +123,5 @@ export function HobbiesPage() {
     </Layout>
   );
 }
+
+export default HobbiesPage;

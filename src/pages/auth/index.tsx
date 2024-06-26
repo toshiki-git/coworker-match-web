@@ -23,8 +23,7 @@ function Page() {
         );
         router.push('/mypage/hobbies');
       } else {
-        await updateUser(
-          session?.userId ?? '',
+        await registerUser(
           session?.user?.name ?? '',
           session?.user?.email ?? '',
           session?.user?.image ?? ''
