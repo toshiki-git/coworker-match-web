@@ -26,7 +26,7 @@ export const fetchAndSetAuthToken = async (
     const data = await response.json();
     const cwmToken = data.token;
 
-    setCookie('CWM_TOKEN_COOKIE_NAME', cwmToken, { expires: 30 });
+    setCookie(CWM_TOKEN_COOKIE_NAME, cwmToken, { expires: 30 });
 
     return true;
   } catch (error) {
