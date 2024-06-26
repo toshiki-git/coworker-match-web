@@ -8,6 +8,7 @@ import { Hobbies, Hobby } from '@/types/Hobby';
 import { Plus } from 'lucide-react';
 import { fetcher, put } from '@/api/fetcher';
 import { useSession } from 'next-auth/react';
+import { UnimplementedDropdown } from '@/components/UnimplementedDropdown';
 
 export function HobbiesPage() {
   const router = useRouter();
@@ -89,9 +90,11 @@ export function HobbiesPage() {
               ) : (
                 <p>このカテゴリには趣味が登録されていません。</p>
               )}
-              <Button size="icon">
-                <Plus />
-              </Button>
+              <UnimplementedDropdown text="この機能は未実装です。">
+                <Button size="icon">
+                  <Plus />
+                </Button>
+              </UnimplementedDropdown>
             </div>
           </div>
         ))}

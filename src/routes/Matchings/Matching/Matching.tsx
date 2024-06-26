@@ -8,6 +8,7 @@ import { QuestionCard } from '@/types/QuestionCard';
 import { QuestionCardsDialog } from '@/components/QuestionCardsDialog';
 import { MainData } from '@/types/Message';
 import { useRouter } from 'next/router';
+import { UnimplementedDropdown } from '@/components/UnimplementedDropdown';
 
 export function MatchingPage() {
   const { data: session } = useSession();
@@ -79,7 +80,9 @@ export function MatchingPage() {
             questionCards={questionCardsData?.question_cards ?? []}
             addQuestion={addQuestion}
           />
-          <Button>LINE友達登録する</Button>
+          <UnimplementedDropdown text="この機能は未実装です。">
+            <Button>LINE友達登録する</Button>
+          </UnimplementedDropdown>
         </div>
       </main>
     </Layout>
