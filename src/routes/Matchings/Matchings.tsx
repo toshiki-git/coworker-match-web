@@ -17,9 +17,9 @@ export function MatchingsPage() {
           <User
             key={matching.matching_id}
             matching_id={matching.matching_id}
-            image_url={matching.image_url}
-            userName={matching.user_name}
-            message={matching.message}
+            image_url={matching.avatar_url}
+            userName={matching.name}
+            message={matching.last_message}
             unreadCount={matching.unread_count}
           />
         ))}
