@@ -34,6 +34,7 @@ export function MatchingPage() {
 
     // Mutate messages data to revalidate SWR
     mutate(`/messages?matching_id=${matching_id}`);
+    mutate(`/question_cards?matching_id=${matching_id}`);
   };
 
   if (error) {
@@ -47,6 +48,9 @@ export function MatchingPage() {
       </Layout>
     );
   }
+  const filteredQuestionCards =
+    questionCardsData?.question_cards.slice(0, -1) ?? [];
+  const lastQuestionCard = questionCardsData?.question_cards.slice(-1)[0];
 
   return (
     <Layout>
@@ -86,16 +90,22 @@ export function MatchingPage() {
         </div>
         <div className="flex space-x-4 my-4">
           <QuestionCardsDialog
-            questionCards={questionCardsData?.question_cards ?? []}
+            questionCards={filteredQuestionCards}
             addQuestion={addQuestion}
           />
           <Confetti>
-            <Button className=" flex bg-white border-2 border-green-500 hover:bg-slate-100">
+            <Button
+              onClick={() =>
+                addQuestion(lastQuestionCard?.question_card_id ?? '')
+              }
+              className="flex bg-white border-2 border-green-500 hover:bg-slate-100"
+              disabled={lastQuestionCard?.is_used}
+            >
               <Image
                 src="/LINE_Brand_icon.png"
                 width={24}
                 height={24}
-                alt={''}
+                alt="line"
               />
               <p className="text-black ml-2">LINE友達登録する</p>
             </Button>
