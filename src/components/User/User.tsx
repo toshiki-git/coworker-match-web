@@ -19,7 +19,7 @@ export function User({
   return (
     <Link
       href={`/matchings/${matching_id}`}
-      className="cursor-pointer max-w-md mx-auto flex items-center p-4 border-b border-gray-300 bg-white hover:bg-gray-100 transition duration-200 ease-in-out"
+      className="cursor-pointer max-w-md mx-auto flex items-center p-4 border-b bg-white hover:bg-green-50 transition duration-200 ease-in-out shadow-lg rounded-md"
     >
       <div className="flex-shrink-0">
         <Image
