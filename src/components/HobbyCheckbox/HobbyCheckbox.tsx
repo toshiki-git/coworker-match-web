@@ -5,7 +5,7 @@ interface HobbyCheckboxProps {
   id: string;
   label: string;
   onChange: (id: string, checked: boolean) => void;
-  initialChecked?: boolean; // Add this prop to accept initial checked state
+  initialChecked?: boolean;
 }
 
 export function HobbyCheckbox({
@@ -26,22 +26,15 @@ export function HobbyCheckbox({
     onChange(id, newChecked);
   };
 
-  const handleCheckboxClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-  };
-
   return (
     <div
       className="flex items-center cursor-pointer space-x-2 border border-spacing-2 rounded-full p-3 bg-white border-green-700 hover:bg-green-100"
       onClick={handleChange}
     >
-      <Checkbox id={id} checked={checked} onClick={handleCheckboxClick} />
-      <label
-        htmlFor={id}
-        className="text-sm font-medium cursor-pointer leading-none text-black"
-      >
+      <Checkbox id={id} checked={checked} />
+      <p className="text-sm font-medium cursor-pointer leading-none text-black">
         {label}
-      </label>
+      </p>
     </div>
   );
 }

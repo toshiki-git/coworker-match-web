@@ -8,7 +8,10 @@ import { QuestionCard } from '@/types/QuestionCard';
 import { QuestionCardsDialog } from '@/components/QuestionCardsDialog';
 import { MainData } from '@/types/Message';
 import { useRouter } from 'next/router';
-import { UnimplementedDropdown } from '@/components/UnimplementedDropdown';
+import { ChevronLeft } from 'lucide-react';
+import { Confetti } from '@/components/Confetti';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export function MatchingPage() {
   const { data: session } = useSession();
@@ -31,6 +34,7 @@ export function MatchingPage() {
 
     // Mutate messages data to revalidate SWR
     mutate(`/messages?matching_id=${matching_id}`);
+    mutate(`/question_cards?matching_id=${matching_id}`);
   };
 
   if (error) {
@@ -44,11 +48,20 @@ export function MatchingPage() {
       </Layout>
     );
   }
+  const filteredQuestionCards =
+    questionCardsData?.question_cards.slice(0, -1) ?? [];
+  const lastQuestionCard = questionCardsData?.question_cards.slice(-1)[0];
 
   return (
     <Layout>
       <main className="flex flex-col items-center mt-10">
-        <div>
+        <div className="relative">
+          <Link
+            className="absolute left-2 -top-7 sm:-left-20 sm:top-0"
+            href="/matchings"
+          >
+            <ChevronLeft />
+          </Link>
           <div className="mb-5 font-bold text-center">
             <p className="block sm:inline ">
               {messages?.match_user.user_name} さんとマッチングしました。
@@ -77,12 +90,26 @@ export function MatchingPage() {
         </div>
         <div className="flex space-x-4 my-4">
           <QuestionCardsDialog
-            questionCards={questionCardsData?.question_cards ?? []}
+            questionCards={filteredQuestionCards}
             addQuestion={addQuestion}
           />
-          <UnimplementedDropdown text="この機能は未実装です。">
-            <Button>LINE友達登録する</Button>
-          </UnimplementedDropdown>
+          <Confetti disable={lastQuestionCard?.is_used}>
+            <Button
+              onClick={() =>
+                addQuestion(lastQuestionCard?.question_card_id ?? '')
+              }
+              className="flex bg-white border-2 border-green-500 hover:bg-slate-100"
+              disabled={lastQuestionCard?.is_used}
+            >
+              <Image
+                src="/LINE_Brand_icon.png"
+                width={24}
+                height={24}
+                alt="line"
+              />
+              <p className="text-black ml-2">LINE友達登録する</p>
+            </Button>
+          </Confetti>
         </div>
       </main>
     </Layout>

@@ -9,6 +9,7 @@ import { Plus } from 'lucide-react';
 import { fetcher, put } from '@/api/fetcher';
 import { useSession } from 'next-auth/react';
 import { UnimplementedDropdown } from '@/components/UnimplementedDropdown';
+import { toast } from '@/components/ui/use-toast';
 
 export function HobbiesPage() {
   const router = useRouter();
@@ -61,6 +62,9 @@ export function HobbiesPage() {
 
   const handleRegister = async () => {
     await put(`/user_hobbies/${userId}`, { hobby_ids: selectedHobbies });
+    toast({
+      title: '趣味の登録が完了しました！',
+    });
     router.push('/mypage');
   };
 
