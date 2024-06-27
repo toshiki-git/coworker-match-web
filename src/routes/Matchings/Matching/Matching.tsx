@@ -9,6 +9,8 @@ import { QuestionCardsDialog } from '@/components/QuestionCardsDialog';
 import { MainData } from '@/types/Message';
 import { useRouter } from 'next/router';
 import { UnimplementedDropdown } from '@/components/UnimplementedDropdown';
+import { ChevronLeft } from 'lucide-react';
+import Link from 'next/link';
 
 export function MatchingPage() {
   const { data: session } = useSession();
@@ -48,7 +50,13 @@ export function MatchingPage() {
   return (
     <Layout>
       <main className="flex flex-col items-center mt-10">
-        <div>
+        <div className="relative">
+          <Link
+            className="absolute left-2 -top-7 sm:-left-20 sm:top-0"
+            href="/matchings"
+          >
+            <ChevronLeft />
+          </Link>
           <div className="mb-5 font-bold text-center">
             <p className="block sm:inline ">
               {messages?.match_user.user_name} さんとマッチングしました。
