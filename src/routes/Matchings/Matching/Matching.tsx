@@ -93,7 +93,7 @@ export function MatchingPage() {
             questionCards={filteredQuestionCards}
             addQuestion={addQuestion}
           />
-          <Confetti>
+          <Confetti disable={lastQuestionCard?.is_used}>
             <Button
               onClick={() =>
                 addQuestion(lastQuestionCard?.question_card_id ?? '')

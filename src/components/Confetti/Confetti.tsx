@@ -1,7 +1,12 @@
 import { useEffect } from 'react';
 import confetti from 'canvas-confetti';
 
-export function Confetti({ children }: { children: React.ReactNode }) {
+interface ConfettiProps {
+  children: React.ReactNode;
+  disable?: boolean; // 花びらを無効にするためのpropsを追加
+}
+
+export function Confetti({ children, disable = false }: ConfettiProps) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       require('canvas-confetti');
@@ -9,6 +14,8 @@ export function Confetti({ children }: { children: React.ReactNode }) {
   }, []);
 
   const handleClick = () => {
+    if (disable) return; // disableがtrueの場合は何もしない
+
     const count = 200;
     const defaults = {
       origin: { y: 0.7 },
