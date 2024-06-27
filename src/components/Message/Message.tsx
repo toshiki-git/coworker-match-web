@@ -22,7 +22,7 @@ export function Message({
   const [answer, setAnswer] = useState<string>(my_answer);
 
   return (
-    <div className="w-[25rem] sm:w-[40rem] flex flex-col space-y-4 p-4 mb-2">
+    <div className="w-[25rem] sm:w-[40rem] flex flex-col space-y-4 p-4 pb-8 mb-2 border-b border-gray-300">
       <p className="font-bold text-center text-xl">{question_text}</p>
       <div className="flex items-center justify-end space-x-2">
         <div className="bg-green-200 p-4 rounded-lg shadow-md max-w-[13rem] sm:max-w-sm text-right">

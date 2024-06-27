@@ -8,8 +8,9 @@ import { QuestionCard } from '@/types/QuestionCard';
 import { QuestionCardsDialog } from '@/components/QuestionCardsDialog';
 import { MainData } from '@/types/Message';
 import { useRouter } from 'next/router';
-import { UnimplementedDropdown } from '@/components/UnimplementedDropdown';
 import { ChevronLeft } from 'lucide-react';
+import { Confetti } from '@/components/Confetti';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export function MatchingPage() {
@@ -88,9 +89,17 @@ export function MatchingPage() {
             questionCards={questionCardsData?.question_cards ?? []}
             addQuestion={addQuestion}
           />
-          <UnimplementedDropdown text="この機能は未実装です。">
-            <Button>LINE友達登録する</Button>
-          </UnimplementedDropdown>
+          <Confetti>
+            <Button className=" flex bg-white border-2 border-green-500 hover:bg-slate-100">
+              <Image
+                src="/LINE_Brand_icon.png"
+                width={24}
+                height={24}
+                alt={''}
+              />
+              <p className="text-black ml-2">LINE友達登録する</p>
+            </Button>
+          </Confetti>
         </div>
       </main>
     </Layout>
