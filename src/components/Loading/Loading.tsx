@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import { Error } from '@/components/Error';
 
 interface LoadingProps {
-  loadingMessage: string;
+  loadingMessage?: string;
 }
 
-export function Loading({ loadingMessage }: LoadingProps) {
+export function Loading({
+  loadingMessage = 'ローディング中です...',
+}: LoadingProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -28,17 +31,5 @@ export function Loading({ loadingMessage }: LoadingProps) {
     );
   }
 
-  if (error) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <p className="mt-4 text-lg text-red-500">
-            エラーが発生しました。再試行してください。
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  return null;
+  if (error) return <Error />;
 }

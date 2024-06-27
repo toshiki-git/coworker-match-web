@@ -10,8 +10,10 @@ import { MainData } from '@/types/Message';
 import { useRouter } from 'next/router';
 import { ChevronLeft } from 'lucide-react';
 import { Confetti } from '@/components/Confetti';
+import { Error } from '@/components/Error';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Loading } from '@/components/Loading';
 
 export function MatchingPage() {
   const { data: session } = useSession();
@@ -37,17 +39,9 @@ export function MatchingPage() {
     mutate(`/question_cards?matching_id=${matching_id}`);
   };
 
-  if (error) {
-    return (
-      <Layout>
-        <main className="flex flex-col items-center mt-10">
-          <div className="mb-5 text-center text-red-500">
-            エラーが発生しました。もう一度お試しください。
-          </div>
-        </main>
-      </Layout>
-    );
-  }
+  if (error) return <Error />;
+  if (!questionCardsData) return <Loading />;
+
   const filteredQuestionCards =
     questionCardsData?.question_cards.slice(0, -1) ?? [];
   const lastQuestionCard = questionCardsData?.question_cards.slice(-1)[0];

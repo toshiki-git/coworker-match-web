@@ -5,12 +5,14 @@ import { Matchings } from '@/types/Matching';
 import useSWR from 'swr';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { Loading } from '@/components/Loading';
+import { Error } from '@/components/Error';
 
 export function MatchingsPage() {
   const { data, error } = useSWR<Matchings[]>('/matches', fetcher);
 
-  if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
+  if (error) return <Error />;
+  if (!data) return <Loading />;
 
   return (
     <Layout>
