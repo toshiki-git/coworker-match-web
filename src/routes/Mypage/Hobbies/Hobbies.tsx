@@ -10,6 +10,8 @@ import { fetcher, put } from '@/api/fetcher';
 import { useSession } from 'next-auth/react';
 import { UnimplementedDropdown } from '@/components/UnimplementedDropdown';
 import { toast } from '@/components/ui/use-toast';
+import { Loading } from '@/components/Loading';
+import { Error } from '@/components/Error';
 
 export function HobbiesPage() {
   const router = useRouter();
@@ -31,9 +33,8 @@ export function HobbiesPage() {
     }
   }, [userHobbies]);
 
-  if (hobbiesError || userHobbiesError)
-    return <div>Failed to load hobbies</div>;
-  if (!allHobbies || !userHobbies) return <div>Loading...</div>;
+  if (hobbiesError || userHobbiesError) return <Error />;
+  if (!allHobbies || !userHobbies) return <Loading />;
 
   const categories = {
     indoor: 'インドア',

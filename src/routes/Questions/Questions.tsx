@@ -6,6 +6,7 @@ import { fetcher, post } from '@/api/fetcher';
 import { Button } from '@/components/ui/button';
 import { ChoiceCard } from '@/components/ChoiceCard';
 import { Loading } from '@/components/Loading';
+import { Error } from '@/components/Error';
 import { Question } from '@/types/Question';
 import { useSession } from 'next-auth/react';
 
@@ -19,8 +20,8 @@ export function QuestionsPage() {
 
   const { data, error } = useSWR<Question[]>('/matching_questions', fetcher);
 
-  if (error) return <div>Failed to load questions</div>;
-  if (!data) return <div>Loading...</div>;
+  if (error) return <Error />;
+  if (!data) return <Loading />;
 
   const handleChoiceClick = async (choiceIndex: number) => {
     const newSelectedChoices = [...selectedChoices];
