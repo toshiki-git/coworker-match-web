@@ -38,11 +38,13 @@ export function Message({
         </Avatar>
       </div>
       <div className="flex items-center space-x-2">
-        <Avatar>
+        <Avatar className={`${other_answer === '' ? 'opacity-50' : ''}`}>
           <AvatarImage src={other_icon_url} alt="Other Icon" />
           <AvatarFallback>other</AvatarFallback>
         </Avatar>
-        <div className="bg-green-200 p-4 rounded-lg shadow-md max-w-[13rem] sm:max-w-sm">
+        <div
+          className={`bg-green-200 p-4 rounded-lg shadow-md max-w-[13rem] sm:max-w-sm ${other_answer === '' ? 'opacity-50' : ''}`}
+        >
           <p className="text-gray-700">
             {other_answer === '' ? '相手は未回答です' : other_answer}
           </p>
