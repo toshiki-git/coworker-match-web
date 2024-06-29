@@ -14,16 +14,11 @@ import { Error } from '@/components/Error';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Loading } from '@/components/Loading';
-import { useState, useEffect } from 'react';
-import Modal from '@/components/ui/modal';
 
 export function MatchingPage() {
   const { data: session } = useSession();
   const router = useRouter();
-
-  // 初めて訪れたかどうかのフラグを取得を追加
-  const { matching_id, firstVisit } = router.query;
-
+  const { matching_id } = router.query;
   const { data: messages, error } = useSWR<MainData>(
     `/messages?matching_id=${matching_id}`,
     fetcher
@@ -31,18 +26,6 @@ export function MatchingPage() {
   const { data: questionCardsData } = useSWR<{
     question_cards: QuestionCard[];
   }>(`/question_cards?matching_id=${matching_id}`, fetcher);
-
-  // ====================================
-  // マッチング成立モーダル: 処理
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    // URLパラメータ firstVisit が 'true' の文字列と一致する場合のみモーダルを開く
-    if (firstVisit === 'true') {
-      setIsModalOpen(true);
-    }
-  }, [firstVisit]);
-  // ====================================
 
   const addQuestion = async (question_card_id: string) => {
     const requestBody = {
@@ -65,124 +48,6 @@ export function MatchingPage() {
 
   return (
     <Layout>
-      {/* マッチング成立モーダル */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <style>{`
-    @keyframes floatUp {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .modal-container {
-      animation: floatUp 0.8s ease-out forwards;
-      text-align: center;
-    }
-
-    .user-name {
-      font-size: 1.8rem;
-      font-weight: 520;
-      color: #333;
-      margin-bottom: 20px;
-    }
-
-    .hobbies-list {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-    }
-
-    .hobby-item {
-      background-color: #e0f7fa;
-      margin: 5px 8px;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      color: #00796b;
-      display: inline-block;
-      white-space: nowrap;
-    }
-
-    .more-indicator {
-      font-size: 0.8rem;
-      color: #00796b;
-      margin-left: 5px;
-    }
-
-    .button-style {
-      background-color: #ff4081;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 24px;
-      cursor: pointer;
-      font-size: 1rem;
-      margin: 5px auto 0;
-      display: block;
-    }
-
-  `}</style>
-        {messages && (
-          <div className="modal-container">
-            <h2
-              style={{
-                fontSize: '1.5rem',
-                fontWeight: 'bold',
-                margin: '15px 0',
-              }}
-            >
-              マッチ相手が見つかりました!!
-            </h2>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginBottom: '20px',
-              }}
-            >
-              <img
-                src={messages?.match_user.avatar_url as string}
-                alt="My Avatar"
-                style={{ borderRadius: '50%', width: '60px', height: '60px' }}
-              />
-            </div>
-            <div className="user-name">
-              {messages?.match_user.user_name}
-              <span> さん</span>
-            </div>
-            {messages?.match_user.hobbies &&
-              messages.match_user.hobbies.length > 0 && (
-                <ul className="hobbies-list">
-                  {messages.match_user.hobbies
-                    .slice(0, 10)
-                    .map((hobby, index) => (
-                      <li key={index} className="hobby-item">
-                        {hobby}
-                      </li>
-                    ))}
-                  {messages.match_user.hobbies.length > 10 && (
-                    <span className="more-indicator">...</span>
-                  )}
-                </ul>
-              )}
-            <button
-              className="button-style"
-              onClick={() => setIsModalOpen(false)}
-            >
-              さっそく質問スタート！
-            </button>
-          </div>
-        )}
-      </Modal>
       <main className="flex flex-col items-center mt-10">
         <div className="relative">
           <Link

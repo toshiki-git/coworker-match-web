@@ -47,7 +47,7 @@ export function QuestionsPage() {
         const result = await post('/matching_questions', requestBody);
 
         setTimeout(() => {
-          router.push(`/matchings/${result.matching_id}?firstVisit=true`);
+          router.push(`/matchings/${result.matching_id}`);
         }, 2000);
       } catch (error) {
         setLoading(false);
