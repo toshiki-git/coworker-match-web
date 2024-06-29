@@ -22,7 +22,7 @@ const modalOverlayStyle: React.CSSProperties = {
 };
 
 const modalStyle: React.CSSProperties = {
-  background: 'linear-gradient(to bottom right, #e0f7fa, #80deea)',
+  background: 'linear-gradient(to bottom right, #f7f9f7, #c6d7c6)',
   padding: '40px 20px',
   borderRadius: '12px',
   maxWidth: '400px',
