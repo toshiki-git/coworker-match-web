@@ -1,4 +1,3 @@
-.openapi-generator-ignore
 apis/HobbiesApi.ts
 apis/MatchingsApi.ts
 apis/MessagesApi.ts

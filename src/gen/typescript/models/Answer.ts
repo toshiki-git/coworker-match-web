@@ -55,7 +55,7 @@ export function AnswerFromJSONTyped(
     return json;
   }
   return {
-    questionId: json['question_id'],
+    questionId: json['questionId'],
     answer: json['answer'],
   };
 }
@@ -65,7 +65,7 @@ export function AnswerToJSON(value?: Answer | null): any {
     return value;
   }
   return {
-    question_id: value['questionId'],
+    questionId: value['questionId'],
     answer: value['answer'],
   };
 }

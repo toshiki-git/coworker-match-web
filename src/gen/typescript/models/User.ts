@@ -68,10 +68,10 @@ export function UserFromJSONTyped(
     return json;
   }
   return {
-    userName: json['user_name'],
+    userName: json['userName'],
     email: json['email'],
-    avatarUrl: json['avatar_url'],
-    userId: json['user_id'],
+    avatarUrl: json['avatarUrl'],
+    userId: json['userId'],
   };
 }
 
@@ -80,9 +80,9 @@ export function UserToJSON(value?: User | null): any {
     return value;
   }
   return {
-    user_name: value['userName'],
+    userName: value['userName'],
     email: value['email'],
-    avatar_url: value['avatarUrl'],
-    user_id: value['userId'],
+    avatarUrl: value['avatarUrl'],
+    userId: value['userId'],
   };
 }

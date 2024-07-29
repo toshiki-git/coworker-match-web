@@ -63,9 +63,9 @@ export function CreateUserRequestFromJSONTyped(
     return json;
   }
   return {
-    userName: json['user_name'],
+    userName: json['userName'],
     email: json['email'],
-    avatarUrl: json['avatar_url'],
+    avatarUrl: json['avatarUrl'],
   };
 }
 
@@ -74,8 +74,8 @@ export function CreateUserRequestToJSON(value?: CreateUserRequest | null): any {
     return value;
   }
   return {
-    user_name: value['userName'],
+    userName: value['userName'],
     email: value['email'],
-    avatar_url: value['avatarUrl'],
+    avatarUrl: value['avatarUrl'],
   };
 }

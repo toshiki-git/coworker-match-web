@@ -56,8 +56,8 @@ export function CategoryFromJSONTyped(
     return json;
   }
   return {
-    categoryId: json['category_id'],
-    categoryName: json['category_name'],
+    categoryId: json['categoryId'],
+    categoryName: json['categoryName'],
   };
 }
 
@@ -66,7 +66,7 @@ export function CategoryToJSON(value?: Category | null): any {
     return value;
   }
   return {
-    category_id: value['categoryId'],
-    category_name: value['categoryName'],
+    categoryId: value['categoryId'],
+    categoryName: value['categoryName'],
   };
 }

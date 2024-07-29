@@ -55,8 +55,8 @@ export function MessageFromJSONTyped(
     return json;
   }
   return {
-    messageId: json['message_id'],
-    messageText: json['message_text'],
+    messageId: json['messageId'],
+    messageText: json['messageText'],
   };
 }
 
@@ -65,7 +65,7 @@ export function MessageToJSON(value?: Message | null): any {
     return value;
   }
   return {
-    message_id: value['messageId'],
-    message_text: value['messageText'],
+    messageId: value['messageId'],
+    messageText: value['messageText'],
   };
 }

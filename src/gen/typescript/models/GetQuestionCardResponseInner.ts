@@ -67,9 +67,9 @@ export function GetQuestionCardResponseInnerFromJSONTyped(
     return json;
   }
   return {
-    questionCardId: json['question_card_id'],
-    questionCardText: json['question_card_text'],
-    isUsed: json['is_used'],
+    questionCardId: json['questionCardId'],
+    questionCardText: json['questionCardText'],
+    isUsed: json['isUsed'],
   };
 }
 
@@ -80,8 +80,8 @@ export function GetQuestionCardResponseInnerToJSON(
     return value;
   }
   return {
-    question_card_id: value['questionCardId'],
-    question_card_text: value['questionCardText'],
-    is_used: value['isUsed'],
+    questionCardId: value['questionCardId'],
+    questionCardText: value['questionCardText'],
+    isUsed: value['isUsed'],
   };
 }

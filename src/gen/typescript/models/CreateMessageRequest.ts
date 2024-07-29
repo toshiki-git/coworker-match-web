@@ -50,7 +50,7 @@ export function CreateMessageRequestFromJSONTyped(
     return json;
   }
   return {
-    questionCardId: json['question_card_id'],
+    questionCardId: json['questionCardId'],
   };
 }
 
@@ -61,6 +61,6 @@ export function CreateMessageRequestToJSON(
     return value;
   }
   return {
-    question_card_id: value['questionCardId'],
+    questionCardId: value['questionCardId'],
   };
 }

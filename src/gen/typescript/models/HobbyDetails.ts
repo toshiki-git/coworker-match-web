@@ -69,10 +69,10 @@ export function HobbyDetailsFromJSONTyped(
     return json;
   }
   return {
-    hobbyId: json['hobby_id'],
-    hobbyName: json['hobby_name'],
-    creatorId: json['creator_id'],
-    categoryId: json['category_id'],
+    hobbyId: json['hobbyId'],
+    hobbyName: json['hobbyName'],
+    creatorId: json['creatorId'],
+    categoryId: json['categoryId'],
   };
 }
 
@@ -81,9 +81,9 @@ export function HobbyDetailsToJSON(value?: HobbyDetails | null): any {
     return value;
   }
   return {
-    hobby_id: value['hobbyId'],
-    hobby_name: value['hobbyName'],
-    creator_id: value['creatorId'],
-    category_id: value['categoryId'],
+    hobbyId: value['hobbyId'],
+    hobbyName: value['hobbyName'],
+    creatorId: value['creatorId'],
+    categoryId: value['categoryId'],
   };
 }

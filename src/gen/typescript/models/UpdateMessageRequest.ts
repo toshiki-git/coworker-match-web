@@ -50,7 +50,7 @@ export function UpdateMessageRequestFromJSONTyped(
     return json;
   }
   return {
-    messageText: json['message_text'],
+    messageText: json['messageText'],
   };
 }
 
@@ -61,6 +61,6 @@ export function UpdateMessageRequestToJSON(
     return value;
   }
   return {
-    message_text: value['messageText'],
+    messageText: value['messageText'],
   };
 }

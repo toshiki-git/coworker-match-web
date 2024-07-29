@@ -51,7 +51,7 @@ export function UpdateUserHobbyRequestFromJSONTyped(
     return json;
   }
   return {
-    hobbyIds: json['hobby_ids'],
+    hobbyIds: json['hobbyIds'],
   };
 }
 
@@ -62,6 +62,6 @@ export function UpdateUserHobbyRequestToJSON(
     return value;
   }
   return {
-    hobby_ids: value['hobbyIds'],
+    hobbyIds: value['hobbyIds'],
   };
 }

@@ -64,9 +64,9 @@ export function CreateHobbyRequestFromJSONTyped(
     return json;
   }
   return {
-    creatorId: json['creator_id'],
-    hobbyName: json['hobby_name'],
-    categoryId: json['category_id'],
+    creatorId: json['creatorId'],
+    hobbyName: json['hobbyName'],
+    categoryId: json['categoryId'],
   };
 }
 
@@ -77,8 +77,8 @@ export function CreateHobbyRequestToJSON(
     return value;
   }
   return {
-    creator_id: value['creatorId'],
-    hobby_name: value['hobbyName'],
-    category_id: value['categoryId'],
+    creatorId: value['creatorId'],
+    hobbyName: value['hobbyName'],
+    categoryId: value['categoryId'],
   };
 }

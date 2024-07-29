@@ -58,8 +58,8 @@ export function GetUserHobbyResponseInnerFromJSONTyped(
     return json;
   }
   return {
-    hobbyId: json['hobby_id'],
-    hobbyName: json['hobby_name'],
+    hobbyId: json['hobbyId'],
+    hobbyName: json['hobbyName'],
   };
 }
 
@@ -70,7 +70,7 @@ export function GetUserHobbyResponseInnerToJSON(
     return value;
   }
   return {
-    hobby_id: value['hobbyId'],
-    hobby_name: value['hobbyName'],
+    hobbyId: value['hobbyId'],
+    hobbyName: value['hobbyName'],
   };
 }

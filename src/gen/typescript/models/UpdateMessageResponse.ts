@@ -52,7 +52,7 @@ export function UpdateMessageResponseFromJSONTyped(
     return json;
   }
   return {
-    messageText: json['message_text'],
+    messageText: json['messageText'],
   };
 }
 
@@ -63,6 +63,6 @@ export function UpdateMessageResponseToJSON(
     return value;
   }
   return {
-    message_text: value['messageText'],
+    messageText: value['messageText'],
   };
 }

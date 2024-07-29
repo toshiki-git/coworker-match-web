@@ -51,7 +51,7 @@ export function CreateMessageResponseFromJSONTyped(
     return json;
   }
   return {
-    messageId: json['message_id'],
+    messageId: json['messageId'],
   };
 }
 
@@ -62,6 +62,6 @@ export function CreateMessageResponseToJSON(
     return value;
   }
   return {
-    message_id: value['messageId'],
+    messageId: value['messageId'],
   };
 }

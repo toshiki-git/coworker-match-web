@@ -56,8 +56,8 @@ export function ChoiceFromJSONTyped(
     return json;
   }
   return {
-    choiceText: json['choice_text'],
-    choiceImageUrl: json['choice_image_url'],
+    choiceText: json['choiceText'],
+    choiceImageUrl: json['choiceImageUrl'],
   };
 }
 
@@ -66,7 +66,7 @@ export function ChoiceToJSON(value?: Choice | null): any {
     return value;
   }
   return {
-    choice_text: value['choiceText'],
-    choice_image_url: value['choiceImageUrl'],
+    choiceText: value['choiceText'],
+    choiceImageUrl: value['choiceImageUrl'],
   };
 }

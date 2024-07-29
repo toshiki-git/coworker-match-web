@@ -73,8 +73,8 @@ export function QuestionFromJSONTyped(
     return json;
   }
   return {
-    questionId: json['question_id'],
-    questionText: json['question_text'],
+    questionId: json['questionId'],
+    questionText: json['questionText'],
     choice1: ChoiceFromJSON(json['choice1']),
     choice2: ChoiceFromJSON(json['choice2']),
   };
@@ -85,8 +85,8 @@ export function QuestionToJSON(value?: Question | null): any {
     return value;
   }
   return {
-    question_id: value['questionId'],
-    question_text: value['questionText'],
+    questionId: value['questionId'],
+    questionText: value['questionText'],
     choice1: ChoiceToJSON(value['choice1']),
     choice2: ChoiceToJSON(value['choice2']),
   };

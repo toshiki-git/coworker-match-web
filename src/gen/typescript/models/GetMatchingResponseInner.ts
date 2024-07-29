@@ -86,11 +86,11 @@ export function GetMatchingResponseInnerFromJSONTyped(
     return json;
   }
   return {
-    matchingId: json['matching_id'],
-    avatarUrl: json['avatar_url'],
-    matchUserName: json['match_user_name'],
-    lastMessage: json['last_message'],
-    unreadMessageCount: json['unread_message_count'],
+    matchingId: json['matchingId'],
+    avatarUrl: json['avatarUrl'],
+    matchUserName: json['matchUserName'],
+    lastMessage: json['lastMessage'],
+    unreadMessageCount: json['unreadMessageCount'],
   };
 }
 
@@ -101,10 +101,10 @@ export function GetMatchingResponseInnerToJSON(
     return value;
   }
   return {
-    matching_id: value['matchingId'],
-    avatar_url: value['avatarUrl'],
-    match_user_name: value['matchUserName'],
-    last_message: value['lastMessage'],
-    unread_message_count: value['unreadMessageCount'],
+    matchingId: value['matchingId'],
+    avatarUrl: value['avatarUrl'],
+    matchUserName: value['matchUserName'],
+    lastMessage: value['lastMessage'],
+    unreadMessageCount: value['unreadMessageCount'],
   };
 }

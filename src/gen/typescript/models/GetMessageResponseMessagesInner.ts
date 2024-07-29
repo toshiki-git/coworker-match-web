@@ -75,10 +75,10 @@ export function GetMessageResponseMessagesInnerFromJSONTyped(
     return json;
   }
   return {
-    questionCardId: json['question_card_id'],
-    questionCardText: json['question_card_text'],
+    questionCardId: json['questionCardId'],
+    questionCardText: json['questionCardText'],
     messagePair: GetMessageResponseMessagesInnerMessagePairFromJSON(
-      json['message_pair']
+      json['messagePair']
     ),
   };
 }
@@ -90,9 +90,9 @@ export function GetMessageResponseMessagesInnerToJSON(
     return value;
   }
   return {
-    question_card_id: value['questionCardId'],
-    question_card_text: value['questionCardText'],
-    message_pair: GetMessageResponseMessagesInnerMessagePairToJSON(
+    questionCardId: value['questionCardId'],
+    questionCardText: value['questionCardText'],
+    messagePair: GetMessageResponseMessagesInnerMessagePairToJSON(
       value['messagePair']
     ),
   };

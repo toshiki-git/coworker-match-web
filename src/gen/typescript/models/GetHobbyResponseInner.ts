@@ -70,8 +70,8 @@ export function GetHobbyResponseInnerFromJSONTyped(
     return json;
   }
   return {
-    categoryId: json['category_id'],
-    categoryName: json['category_name'],
+    categoryId: json['categoryId'],
+    categoryName: json['categoryName'],
     hobbies: (json['hobbies'] as Array<any>).map(HobbyFromJSON),
   };
 }
@@ -83,8 +83,8 @@ export function GetHobbyResponseInnerToJSON(
     return value;
   }
   return {
-    category_id: value['categoryId'],
-    category_name: value['categoryName'],
+    categoryId: value['categoryId'],
+    categoryName: value['categoryName'],
     hobbies: (value['hobbies'] as Array<any>).map(HobbyToJSON),
   };
 }

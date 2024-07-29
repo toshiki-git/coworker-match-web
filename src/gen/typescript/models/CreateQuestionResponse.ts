@@ -76,10 +76,10 @@ export function CreateQuestionResponseFromJSONTyped(
     return json;
   }
   return {
-    matchingId: json['matching_id'],
-    senderUserId: json['sender_user_id'],
-    receiverUserId: json['receiver_user_id'],
-    matchingDate: new Date(json['matching_date']),
+    matchingId: json['matchingId'],
+    senderUserId: json['senderUserId'],
+    receiverUserId: json['receiverUserId'],
+    matchingDate: new Date(json['matchingDate']),
   };
 }
 
@@ -90,9 +90,9 @@ export function CreateQuestionResponseToJSON(
     return value;
   }
   return {
-    matching_id: value['matchingId'],
-    sender_user_id: value['senderUserId'],
-    receiver_user_id: value['receiverUserId'],
-    matching_date: value['matchingDate'].toISOString(),
+    matchingId: value['matchingId'],
+    senderUserId: value['senderUserId'],
+    receiverUserId: value['receiverUserId'],
+    matchingDate: value['matchingDate'].toISOString(),
   };
 }
