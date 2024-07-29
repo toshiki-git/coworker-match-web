@@ -21,7 +21,7 @@ function Page() {
     const handleAuth = async () => {
       try {
         const idToken = session?.idToken ?? 'unget';
-        await fetchAndSetAuthToken(idToken);
+        //await fetchAndSetAuthToken(idToken);
 
         const isExist = await isUserExist();
         if (isExist) {

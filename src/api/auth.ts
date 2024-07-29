@@ -41,7 +41,7 @@ export const registerUser = async (
   avatar_url: string
 ) => {
   await post('/users', {
-    name: user_name,
+    user_name,
     email,
     avatar_url,
   });
@@ -53,7 +53,7 @@ export const updateUser = async (
   email: string,
   avatar_url: string
 ) => {
-  await put(`/users/${user_id}`, {
+  await put('/users', {
     user_name,
     email,
     avatar_url,

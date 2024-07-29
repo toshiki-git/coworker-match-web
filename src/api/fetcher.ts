@@ -1,4 +1,4 @@
-import { getCookie } from '@/utils/cookie';
+import { getSession } from 'next-auth/react';
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 if (!API_URL) {
@@ -9,10 +9,10 @@ if (!API_URL) {
 
 // 共通のAPIクライアント関数
 const apiClient = async (url: string, options: RequestInit = {}) => {
-  const cwm_token = getCookie('cwm-token');
+  const session = await getSession();
   const headers = {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${cwm_token}`,
+    Authorization: `Bearer ${session?.idToken}`,
   };
 
   const config = {
