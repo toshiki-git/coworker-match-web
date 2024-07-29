@@ -3,7 +3,7 @@ PHONY: gen-type-file
 # Variables
 OPENAPI_URL=https://raw.githubusercontent.com/toshiki-git/coworker-match-openapi/main/dist/combined-from-ci.yml
 GENERATOR_IMAGE=openapitools/openapi-generator-cli
-OUTPUT_DIR=/local/gen/typescript
+OUTPUT_DIR=/local/src/gen/typescript
 
 define GENERATE_CMD
     docker run --rm \
