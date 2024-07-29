@@ -1,15 +1,18 @@
+import useSWR from 'swr';
 import { User } from '@/components/User';
 import { Layout } from '@/layouts';
 import { fetcher } from '@/api/fetcher';
-import { Matchings } from '@/types/Matching';
-import useSWR from 'swr';
+import { GetMatchingResponseInner } from '@/gen/typescript';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import { Loading } from '@/components/Loading';
 import { Error } from '@/components/Error';
+import Link from 'next/link';
 
 export function MatchingsPage() {
-  const { data, error } = useSWR<Matchings[]>('/matches', fetcher);
+  const { data, error } = useSWR<GetMatchingResponseInner[]>(
+    '/matchings',
+    fetcher
+  );
 
   if (error) return <Error />;
   if (!data) return <Loading />;
@@ -27,12 +30,12 @@ export function MatchingsPage() {
         ) : (
           data.map((matching) => (
             <User
-              key={matching.matching_id}
-              matching_id={matching.matching_id}
-              image_url={matching.avatar_url}
-              userName={matching.name}
-              message={matching.last_message}
-              unreadCount={matching.unread_count}
+              key={matching.matchingId}
+              matching_id={matching.matchingId}
+              image_url={matching.avatarUrl}
+              userName={matching.matchUserName}
+              message={matching.lastMessage}
+              unreadCount={matching.unreadMessageCount}
             />
           ))
         )}
