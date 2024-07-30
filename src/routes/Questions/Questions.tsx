@@ -7,8 +7,11 @@ import { Button } from '@/components/ui/button';
 import { ChoiceCard } from '@/components/ChoiceCard';
 import { Loading } from '@/components/Loading';
 import { Error } from '@/components/Error';
-import { Question } from '@/gen/typescript/models/Question';
-import { CreateQuestionRequest } from '@/gen/typescript';
+import {
+  Question,
+  CreateQuestionRequest,
+  CreateQuestionResponse,
+} from '@/gen/typescript';
 
 export function QuestionsPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -40,10 +43,13 @@ export function QuestionsPage() {
       };
 
       try {
-        const result = await post('/matching_questions', requestBody);
+        const result: CreateQuestionResponse = await post(
+          '/matching_questions',
+          requestBody
+        );
 
         setTimeout(() => {
-          router.push(`/matchings/${result.matching_id}?firstVisit=true`);
+          router.push(`/matchings/${result.matchingId}`);
         }, 2000);
       } catch (error) {
         setLoading(false);
