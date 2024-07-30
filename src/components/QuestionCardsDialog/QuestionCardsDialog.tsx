@@ -10,10 +10,10 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { QuestionCard } from '@/types/QuestionCard';
+import { GetQuestionCardResponseInner } from '@/gen/typescript';
 
 interface QuestionCardsDialogProps {
-  questionCards: QuestionCard[];
+  questionCards: GetQuestionCardResponseInner[];
   addQuestion: (question: string) => void;
 }
 
@@ -25,7 +25,7 @@ export function QuestionCardsDialog({
   const dialogCloseRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    setIsDisabled(questionCards.map((card) => card.is_used));
+    setIsDisabled(questionCards.map((card) => card.isUsed));
   }, [questionCards]);
 
   const handleAddQuestion = (index: number, questionCardId: string) => {
@@ -53,14 +53,14 @@ export function QuestionCardsDialog({
         <div className="grid grid-cols-1 gap-4 mt-4">
           {questionCards.map((questionCard, index) => (
             <Button
-              key={questionCard.question_card_id}
+              key={questionCard.questionCardId}
               onClick={() =>
-                handleAddQuestion(index, questionCard.question_card_id)
+                handleAddQuestion(index, questionCard.questionCardId)
               }
               disabled={isDisabled[index]}
               className="text-left p-4 rounded-lg shadow-md"
             >
-              {questionCard.question_card_text}
+              {questionCard.questionCardText}
             </Button>
           ))}
         </div>

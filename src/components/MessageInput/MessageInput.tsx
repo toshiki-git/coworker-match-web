@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { put } from '@/api/fetcher';
+import { UpdateMessageRequest } from '@/gen/typescript';
 
 const FormSchema = z.object({
   message: z.string().trim().min(1, {
@@ -33,7 +34,8 @@ export function MessageInput({ message_id, setAnswer }: MessageInputProps) {
   });
 
   const handleAnswerSubmit = async (answer: string) => {
-    await put(`/messages/${message_id}`, { answer });
+    const requestBody: UpdateMessageRequest = { messageText: answer };
+    await put(`/messages/${message_id}`, requestBody);
     setAnswer(answer);
   };
 
