@@ -41,9 +41,9 @@ export const registerUser = async (
   avatar_url: string
 ) => {
   await post('/users', {
-    user_name,
+    userName: user_name,
     email,
-    avatar_url,
+    avatarUrl: avatar_url,
   });
 };
 
