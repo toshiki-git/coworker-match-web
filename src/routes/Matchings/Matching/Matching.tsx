@@ -42,7 +42,7 @@ export function MatchingPage() {
     mutate(`/question_cards?matching_id=${matchingId}`);
   };
 
-  if (error) return <Error />;
+  if (error) return <Error message={error.message} />;
   if (!questionCardsData) return <Loading />;
 
   const filteredQuestionCards = questionCardsData.slice(0, -1);

@@ -7,6 +7,18 @@ if (!API_URL) {
   );
 }
 
+class ApiError extends Error {
+  status: number;
+  statusText: string;
+
+  constructor(message: string, status: number, statusText: string) {
+    super(message);
+    this.status = status;
+    this.statusText = statusText;
+    this.name = 'ApiError';
+  }
+}
+
 // 共通のAPIクライアント関数
 const apiClient = async (url: string, options: RequestInit = {}) => {
   const session = await getSession();
@@ -23,11 +35,11 @@ const apiClient = async (url: string, options: RequestInit = {}) => {
     },
   };
 
-  const response = await fetch(`${API_URL}${url}`, config);
+  const response: Response = await fetch(`${API_URL}${url}`, config);
 
   if (!response.ok) {
     const error = await response.json();
-    throw new Error(error.message || 'API request failed');
+    throw new ApiError(error.error, response.status, response.statusText);
   }
 
   return response.json();

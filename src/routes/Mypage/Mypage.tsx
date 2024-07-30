@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 
 export function MyPage() {
   const { data: session } = useSession();
+  console.log(session?.idToken);
   return (
     <Layout>
       <div className="w-4/5 sm:w-2/3 md:w-1/2 lg:w-1/3 flex flex-col gap-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -35,7 +36,6 @@ export function MyPage() {
             </Link>
           </Button>
         </div>
-        {session?.idToken}
       </div>
     </Layout>
   );

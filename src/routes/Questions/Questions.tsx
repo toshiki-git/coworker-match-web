@@ -22,7 +22,7 @@ export function QuestionsPage() {
 
   const { data, error } = useSWR<Question[]>('/matching_questions', fetcher);
 
-  if (error) return <Error />;
+  if (error) return <Error message={error.message} />;
   if (!data) return <Loading />;
 
   const handleChoiceClick = async (choiceIndex: number) => {

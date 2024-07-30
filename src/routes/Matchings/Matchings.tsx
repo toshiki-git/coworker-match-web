@@ -14,7 +14,7 @@ export function MatchingsPage() {
     fetcher
   );
 
-  if (error) return <Error />;
+  if (error) return <Error message={error.message} />;
   if (!data) return <Loading />;
 
   return (
