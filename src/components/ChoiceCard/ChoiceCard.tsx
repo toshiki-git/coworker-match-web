@@ -2,15 +2,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
 
 interface ChoiceCardProps {
-  choice_text: string;
-  choice_image_url: string;
+  choiceText: string;
+  choiceImageUrl: string;
   isSelected: boolean;
   onClick: () => void;
 }
 
 export function ChoiceCard({
-  choice_text,
-  choice_image_url,
+  choiceText,
+  choiceImageUrl,
   isSelected,
   onClick,
 }: ChoiceCardProps) {
@@ -20,12 +20,12 @@ export function ChoiceCard({
       className={`w-[12rem] h-[15rem] cursor-pointer hover:bg-slate-100 ${isSelected ? 'border-4 border-green-500' : ''}`}
     >
       <CardHeader className="text-center">
-        <CardTitle>{choice_text}</CardTitle>
+        <CardTitle>{choiceText}</CardTitle>
       </CardHeader>
       <CardContent>
         <Image
-          src={choice_image_url}
-          alt={choice_text}
+          src={choiceImageUrl}
+          alt={choiceText}
           width={100}
           height={100}
           className="mx-auto mb-2 h-auto w-auto"

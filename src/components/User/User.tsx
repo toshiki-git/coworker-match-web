@@ -2,28 +2,28 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 interface UserProps {
-  matching_id: string;
-  image_url: string;
+  matchingId: string;
+  imageUrl: string;
   userName: string;
   message: string;
   unreadCount: number;
 }
 
 export function User({
-  matching_id,
-  image_url,
+  matchingId,
+  imageUrl,
   userName,
   message,
   unreadCount,
 }: UserProps) {
   return (
     <Link
-      href={`/matchings/${matching_id}`}
+      href={`/matchings/${matchingId}`}
       className="cursor-pointer max-w-md mx-auto flex items-center p-4 border-b bg-white hover:bg-green-50 transition duration-200 ease-in-out shadow-lg rounded-md"
     >
       <div className="flex-shrink-0">
         <Image
-          src={image_url}
+          src={imageUrl}
           alt={`${userName} avatar`}
           width={50}
           height={50}

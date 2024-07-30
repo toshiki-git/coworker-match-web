@@ -111,14 +111,14 @@ export function QuestionsPage() {
             </div>
             <div className="flex space-x-4">
               <ChoiceCard
-                choice_text={currentQuestion.choice1.choiceText}
-                choice_image_url={currentQuestion.choice1.choiceImageUrl}
+                choiceText={currentQuestion.choice1.choiceText}
+                choiceImageUrl={currentQuestion.choice1.choiceImageUrl}
                 isSelected={selectedChoice === 1}
                 onClick={() => handleChoiceClick(1)}
               />
               <ChoiceCard
-                choice_text={currentQuestion.choice2.choiceText}
-                choice_image_url={currentQuestion.choice2.choiceImageUrl}
+                choiceText={currentQuestion.choice2.choiceText}
+                choiceImageUrl={currentQuestion.choice2.choiceImageUrl}
                 isSelected={selectedChoice === 2}
                 onClick={() => handleChoiceClick(2)}
               />

@@ -31,8 +31,8 @@ export function MatchingsPage() {
           data.map((matching) => (
             <User
               key={matching.matchingId}
-              matching_id={matching.matchingId}
-              image_url={matching.avatarUrl}
+              matchingId={matching.matchingId}
+              imageUrl={matching.avatarUrl}
               userName={matching.matchUserName}
               message={matching.lastMessage}
               unreadCount={matching.unreadMessageCount}

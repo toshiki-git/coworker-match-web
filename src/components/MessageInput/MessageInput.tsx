@@ -21,11 +21,11 @@ const FormSchema = z.object({
 });
 
 interface MessageInputProps {
-  message_id: string;
+  messageId: string;
   setAnswer: (answer: string) => void;
 }
 
-export function MessageInput({ message_id, setAnswer }: MessageInputProps) {
+export function MessageInput({ messageId, setAnswer }: MessageInputProps) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -35,7 +35,7 @@ export function MessageInput({ message_id, setAnswer }: MessageInputProps) {
 
   const handleAnswerSubmit = async (answer: string) => {
     const requestBody: UpdateMessageRequest = { messageText: answer };
-    await put(`/messages/${message_id}`, requestBody);
+    await put(`/messages/${messageId}`, requestBody);
     setAnswer(answer);
   };
 

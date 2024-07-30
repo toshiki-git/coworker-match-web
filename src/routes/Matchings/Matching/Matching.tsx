@@ -73,12 +73,12 @@ export function MatchingPage() {
             {messages?.messages?.map((message, index) => (
               <div key={index} className="mb-6">
                 <Message
-                  message_id={message.messagePair.me.messageId}
-                  question_text={message.questionCardText}
-                  my_icon_url={session?.user?.image as string}
-                  my_answer={message.messagePair.me.messageText}
-                  other_icon_url={''}
-                  other_answer={message.messagePair.you.messageText}
+                  messageId={message.messagePair.me.messageId}
+                  questionText={message.questionCardText}
+                  myIconUrl={session?.user?.image as string}
+                  myAnswer={message.messagePair.me.messageText}
+                  otherIconUrl={''}
+                  otherAnswer={message.messagePair.you.messageText}
                 />
               </div>
             ))}
