@@ -1,15 +1,11 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import {
-  fetchAndSetAuthToken,
-  registerUser,
-  updateUser,
-  createEmptyUserHobby,
-} from '@/api/auth';
 import { isUserExist } from '@/utils/auth';
 import Head from 'next/head';
 import { Loading } from '@/components/Loading';
+import { post } from '@/api/fetcher';
+import { CreateUserRequest } from '@/gen/typescript';
 
 function Page() {
   const { data: session, status } = useSession();
@@ -20,25 +16,16 @@ function Page() {
 
     const handleAuth = async () => {
       try {
-        const idToken = session?.idToken ?? 'unget';
-        //await fetchAndSetAuthToken(idToken);
-
         const isExist = await isUserExist();
         if (isExist) {
-          await updateUser(
-            session?.userId ?? '',
-            session?.user?.name ?? '',
-            session?.user?.email ?? '',
-            session?.user?.image ?? ''
-          );
           router.push('/mypage');
         } else {
-          await registerUser(
-            session?.user?.name ?? '',
-            session?.user?.email ?? '',
-            session?.user?.image ?? ''
-          );
-          await createEmptyUserHobby();
+          const requestBody: CreateUserRequest = {
+            userName: session?.user?.name ?? '',
+            email: session?.user?.email ?? '',
+            avatarUrl: session?.user?.image ?? '',
+          };
+          await post('/users', requestBody);
           router.push('/mypage/hobbies');
         }
       } catch (error) {
@@ -48,7 +35,7 @@ function Page() {
     };
 
     handleAuth();
-  }, [status]);
+  }, [router, session, status]);
 
   return (
     <div>

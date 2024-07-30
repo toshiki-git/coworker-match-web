@@ -1,3 +1,4 @@
+//DELETE FILE
 import { setCookie } from '@/utils/cookie';
 import { post, put } from '@/api/fetcher';
 
