@@ -30,7 +30,6 @@ function Page() {
         }
       } catch (error) {
         console.error('Authentication error:', error);
-        // エラーハンドリング
       }
     };
 
