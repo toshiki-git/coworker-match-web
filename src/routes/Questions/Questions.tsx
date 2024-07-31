@@ -6,7 +6,7 @@ import { fetcher, post } from '@/api/fetcher';
 import { Button } from '@/components/ui/button';
 import { ChoiceCard } from '@/components/ChoiceCard';
 import { Loading } from '@/components/Loading';
-import { Error } from '@/components/Error';
+import { ApiError } from '@/components/ApiError';
 import {
   Question,
   CreateQuestionRequest,
@@ -22,7 +22,8 @@ export function QuestionsPage() {
 
   const { data, error } = useSWR<Question[]>('/matching_questions', fetcher);
 
-  if (error) return <Error message={error.message} />;
+  if (error)
+    return <ApiError statusCode={error.status} statusText={error.statusText} />;
   if (!data) return <Loading />;
 
   const handleChoiceClick = async (choiceIndex: number) => {

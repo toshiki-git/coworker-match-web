@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Error } from '@/components/Error';
+import { ApiError } from '@/components/ApiError';
 
 interface LoadingProps {
   loadingMessage?: string;
@@ -31,5 +31,5 @@ export function Loading({
     );
   }
 
-  if (error) return <Error />;
+  if (error) return <ApiError />;
 }

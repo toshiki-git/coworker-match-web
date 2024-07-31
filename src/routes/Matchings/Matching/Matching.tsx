@@ -13,7 +13,7 @@ import { QuestionCardsDialog } from '@/components/QuestionCardsDialog';
 import { useRouter } from 'next/router';
 import { ChevronLeft } from 'lucide-react';
 import { Confetti } from '@/components/Confetti';
-import { Error } from '@/components/Error';
+import { ApiError } from '@/components/ApiError';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Loading } from '@/components/Loading';
@@ -42,7 +42,8 @@ export function MatchingPage() {
     mutate(`/question_cards?matching_id=${matchingId}`);
   };
 
-  if (error) return <Error message={error.message} />;
+  if (error)
+    return <ApiError statusCode={error.status} statusText={error.statusText} />;
   if (!questionCardsData) return <Loading />;
 
   const filteredQuestionCards = questionCardsData.slice(0, -1);

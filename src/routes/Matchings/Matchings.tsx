@@ -5,7 +5,7 @@ import { fetcher } from '@/api/fetcher';
 import { GetMatchingResponseInner } from '@/gen/typescript';
 import { Button } from '@/components/ui/button';
 import { Loading } from '@/components/Loading';
-import { Error } from '@/components/Error';
+import { ApiError } from '@/components/ApiError';
 import Link from 'next/link';
 
 export function MatchingsPage() {
@@ -14,7 +14,10 @@ export function MatchingsPage() {
     fetcher
   );
 
-  if (error) return <Error message={error.message} />;
+  console.log(error);
+
+  if (error)
+    return <ApiError statusCode={error.status} statusText={error.statusText} />;
   if (!data) return <Loading />;
 
   return (

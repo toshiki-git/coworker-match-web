@@ -15,7 +15,7 @@ import { useSession } from 'next-auth/react';
 import { UnimplementedDropdown } from '@/components/UnimplementedDropdown';
 import { toast } from '@/components/ui/use-toast';
 import { Loading } from '@/components/Loading';
-import { Error } from '@/components/Error';
+import { ApiError } from '@/components/ApiError';
 
 export function HobbiesPage() {
   const router = useRouter();
@@ -37,7 +37,12 @@ export function HobbiesPage() {
   }, [userHobbies]);
 
   if (hobbiesError || userHobbiesError)
-    return <Error message={userHobbiesError.message} />;
+    return (
+      <ApiError
+        statusCode={userHobbiesError.status}
+        statusText={userHobbiesError.statusText}
+      />
+    );
   if (!allHobbies || !userHobbies) return <Loading />;
 
   const handleCheckboxChange = (id: string) => {

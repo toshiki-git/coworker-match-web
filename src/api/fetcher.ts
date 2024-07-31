@@ -38,8 +38,12 @@ const apiClient = async (url: string, options: RequestInit = {}) => {
   const response: Response = await fetch(`${API_URL}${url}`, config);
 
   if (!response.ok) {
-    const error = await response.json();
-    throw new ApiError(error.error, response.status, response.statusText);
+    try {
+      const error = await response.json();
+      throw new ApiError(error.error, response.status, response.statusText);
+    } catch (error: any) {
+      throw new ApiError(error.message, response.status, response.statusText);
+    }
   }
 
   return response.json();
