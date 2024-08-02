@@ -8,6 +8,7 @@ import {
   GetQuestionCardResponseInner,
   GetMessageResponse,
   CreateMessageRequest,
+  GetMatchingUserResponse,
 } from '@/gen/typescript';
 import { QuestionCardsDialog } from '@/components/QuestionCardsDialog';
 import { useRouter } from 'next/router';
@@ -30,6 +31,8 @@ export function MatchingPage() {
   const { data: questionCardsData, error: questionCardsError } = useSWR<
     GetQuestionCardResponseInner[]
   >(`/question_cards?matchingId=${matchingId}`, fetcher);
+  const { data: matchUserData, error: matchUserError } =
+    useSWR<GetMatchingUserResponse>(`/matchings/${matchingId}`, fetcher);
 
   const addQuestion = async (questionCardId: string) => {
     const requestBody: CreateMessageRequest = {
@@ -52,8 +55,9 @@ export function MatchingPage() {
 
   if (messagesError) return <ApiError error={messagesError} />;
   if (questionCardsError) return <ApiError error={questionCardsError} />;
+  if (matchUserError) return <ApiError error={matchUserError} />;
 
-  if (!messages || !questionCardsData) return <Loading />;
+  if (!messages || !questionCardsData || !matchUserData) return <Loading />;
 
   const filteredQuestionCards = questionCardsData.slice(0, -1);
   const lastQuestionCard = questionCardsData.slice(-1)[0];
@@ -70,7 +74,9 @@ export function MatchingPage() {
               <ChevronLeft />
             </Link>
             <div className="mb-5 font-bold text-center">
-              <p className="block sm:inline ">{''}さんとマッチングしました。</p>
+              <p className="block sm:inline ">
+                {matchUserData.user.userName}さんとマッチングしました。
+              </p>
               <p className="block sm:inline">
                 さっそく質問を追加してみましょう。
               </p>
@@ -87,7 +93,7 @@ export function MatchingPage() {
                   questionText={message.questionCardText}
                   myIconUrl={session?.user?.image as string}
                   myAnswer={message.messagePair.me.messageText}
-                  otherIconUrl={''}
+                  otherIconUrl={matchUserData.user.avatarUrl}
                   otherAnswer={message.messagePair.you.messageText}
                 />
               </div>
