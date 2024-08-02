@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import { isUserExist } from '@/utils/auth';
 import Head from 'next/head';
 import { Loading } from '@/components/Loading';
-import { post } from '@/api/fetcher';
+import { fetcher, post } from '@/api/fetcher';
 import { CreateUserRequest } from '@/gen/typescript';
 
 function Page() {
@@ -16,7 +15,8 @@ function Page() {
 
     const handleAuth = async () => {
       try {
-        const isExist = await isUserExist();
+        const response = await fetcher('/users/exists');
+        const isExist: boolean = response.exists;
         if (isExist) {
           router.push('/mypage');
         } else {
