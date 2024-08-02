@@ -1,22 +1,12 @@
 import { getSession } from 'next-auth/react';
+import { CustomApiError } from '@/types/ApiError';
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 if (!API_URL) {
   throw new Error(
     'API_URL is not defined. Please set NEXT_PUBLIC_API_URL in your environment variables.'
   );
-}
-
-export class CustomApiError extends Error {
-  status: number;
-  statusText: string;
-
-  constructor(message: string, status: number, statusText: string) {
-    super(message);
-    this.status = status;
-    this.statusText = statusText;
-    this.name = 'CustomApiError';
-  }
 }
 
 // 共通のAPIクライアント関数

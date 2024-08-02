@@ -1,7 +1,7 @@
 import { Layout } from '@/layouts';
 import { Button } from '@/components/ui/button';
 import { signOut } from 'next-auth/react';
-import { CustomApiError } from '@/api/fetcher';
+import { CustomApiError } from '@/types/ApiError';
 
 interface ApiErrorProps {
   error: CustomApiError;
