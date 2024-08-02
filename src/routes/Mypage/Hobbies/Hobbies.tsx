@@ -50,14 +50,21 @@ export function HobbiesPage() {
   };
 
   const handleRegister = async () => {
-    const requestBody: UpdateUserHobbyRequest = {
-      hobbyIds: selectedHobbies,
-    };
-    await put('/user_hobbies', requestBody);
-    toast({
-      title: '趣味の登録が完了しました！',
-    });
-    router.push('/mypage');
+    try {
+      const requestBody: UpdateUserHobbyRequest = {
+        hobbyIds: selectedHobbies,
+      };
+      await put('/user_hobbies', requestBody);
+      toast({
+        title: '趣味の登録が完了しました！',
+      });
+      router.push('/mypage');
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: '趣味の登録に失敗しました',
+      });
+    }
   };
 
   return (
