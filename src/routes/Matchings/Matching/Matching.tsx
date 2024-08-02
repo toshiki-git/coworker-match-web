@@ -17,6 +17,7 @@ import { ApiError } from '@/components/ApiError';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Loading } from '@/components/Loading';
+import { toast } from '@/components/ui/use-toast';
 
 export function MatchingPage() {
   const { data: session } = useSession();
@@ -34,7 +35,15 @@ export function MatchingPage() {
     const requestBody: CreateMessageRequest = {
       questionCardId,
     };
-    await post(`/messages/${matchingId}`, requestBody);
+    try {
+      await post(`/messages/${matchingId}`, requestBody);
+    } catch (error) {
+      console.error(error);
+      toast({
+        variant: 'destructive',
+        title: '質問の追加に失敗しました',
+      });
+    }
 
     // Mutate messages data to revalidate SWR
     mutate(`/messages/${matchingId}`);

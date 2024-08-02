@@ -33,17 +33,20 @@ export function MessageInput({ messageId, setAnswer }: MessageInputProps) {
     },
   });
 
-  const handleAnswerSubmit = async (answer: string) => {
-    const requestBody: UpdateMessageRequest = { messageText: answer };
-    await put(`/messages/${messageId}`, requestBody);
-    setAnswer(answer);
-  };
-
-  const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    toast({
-      title: 'メッセージが送信されました',
-    });
-    handleAnswerSubmit(data.message);
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    try {
+      const requestBody: UpdateMessageRequest = { messageText: data.message };
+      await put(`/messages/${messageId}`, requestBody);
+      setAnswer(data.message);
+      toast({
+        title: 'メッセージが送信されました',
+      });
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'メッセージが送信できませんでした',
+      });
+    }
   };
 
   return (
