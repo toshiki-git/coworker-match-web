@@ -36,8 +36,9 @@ export function HobbiesPage() {
     }
   }, [userHobbies]);
 
-  if (hobbiesError || userHobbiesError)
-    return <ApiError error={hobbiesError ?? userHobbiesError} />;
+  if (hobbiesError) return <ApiError error={hobbiesError} />;
+  if (userHobbiesError) return <ApiError error={userHobbiesError} />;
+
   if (!allHobbies || !userHobbies) return <Loading />;
 
   const handleCheckboxChange = (id: string) => {

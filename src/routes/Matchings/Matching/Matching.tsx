@@ -22,14 +22,13 @@ export function MatchingPage() {
   const { data: session } = useSession();
   const router = useRouter();
   const { matchingId } = router.query;
-  const { data: messages, error } = useSWR<GetMessageResponse>(
+  const { data: messages, error: messagesError } = useSWR<GetMessageResponse>(
     `/messages/${matchingId}`,
     fetcher
   );
-  const { data: questionCardsData } = useSWR<GetQuestionCardResponseInner[]>(
-    `/question_cards?matchingId=${matchingId}`,
-    fetcher
-  );
+  const { data: questionCardsData, error: questionCardsError } = useSWR<
+    GetQuestionCardResponseInner[]
+  >(`/question_cards?matchingId=${matchingId}`, fetcher);
 
   const addQuestion = async (questionCardId: string) => {
     const requestBody: CreateMessageRequest = {
@@ -42,8 +41,10 @@ export function MatchingPage() {
     mutate(`/question_cards?matching_id=${matchingId}`);
   };
 
-  if (error) return <ApiError error={error} />;
-  if (!questionCardsData) return <Loading />;
+  if (messagesError) return <ApiError error={messagesError} />;
+  if (questionCardsError) return <ApiError error={questionCardsError} />;
+
+  if (!messages || !questionCardsData) return <Loading />;
 
   const filteredQuestionCards = questionCardsData.slice(0, -1);
   const lastQuestionCard = questionCardsData.slice(-1)[0];
