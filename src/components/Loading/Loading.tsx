@@ -30,6 +30,4 @@ export function Loading({
       </div>
     );
   }
-
-  if (error) return <ApiError />;
 }

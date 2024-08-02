@@ -20,11 +20,13 @@ export function QuestionsPage() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
 
-  const { data, error } = useSWR<Question[]>('/matching_questions', fetcher);
+  const { data, error, isLoading } = useSWR<Question[]>(
+    '/matching_questions',
+    fetcher
+  );
 
-  if (error)
-    return <ApiError statusCode={error.status} statusText={error.statusText} />;
-  if (!data) return <Loading />;
+  if (error) return <ApiError error={error} />;
+  if (isLoading || !data) return <Loading />;
 
   const handleChoiceClick = async (choiceIndex: number) => {
     const newSelectedChoices = [...selectedChoices];

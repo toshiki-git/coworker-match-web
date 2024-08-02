@@ -9,16 +9,13 @@ import { ApiError } from '@/components/ApiError';
 import Link from 'next/link';
 
 export function MatchingsPage() {
-  const { data, error } = useSWR<GetMatchingResponseInner[]>(
+  const { data, error, isLoading } = useSWR<GetMatchingResponseInner[]>(
     '/matchings',
     fetcher
   );
 
-  console.log(error);
-
-  if (error)
-    return <ApiError statusCode={error.status} statusText={error.statusText} />;
-  if (!data) return <Loading />;
+  if (error) return <ApiError error={error} />;
+  if (isLoading || !data) return <Loading />;
 
   return (
     <Layout>
@@ -26,7 +23,7 @@ export function MatchingsPage() {
         {data.length === 0 ? (
           <div className="flex flex-col items-center justify-center">
             <p className="mb-4 text-lg">マッチングがまだありません。</p>
-            <Button className=" w-72 h-16" asChild>
+            <Button className="w-72 h-16" asChild>
               <Link href="/questions">新しいマッチングを開始する →</Link>
             </Button>
           </div>

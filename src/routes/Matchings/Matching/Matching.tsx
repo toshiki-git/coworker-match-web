@@ -42,8 +42,7 @@ export function MatchingPage() {
     mutate(`/question_cards?matching_id=${matchingId}`);
   };
 
-  if (error)
-    return <ApiError statusCode={error.status} statusText={error.statusText} />;
+  if (error) return <ApiError error={error} />;
   if (!questionCardsData) return <Loading />;
 
   const filteredQuestionCards = questionCardsData.slice(0, -1);

@@ -7,7 +7,7 @@ if (!API_URL) {
   );
 }
 
-class ApiError extends Error {
+export class CustomApiError extends Error {
   status: number;
   statusText: string;
 
@@ -15,7 +15,7 @@ class ApiError extends Error {
     super(message);
     this.status = status;
     this.statusText = statusText;
-    this.name = 'ApiError';
+    this.name = 'CustomApiError';
   }
 }
 
@@ -40,9 +40,17 @@ const apiClient = async (url: string, options: RequestInit = {}) => {
   if (!response.ok) {
     try {
       const error = await response.json();
-      throw new ApiError(error.error, response.status, response.statusText);
+      throw new CustomApiError(
+        error.error,
+        response.status,
+        response.statusText
+      );
     } catch (error: any) {
-      throw new ApiError(error.message, response.status, response.statusText);
+      throw new CustomApiError(
+        error.message,
+        response.status,
+        response.statusText
+      );
     }
   }
 

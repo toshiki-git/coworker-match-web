@@ -1,10 +1,10 @@
 import { Layout } from '@/layouts';
 import { Button } from '@/components/ui/button';
 import { signOut } from 'next-auth/react';
+import { CustomApiError } from '@/api/fetcher';
 
 interface ApiErrorProps {
-  statusCode?: number;
-  statusText?: string;
+  error: CustomApiError;
 }
 
 const getErrorMessage = (statusCode: number | undefined): string => {
@@ -26,14 +26,15 @@ const getErrorMessage = (statusCode: number | undefined): string => {
   }
 };
 
-export function ApiError({ statusCode, statusText }: ApiErrorProps) {
-  const message = getErrorMessage(statusCode);
-
+export function ApiError({ error }: ApiErrorProps) {
+  //TODO: production環境ではconsole.error()を削除する
+  console.error(error);
+  const message = getErrorMessage(error.status);
   return (
     <Layout>
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
         <h1 className="text-2xl font-bold">
-          エラー {statusCode}: {statusText}
+          エラー {error.status}: {error.statusText}
         </h1>
         <p className="mt-4 text-lg">{message}</p>
         <div className="flex justify-center mt-4">
