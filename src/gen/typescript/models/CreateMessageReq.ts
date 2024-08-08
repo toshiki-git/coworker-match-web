@@ -16,36 +16,36 @@ import { mapValues } from '../runtime';
 /**
  *
  * @export
- * @interface CreateMessageRequest
+ * @interface CreateMessageReq
  */
-export interface CreateMessageRequest {
+export interface CreateMessageReq {
   /**
    *
    * @type {string}
-   * @memberof CreateMessageRequest
+   * @memberof CreateMessageReq
    */
   questionCardId: string;
 }
 
 /**
- * Check if a given object implements the CreateMessageRequest interface.
+ * Check if a given object implements the CreateMessageReq interface.
  */
-export function instanceOfCreateMessageRequest(
+export function instanceOfCreateMessageReq(
   value: object
-): value is CreateMessageRequest {
+): value is CreateMessageReq {
   if (!('questionCardId' in value) || value['questionCardId'] === undefined)
     return false;
   return true;
 }
 
-export function CreateMessageRequestFromJSON(json: any): CreateMessageRequest {
-  return CreateMessageRequestFromJSONTyped(json, false);
+export function CreateMessageReqFromJSON(json: any): CreateMessageReq {
+  return CreateMessageReqFromJSONTyped(json, false);
 }
 
-export function CreateMessageRequestFromJSONTyped(
+export function CreateMessageReqFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): CreateMessageRequest {
+): CreateMessageReq {
   if (json == null) {
     return json;
   }
@@ -54,9 +54,7 @@ export function CreateMessageRequestFromJSONTyped(
   };
 }
 
-export function CreateMessageRequestToJSON(
-  value?: CreateMessageRequest | null
-): any {
+export function CreateMessageReqToJSON(value?: CreateMessageReq | null): any {
   if (value == null) {
     return value;
   }

@@ -14,23 +14,23 @@
 
 import * as runtime from '../runtime';
 import type {
-  CreateMessageRequest,
-  CreateMessageResponse,
-  GetMessageResponse,
-  UpdateMessageRequest,
-  UpdateMessageResponse,
+  CreateMessageReq,
+  CreateMessageRes,
+  GetMessageRes,
+  UpdateMessageReq,
+  UpdateMessageRes,
 } from '../models/index';
 import {
-  CreateMessageRequestFromJSON,
-  CreateMessageRequestToJSON,
-  CreateMessageResponseFromJSON,
-  CreateMessageResponseToJSON,
-  GetMessageResponseFromJSON,
-  GetMessageResponseToJSON,
-  UpdateMessageRequestFromJSON,
-  UpdateMessageRequestToJSON,
-  UpdateMessageResponseFromJSON,
-  UpdateMessageResponseToJSON,
+  CreateMessageReqFromJSON,
+  CreateMessageReqToJSON,
+  CreateMessageResFromJSON,
+  CreateMessageResToJSON,
+  GetMessageResFromJSON,
+  GetMessageResToJSON,
+  UpdateMessageReqFromJSON,
+  UpdateMessageReqToJSON,
+  UpdateMessageResFromJSON,
+  UpdateMessageResToJSON,
 } from '../models/index';
 
 export interface MessagesMatchingIdGetRequest {
@@ -39,12 +39,12 @@ export interface MessagesMatchingIdGetRequest {
 
 export interface MessagesMatchingIdPostRequest {
   matchingId: string;
-  createMessageRequest: CreateMessageRequest;
+  createMessageReq: CreateMessageReq;
 }
 
 export interface MessagesMessageIdPutRequest {
   messageId: string;
-  updateMessageRequest: UpdateMessageRequest;
+  updateMessageReq: UpdateMessageReq;
 }
 
 /**
@@ -57,7 +57,7 @@ export class MessagesApi extends runtime.BaseAPI {
   async messagesMatchingIdGetRaw(
     requestParameters: MessagesMatchingIdGetRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<runtime.ApiResponse<GetMessageResponse>> {
+  ): Promise<runtime.ApiResponse<GetMessageRes>> {
     if (requestParameters['matchingId'] == null) {
       throw new runtime.RequiredError(
         'matchingId',
@@ -71,8 +71,8 @@ export class MessagesApi extends runtime.BaseAPI {
 
     const response = await this.request(
       {
-        path: `/messages/{matching_id}`.replace(
-          `{${'matching_id'}}`,
+        path: `/messages/{matchingId}`.replace(
+          `{${'matchingId'}}`,
           encodeURIComponent(String(requestParameters['matchingId']))
         ),
         method: 'GET',
@@ -83,7 +83,7 @@ export class MessagesApi extends runtime.BaseAPI {
     );
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      GetMessageResponseFromJSON(jsonValue)
+      GetMessageResFromJSON(jsonValue)
     );
   }
 
@@ -93,7 +93,7 @@ export class MessagesApi extends runtime.BaseAPI {
   async messagesMatchingIdGet(
     requestParameters: MessagesMatchingIdGetRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<GetMessageResponse> {
+  ): Promise<GetMessageRes> {
     const response = await this.messagesMatchingIdGetRaw(
       requestParameters,
       initOverrides
@@ -107,7 +107,7 @@ export class MessagesApi extends runtime.BaseAPI {
   async messagesMatchingIdPostRaw(
     requestParameters: MessagesMatchingIdPostRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<runtime.ApiResponse<CreateMessageResponse>> {
+  ): Promise<runtime.ApiResponse<CreateMessageRes>> {
     if (requestParameters['matchingId'] == null) {
       throw new runtime.RequiredError(
         'matchingId',
@@ -115,10 +115,10 @@ export class MessagesApi extends runtime.BaseAPI {
       );
     }
 
-    if (requestParameters['createMessageRequest'] == null) {
+    if (requestParameters['createMessageReq'] == null) {
       throw new runtime.RequiredError(
-        'createMessageRequest',
-        'Required parameter "createMessageRequest" was null or undefined when calling messagesMatchingIdPost().'
+        'createMessageReq',
+        'Required parameter "createMessageReq" was null or undefined when calling messagesMatchingIdPost().'
       );
     }
 
@@ -130,22 +130,20 @@ export class MessagesApi extends runtime.BaseAPI {
 
     const response = await this.request(
       {
-        path: `/messages/{matching_id}`.replace(
-          `{${'matching_id'}}`,
+        path: `/messages/{matchingId}`.replace(
+          `{${'matchingId'}}`,
           encodeURIComponent(String(requestParameters['matchingId']))
         ),
         method: 'POST',
         headers: headerParameters,
         query: queryParameters,
-        body: CreateMessageRequestToJSON(
-          requestParameters['createMessageRequest']
-        ),
+        body: CreateMessageReqToJSON(requestParameters['createMessageReq']),
       },
       initOverrides
     );
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      CreateMessageResponseFromJSON(jsonValue)
+      CreateMessageResFromJSON(jsonValue)
     );
   }
 
@@ -155,7 +153,7 @@ export class MessagesApi extends runtime.BaseAPI {
   async messagesMatchingIdPost(
     requestParameters: MessagesMatchingIdPostRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<CreateMessageResponse> {
+  ): Promise<CreateMessageRes> {
     const response = await this.messagesMatchingIdPostRaw(
       requestParameters,
       initOverrides
@@ -169,7 +167,7 @@ export class MessagesApi extends runtime.BaseAPI {
   async messagesMessageIdPutRaw(
     requestParameters: MessagesMessageIdPutRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<runtime.ApiResponse<UpdateMessageResponse>> {
+  ): Promise<runtime.ApiResponse<UpdateMessageRes>> {
     if (requestParameters['messageId'] == null) {
       throw new runtime.RequiredError(
         'messageId',
@@ -177,10 +175,10 @@ export class MessagesApi extends runtime.BaseAPI {
       );
     }
 
-    if (requestParameters['updateMessageRequest'] == null) {
+    if (requestParameters['updateMessageReq'] == null) {
       throw new runtime.RequiredError(
-        'updateMessageRequest',
-        'Required parameter "updateMessageRequest" was null or undefined when calling messagesMessageIdPut().'
+        'updateMessageReq',
+        'Required parameter "updateMessageReq" was null or undefined when calling messagesMessageIdPut().'
       );
     }
 
@@ -192,22 +190,20 @@ export class MessagesApi extends runtime.BaseAPI {
 
     const response = await this.request(
       {
-        path: `/messages/{message_id}`.replace(
-          `{${'message_id'}}`,
+        path: `/messages/{messageId}`.replace(
+          `{${'messageId'}}`,
           encodeURIComponent(String(requestParameters['messageId']))
         ),
         method: 'PUT',
         headers: headerParameters,
         query: queryParameters,
-        body: UpdateMessageRequestToJSON(
-          requestParameters['updateMessageRequest']
-        ),
+        body: UpdateMessageReqToJSON(requestParameters['updateMessageReq']),
       },
       initOverrides
     );
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      UpdateMessageResponseFromJSON(jsonValue)
+      UpdateMessageResFromJSON(jsonValue)
     );
   }
 
@@ -217,7 +213,7 @@ export class MessagesApi extends runtime.BaseAPI {
   async messagesMessageIdPut(
     requestParameters: MessagesMessageIdPutRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<UpdateMessageResponse> {
+  ): Promise<UpdateMessageRes> {
     const response = await this.messagesMessageIdPutRaw(
       requestParameters,
       initOverrides

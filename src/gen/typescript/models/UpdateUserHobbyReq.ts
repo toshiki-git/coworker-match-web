@@ -16,37 +16,35 @@ import { mapValues } from '../runtime';
 /**
  *
  * @export
- * @interface UpdateUserHobbyResponse
+ * @interface UpdateUserHobbyReq
  */
-export interface UpdateUserHobbyResponse {
+export interface UpdateUserHobbyReq {
   /**
    *
    * @type {Array<string>}
-   * @memberof UpdateUserHobbyResponse
+   * @memberof UpdateUserHobbyReq
    */
   hobbyIds: Array<string>;
 }
 
 /**
- * Check if a given object implements the UpdateUserHobbyResponse interface.
+ * Check if a given object implements the UpdateUserHobbyReq interface.
  */
-export function instanceOfUpdateUserHobbyResponse(
+export function instanceOfUpdateUserHobbyReq(
   value: object
-): value is UpdateUserHobbyResponse {
+): value is UpdateUserHobbyReq {
   if (!('hobbyIds' in value) || value['hobbyIds'] === undefined) return false;
   return true;
 }
 
-export function UpdateUserHobbyResponseFromJSON(
-  json: any
-): UpdateUserHobbyResponse {
-  return UpdateUserHobbyResponseFromJSONTyped(json, false);
+export function UpdateUserHobbyReqFromJSON(json: any): UpdateUserHobbyReq {
+  return UpdateUserHobbyReqFromJSONTyped(json, false);
 }
 
-export function UpdateUserHobbyResponseFromJSONTyped(
+export function UpdateUserHobbyReqFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): UpdateUserHobbyResponse {
+): UpdateUserHobbyReq {
   if (json == null) {
     return json;
   }
@@ -55,8 +53,8 @@ export function UpdateUserHobbyResponseFromJSONTyped(
   };
 }
 
-export function UpdateUserHobbyResponseToJSON(
-  value?: UpdateUserHobbyResponse | null
+export function UpdateUserHobbyReqToJSON(
+  value?: UpdateUserHobbyReq | null
 ): any {
   if (value == null) {
     return value;

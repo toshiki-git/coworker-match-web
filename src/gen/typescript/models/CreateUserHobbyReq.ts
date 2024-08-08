@@ -16,37 +16,35 @@ import { mapValues } from '../runtime';
 /**
  *
  * @export
- * @interface CreateUserHobbyRequest
+ * @interface CreateUserHobbyReq
  */
-export interface CreateUserHobbyRequest {
+export interface CreateUserHobbyReq {
   /**
    *
    * @type {Array<string>}
-   * @memberof CreateUserHobbyRequest
+   * @memberof CreateUserHobbyReq
    */
   hobbyIds: Array<string>;
 }
 
 /**
- * Check if a given object implements the CreateUserHobbyRequest interface.
+ * Check if a given object implements the CreateUserHobbyReq interface.
  */
-export function instanceOfCreateUserHobbyRequest(
+export function instanceOfCreateUserHobbyReq(
   value: object
-): value is CreateUserHobbyRequest {
+): value is CreateUserHobbyReq {
   if (!('hobbyIds' in value) || value['hobbyIds'] === undefined) return false;
   return true;
 }
 
-export function CreateUserHobbyRequestFromJSON(
-  json: any
-): CreateUserHobbyRequest {
-  return CreateUserHobbyRequestFromJSONTyped(json, false);
+export function CreateUserHobbyReqFromJSON(json: any): CreateUserHobbyReq {
+  return CreateUserHobbyReqFromJSONTyped(json, false);
 }
 
-export function CreateUserHobbyRequestFromJSONTyped(
+export function CreateUserHobbyReqFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): CreateUserHobbyRequest {
+): CreateUserHobbyReq {
   if (json == null) {
     return json;
   }
@@ -55,8 +53,8 @@ export function CreateUserHobbyRequestFromJSONTyped(
   };
 }
 
-export function CreateUserHobbyRequestToJSON(
-  value?: CreateUserHobbyRequest | null
+export function CreateUserHobbyReqToJSON(
+  value?: CreateUserHobbyReq | null
 ): any {
   if (value == null) {
     return value;

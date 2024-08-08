@@ -13,10 +13,10 @@
  */
 
 import * as runtime from '../runtime';
-import type { GetQuestionCardResponseInner } from '../models/index';
+import type { GetQuestionCardRes } from '../models/index';
 import {
-  GetQuestionCardResponseInnerFromJSON,
-  GetQuestionCardResponseInnerToJSON,
+  GetQuestionCardResFromJSON,
+  GetQuestionCardResToJSON,
 } from '../models/index';
 
 export interface QuestionCardsMatchingIdGetRequest {
@@ -33,7 +33,7 @@ export class QuestionCardsApi extends runtime.BaseAPI {
   async questionCardsMatchingIdGetRaw(
     requestParameters: QuestionCardsMatchingIdGetRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<runtime.ApiResponse<Array<GetQuestionCardResponseInner>>> {
+  ): Promise<runtime.ApiResponse<GetQuestionCardRes>> {
     if (requestParameters['matchingId'] == null) {
       throw new runtime.RequiredError(
         'matchingId',
@@ -47,8 +47,8 @@ export class QuestionCardsApi extends runtime.BaseAPI {
 
     const response = await this.request(
       {
-        path: `/question_cards/{matching_id}`.replace(
-          `{${'matching_id'}}`,
+        path: `/question-cards/{matchingId}`.replace(
+          `{${'matchingId'}}`,
           encodeURIComponent(String(requestParameters['matchingId']))
         ),
         method: 'GET',
@@ -59,7 +59,7 @@ export class QuestionCardsApi extends runtime.BaseAPI {
     );
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(GetQuestionCardResponseInnerFromJSON)
+      GetQuestionCardResFromJSON(jsonValue)
     );
   }
 
@@ -69,7 +69,7 @@ export class QuestionCardsApi extends runtime.BaseAPI {
   async questionCardsMatchingIdGet(
     requestParameters: QuestionCardsMatchingIdGetRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<Array<GetQuestionCardResponseInner>> {
+  ): Promise<GetQuestionCardRes> {
     const response = await this.questionCardsMatchingIdGetRaw(
       requestParameters,
       initOverrides

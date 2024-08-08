@@ -16,64 +16,71 @@ import { mapValues } from '../runtime';
 /**
  *
  * @export
- * @interface CreateUserRequest
+ * @interface UpdateUserRes
  */
-export interface CreateUserRequest {
+export interface UpdateUserRes {
   /**
    *
    * @type {string}
-   * @memberof CreateUserRequest
+   * @memberof UpdateUserRes
+   */
+  userId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateUserRes
    */
   userName: string;
   /**
    *
    * @type {string}
-   * @memberof CreateUserRequest
+   * @memberof UpdateUserRes
    */
   email: string;
   /**
    *
    * @type {string}
-   * @memberof CreateUserRequest
+   * @memberof UpdateUserRes
    */
   avatarUrl: string;
 }
 
 /**
- * Check if a given object implements the CreateUserRequest interface.
+ * Check if a given object implements the UpdateUserRes interface.
  */
-export function instanceOfCreateUserRequest(
-  value: object
-): value is CreateUserRequest {
+export function instanceOfUpdateUserRes(value: object): value is UpdateUserRes {
+  if (!('userId' in value) || value['userId'] === undefined) return false;
   if (!('userName' in value) || value['userName'] === undefined) return false;
   if (!('email' in value) || value['email'] === undefined) return false;
   if (!('avatarUrl' in value) || value['avatarUrl'] === undefined) return false;
   return true;
 }
 
-export function CreateUserRequestFromJSON(json: any): CreateUserRequest {
-  return CreateUserRequestFromJSONTyped(json, false);
+export function UpdateUserResFromJSON(json: any): UpdateUserRes {
+  return UpdateUserResFromJSONTyped(json, false);
 }
 
-export function CreateUserRequestFromJSONTyped(
+export function UpdateUserResFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): CreateUserRequest {
+): UpdateUserRes {
   if (json == null) {
     return json;
   }
   return {
+    userId: json['userId'],
     userName: json['userName'],
     email: json['email'],
     avatarUrl: json['avatarUrl'],
   };
 }
 
-export function CreateUserRequestToJSON(value?: CreateUserRequest | null): any {
+export function UpdateUserResToJSON(value?: UpdateUserRes | null): any {
   if (value == null) {
     return value;
   }
   return {
+    userId: value['userId'],
     userName: value['userName'],
     email: value['email'],
     avatarUrl: value['avatarUrl'],

@@ -16,37 +16,35 @@ import { mapValues } from '../runtime';
 /**
  *
  * @export
- * @interface CreateMessageResponse
+ * @interface CreateMessageRes
  */
-export interface CreateMessageResponse {
+export interface CreateMessageRes {
   /**
    *
    * @type {string}
-   * @memberof CreateMessageResponse
+   * @memberof CreateMessageRes
    */
   messageId: string;
 }
 
 /**
- * Check if a given object implements the CreateMessageResponse interface.
+ * Check if a given object implements the CreateMessageRes interface.
  */
-export function instanceOfCreateMessageResponse(
+export function instanceOfCreateMessageRes(
   value: object
-): value is CreateMessageResponse {
+): value is CreateMessageRes {
   if (!('messageId' in value) || value['messageId'] === undefined) return false;
   return true;
 }
 
-export function CreateMessageResponseFromJSON(
-  json: any
-): CreateMessageResponse {
-  return CreateMessageResponseFromJSONTyped(json, false);
+export function CreateMessageResFromJSON(json: any): CreateMessageRes {
+  return CreateMessageResFromJSONTyped(json, false);
 }
 
-export function CreateMessageResponseFromJSONTyped(
+export function CreateMessageResFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): CreateMessageResponse {
+): CreateMessageRes {
   if (json == null) {
     return json;
   }
@@ -55,9 +53,7 @@ export function CreateMessageResponseFromJSONTyped(
   };
 }
 
-export function CreateMessageResponseToJSON(
-  value?: CreateMessageResponse | null
-): any {
+export function CreateMessageResToJSON(value?: CreateMessageRes | null): any {
   if (value == null) {
     return value;
   }

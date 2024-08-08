@@ -13,15 +13,12 @@
  */
 
 import * as runtime from '../runtime';
-import type {
-  GetMatchingResponseInner,
-  GetMatchingUserResponse,
-} from '../models/index';
+import type { GetMatchingRes, GetMatchingUserRes } from '../models/index';
 import {
-  GetMatchingResponseInnerFromJSON,
-  GetMatchingResponseInnerToJSON,
-  GetMatchingUserResponseFromJSON,
-  GetMatchingUserResponseToJSON,
+  GetMatchingResFromJSON,
+  GetMatchingResToJSON,
+  GetMatchingUserResFromJSON,
+  GetMatchingUserResToJSON,
 } from '../models/index';
 
 export interface MatchingsMatchingIdGetRequest {
@@ -37,7 +34,7 @@ export class MatchingsApi extends runtime.BaseAPI {
    */
   async matchingsGetRaw(
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<runtime.ApiResponse<Array<GetMatchingResponseInner>>> {
+  ): Promise<runtime.ApiResponse<GetMatchingRes>> {
     const queryParameters: any = {};
 
     const headerParameters: runtime.HTTPHeaders = {};
@@ -53,7 +50,7 @@ export class MatchingsApi extends runtime.BaseAPI {
     );
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(GetMatchingResponseInnerFromJSON)
+      GetMatchingResFromJSON(jsonValue)
     );
   }
 
@@ -62,7 +59,7 @@ export class MatchingsApi extends runtime.BaseAPI {
    */
   async matchingsGet(
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<Array<GetMatchingResponseInner>> {
+  ): Promise<GetMatchingRes> {
     const response = await this.matchingsGetRaw(initOverrides);
     return await response.value();
   }
@@ -73,7 +70,7 @@ export class MatchingsApi extends runtime.BaseAPI {
   async matchingsMatchingIdGetRaw(
     requestParameters: MatchingsMatchingIdGetRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<runtime.ApiResponse<GetMatchingUserResponse>> {
+  ): Promise<runtime.ApiResponse<GetMatchingUserRes>> {
     if (requestParameters['matchingId'] == null) {
       throw new runtime.RequiredError(
         'matchingId',
@@ -87,8 +84,8 @@ export class MatchingsApi extends runtime.BaseAPI {
 
     const response = await this.request(
       {
-        path: `/matchings/{matching_id}`.replace(
-          `{${'matching_id'}}`,
+        path: `/matchings/{matchingId}`.replace(
+          `{${'matchingId'}}`,
           encodeURIComponent(String(requestParameters['matchingId']))
         ),
         method: 'GET',
@@ -99,7 +96,7 @@ export class MatchingsApi extends runtime.BaseAPI {
     );
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      GetMatchingUserResponseFromJSON(jsonValue)
+      GetMatchingUserResFromJSON(jsonValue)
     );
   }
 
@@ -109,7 +106,7 @@ export class MatchingsApi extends runtime.BaseAPI {
   async matchingsMatchingIdGet(
     requestParameters: MatchingsMatchingIdGetRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<GetMatchingUserResponse> {
+  ): Promise<GetMatchingUserRes> {
     const response = await this.matchingsMatchingIdGetRaw(
       requestParameters,
       initOverrides

@@ -23,44 +23,44 @@ import {
 /**
  *
  * @export
- * @interface GetMessageResponseMessagesInnerMessagePair
+ * @interface GetMessageResMessagesInnerMessagePair
  */
-export interface GetMessageResponseMessagesInnerMessagePair {
+export interface GetMessageResMessagesInnerMessagePair {
   /**
    *
    * @type {Message}
-   * @memberof GetMessageResponseMessagesInnerMessagePair
+   * @memberof GetMessageResMessagesInnerMessagePair
    */
   me: Message;
   /**
    *
    * @type {Message}
-   * @memberof GetMessageResponseMessagesInnerMessagePair
+   * @memberof GetMessageResMessagesInnerMessagePair
    */
   you: Message;
 }
 
 /**
- * Check if a given object implements the GetMessageResponseMessagesInnerMessagePair interface.
+ * Check if a given object implements the GetMessageResMessagesInnerMessagePair interface.
  */
-export function instanceOfGetMessageResponseMessagesInnerMessagePair(
+export function instanceOfGetMessageResMessagesInnerMessagePair(
   value: object
-): value is GetMessageResponseMessagesInnerMessagePair {
+): value is GetMessageResMessagesInnerMessagePair {
   if (!('me' in value) || value['me'] === undefined) return false;
   if (!('you' in value) || value['you'] === undefined) return false;
   return true;
 }
 
-export function GetMessageResponseMessagesInnerMessagePairFromJSON(
+export function GetMessageResMessagesInnerMessagePairFromJSON(
   json: any
-): GetMessageResponseMessagesInnerMessagePair {
-  return GetMessageResponseMessagesInnerMessagePairFromJSONTyped(json, false);
+): GetMessageResMessagesInnerMessagePair {
+  return GetMessageResMessagesInnerMessagePairFromJSONTyped(json, false);
 }
 
-export function GetMessageResponseMessagesInnerMessagePairFromJSONTyped(
+export function GetMessageResMessagesInnerMessagePairFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): GetMessageResponseMessagesInnerMessagePair {
+): GetMessageResMessagesInnerMessagePair {
   if (json == null) {
     return json;
   }
@@ -70,8 +70,8 @@ export function GetMessageResponseMessagesInnerMessagePairFromJSONTyped(
   };
 }
 
-export function GetMessageResponseMessagesInnerMessagePairToJSON(
-  value?: GetMessageResponseMessagesInnerMessagePair | null
+export function GetMessageResMessagesInnerMessagePairToJSON(
+  value?: GetMessageResMessagesInnerMessagePair | null
 ): any {
   if (value == null) {
     return value;

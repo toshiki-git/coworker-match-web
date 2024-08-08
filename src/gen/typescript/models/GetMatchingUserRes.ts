@@ -16,39 +16,41 @@ import { mapValues } from '../runtime';
 /**
  *
  * @export
- * @interface User
+ * @interface GetMatchingUserRes
  */
-export interface User {
+export interface GetMatchingUserRes {
   /**
    *
    * @type {string}
-   * @memberof User
+   * @memberof GetMatchingUserRes
    */
   userId: string;
   /**
    *
    * @type {string}
-   * @memberof User
+   * @memberof GetMatchingUserRes
    */
   userName: string;
   /**
    *
    * @type {string}
-   * @memberof User
+   * @memberof GetMatchingUserRes
    */
   email: string;
   /**
    *
    * @type {string}
-   * @memberof User
+   * @memberof GetMatchingUserRes
    */
   avatarUrl: string;
 }
 
 /**
- * Check if a given object implements the User interface.
+ * Check if a given object implements the GetMatchingUserRes interface.
  */
-export function instanceOfUser(value: object): value is User {
+export function instanceOfGetMatchingUserRes(
+  value: object
+): value is GetMatchingUserRes {
   if (!('userId' in value) || value['userId'] === undefined) return false;
   if (!('userName' in value) || value['userName'] === undefined) return false;
   if (!('email' in value) || value['email'] === undefined) return false;
@@ -56,14 +58,14 @@ export function instanceOfUser(value: object): value is User {
   return true;
 }
 
-export function UserFromJSON(json: any): User {
-  return UserFromJSONTyped(json, false);
+export function GetMatchingUserResFromJSON(json: any): GetMatchingUserRes {
+  return GetMatchingUserResFromJSONTyped(json, false);
 }
 
-export function UserFromJSONTyped(
+export function GetMatchingUserResFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): User {
+): GetMatchingUserRes {
   if (json == null) {
     return json;
   }
@@ -75,7 +77,9 @@ export function UserFromJSONTyped(
   };
 }
 
-export function UserToJSON(value?: User | null): any {
+export function GetMatchingUserResToJSON(
+  value?: GetMatchingUserRes | null
+): any {
   if (value == null) {
     return value;
   }

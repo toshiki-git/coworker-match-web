@@ -14,31 +14,31 @@
 
 import * as runtime from '../runtime';
 import type {
-  CreateUserHobbyRequest,
-  CreateUserHobbyResponse,
-  GetUserHobbyResponseInner,
-  UpdateUserHobbyRequest,
-  UpdateUserHobbyResponse,
+  CreateUserHobbyReq,
+  CreateUserHobbyRes,
+  GetUserHobbyRes,
+  UpdateUserHobbyReq,
+  UpdateUserHobbyRes,
 } from '../models/index';
 import {
-  CreateUserHobbyRequestFromJSON,
-  CreateUserHobbyRequestToJSON,
-  CreateUserHobbyResponseFromJSON,
-  CreateUserHobbyResponseToJSON,
-  GetUserHobbyResponseInnerFromJSON,
-  GetUserHobbyResponseInnerToJSON,
-  UpdateUserHobbyRequestFromJSON,
-  UpdateUserHobbyRequestToJSON,
-  UpdateUserHobbyResponseFromJSON,
-  UpdateUserHobbyResponseToJSON,
+  CreateUserHobbyReqFromJSON,
+  CreateUserHobbyReqToJSON,
+  CreateUserHobbyResFromJSON,
+  CreateUserHobbyResToJSON,
+  GetUserHobbyResFromJSON,
+  GetUserHobbyResToJSON,
+  UpdateUserHobbyReqFromJSON,
+  UpdateUserHobbyReqToJSON,
+  UpdateUserHobbyResFromJSON,
+  UpdateUserHobbyResToJSON,
 } from '../models/index';
 
 export interface UserHobbiesPostRequest {
-  createUserHobbyRequest: CreateUserHobbyRequest;
+  createUserHobbyReq: CreateUserHobbyReq;
 }
 
 export interface UserHobbiesPutRequest {
-  updateUserHobbyRequest: UpdateUserHobbyRequest;
+  updateUserHobbyReq: UpdateUserHobbyReq;
 }
 
 export interface UserHobbiesUserIdGetRequest {
@@ -55,11 +55,11 @@ export class UserHobbiesApi extends runtime.BaseAPI {
   async userHobbiesPostRaw(
     requestParameters: UserHobbiesPostRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<runtime.ApiResponse<CreateUserHobbyResponse>> {
-    if (requestParameters['createUserHobbyRequest'] == null) {
+  ): Promise<runtime.ApiResponse<CreateUserHobbyRes>> {
+    if (requestParameters['createUserHobbyReq'] == null) {
       throw new runtime.RequiredError(
-        'createUserHobbyRequest',
-        'Required parameter "createUserHobbyRequest" was null or undefined when calling userHobbiesPost().'
+        'createUserHobbyReq',
+        'Required parameter "createUserHobbyReq" was null or undefined when calling userHobbiesPost().'
       );
     }
 
@@ -71,19 +71,17 @@ export class UserHobbiesApi extends runtime.BaseAPI {
 
     const response = await this.request(
       {
-        path: `/user_hobbies`,
+        path: `/user-hobbies`,
         method: 'POST',
         headers: headerParameters,
         query: queryParameters,
-        body: CreateUserHobbyRequestToJSON(
-          requestParameters['createUserHobbyRequest']
-        ),
+        body: CreateUserHobbyReqToJSON(requestParameters['createUserHobbyReq']),
       },
       initOverrides
     );
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      CreateUserHobbyResponseFromJSON(jsonValue)
+      CreateUserHobbyResFromJSON(jsonValue)
     );
   }
 
@@ -93,7 +91,7 @@ export class UserHobbiesApi extends runtime.BaseAPI {
   async userHobbiesPost(
     requestParameters: UserHobbiesPostRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<CreateUserHobbyResponse> {
+  ): Promise<CreateUserHobbyRes> {
     const response = await this.userHobbiesPostRaw(
       requestParameters,
       initOverrides
@@ -107,11 +105,11 @@ export class UserHobbiesApi extends runtime.BaseAPI {
   async userHobbiesPutRaw(
     requestParameters: UserHobbiesPutRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<runtime.ApiResponse<UpdateUserHobbyResponse>> {
-    if (requestParameters['updateUserHobbyRequest'] == null) {
+  ): Promise<runtime.ApiResponse<UpdateUserHobbyRes>> {
+    if (requestParameters['updateUserHobbyReq'] == null) {
       throw new runtime.RequiredError(
-        'updateUserHobbyRequest',
-        'Required parameter "updateUserHobbyRequest" was null or undefined when calling userHobbiesPut().'
+        'updateUserHobbyReq',
+        'Required parameter "updateUserHobbyReq" was null or undefined when calling userHobbiesPut().'
       );
     }
 
@@ -123,19 +121,17 @@ export class UserHobbiesApi extends runtime.BaseAPI {
 
     const response = await this.request(
       {
-        path: `/user_hobbies`,
+        path: `/user-hobbies`,
         method: 'PUT',
         headers: headerParameters,
         query: queryParameters,
-        body: UpdateUserHobbyRequestToJSON(
-          requestParameters['updateUserHobbyRequest']
-        ),
+        body: UpdateUserHobbyReqToJSON(requestParameters['updateUserHobbyReq']),
       },
       initOverrides
     );
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      UpdateUserHobbyResponseFromJSON(jsonValue)
+      UpdateUserHobbyResFromJSON(jsonValue)
     );
   }
 
@@ -145,7 +141,7 @@ export class UserHobbiesApi extends runtime.BaseAPI {
   async userHobbiesPut(
     requestParameters: UserHobbiesPutRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<UpdateUserHobbyResponse> {
+  ): Promise<UpdateUserHobbyRes> {
     const response = await this.userHobbiesPutRaw(
       requestParameters,
       initOverrides
@@ -159,7 +155,7 @@ export class UserHobbiesApi extends runtime.BaseAPI {
   async userHobbiesUserIdGetRaw(
     requestParameters: UserHobbiesUserIdGetRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<runtime.ApiResponse<Array<GetUserHobbyResponseInner>>> {
+  ): Promise<runtime.ApiResponse<GetUserHobbyRes>> {
     if (requestParameters['userId'] == null) {
       throw new runtime.RequiredError(
         'userId',
@@ -173,8 +169,8 @@ export class UserHobbiesApi extends runtime.BaseAPI {
 
     const response = await this.request(
       {
-        path: `/user_hobbies/{user_id}`.replace(
-          `{${'user_id'}}`,
+        path: `/user-hobbies/{userId}`.replace(
+          `{${'userId'}}`,
           encodeURIComponent(String(requestParameters['userId']))
         ),
         method: 'GET',
@@ -185,7 +181,7 @@ export class UserHobbiesApi extends runtime.BaseAPI {
     );
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(GetUserHobbyResponseInnerFromJSON)
+      GetUserHobbyResFromJSON(jsonValue)
     );
   }
 
@@ -195,7 +191,7 @@ export class UserHobbiesApi extends runtime.BaseAPI {
   async userHobbiesUserIdGet(
     requestParameters: UserHobbiesUserIdGetRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<Array<GetUserHobbyResponseInner>> {
+  ): Promise<GetUserHobbyRes> {
     const response = await this.userHobbiesUserIdGetRaw(
       requestParameters,
       initOverrides

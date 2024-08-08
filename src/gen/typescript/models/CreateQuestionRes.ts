@@ -16,41 +16,41 @@ import { mapValues } from '../runtime';
 /**
  *
  * @export
- * @interface CreateQuestionResponse
+ * @interface CreateQuestionRes
  */
-export interface CreateQuestionResponse {
+export interface CreateQuestionRes {
   /**
    *
    * @type {string}
-   * @memberof CreateQuestionResponse
+   * @memberof CreateQuestionRes
    */
   matchingId: string;
   /**
    *
    * @type {string}
-   * @memberof CreateQuestionResponse
+   * @memberof CreateQuestionRes
    */
   senderUserId: string;
   /**
    *
    * @type {string}
-   * @memberof CreateQuestionResponse
+   * @memberof CreateQuestionRes
    */
   receiverUserId: string;
   /**
    *
    * @type {Date}
-   * @memberof CreateQuestionResponse
+   * @memberof CreateQuestionRes
    */
   matchingDate: Date;
 }
 
 /**
- * Check if a given object implements the CreateQuestionResponse interface.
+ * Check if a given object implements the CreateQuestionRes interface.
  */
-export function instanceOfCreateQuestionResponse(
+export function instanceOfCreateQuestionRes(
   value: object
-): value is CreateQuestionResponse {
+): value is CreateQuestionRes {
   if (!('matchingId' in value) || value['matchingId'] === undefined)
     return false;
   if (!('senderUserId' in value) || value['senderUserId'] === undefined)
@@ -62,16 +62,14 @@ export function instanceOfCreateQuestionResponse(
   return true;
 }
 
-export function CreateQuestionResponseFromJSON(
-  json: any
-): CreateQuestionResponse {
-  return CreateQuestionResponseFromJSONTyped(json, false);
+export function CreateQuestionResFromJSON(json: any): CreateQuestionRes {
+  return CreateQuestionResFromJSONTyped(json, false);
 }
 
-export function CreateQuestionResponseFromJSONTyped(
+export function CreateQuestionResFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): CreateQuestionResponse {
+): CreateQuestionRes {
   if (json == null) {
     return json;
   }
@@ -83,9 +81,7 @@ export function CreateQuestionResponseFromJSONTyped(
   };
 }
 
-export function CreateQuestionResponseToJSON(
-  value?: CreateQuestionResponse | null
-): any {
+export function CreateQuestionResToJSON(value?: CreateQuestionRes | null): any {
   if (value == null) {
     return value;
   }

@@ -19,35 +19,35 @@ import { HobbyFromJSON, HobbyFromJSONTyped, HobbyToJSON } from './Hobby';
 /**
  *
  * @export
- * @interface GetHobbyResponseInner
+ * @interface GetHobbyResHobbyGroupsInner
  */
-export interface GetHobbyResponseInner {
+export interface GetHobbyResHobbyGroupsInner {
   /**
    *
    * @type {string}
-   * @memberof GetHobbyResponseInner
+   * @memberof GetHobbyResHobbyGroupsInner
    */
   categoryId: string;
   /**
    *
    * @type {string}
-   * @memberof GetHobbyResponseInner
+   * @memberof GetHobbyResHobbyGroupsInner
    */
   categoryName: string;
   /**
    *
    * @type {Array<Hobby>}
-   * @memberof GetHobbyResponseInner
+   * @memberof GetHobbyResHobbyGroupsInner
    */
   hobbies: Array<Hobby>;
 }
 
 /**
- * Check if a given object implements the GetHobbyResponseInner interface.
+ * Check if a given object implements the GetHobbyResHobbyGroupsInner interface.
  */
-export function instanceOfGetHobbyResponseInner(
+export function instanceOfGetHobbyResHobbyGroupsInner(
   value: object
-): value is GetHobbyResponseInner {
+): value is GetHobbyResHobbyGroupsInner {
   if (!('categoryId' in value) || value['categoryId'] === undefined)
     return false;
   if (!('categoryName' in value) || value['categoryName'] === undefined)
@@ -56,16 +56,16 @@ export function instanceOfGetHobbyResponseInner(
   return true;
 }
 
-export function GetHobbyResponseInnerFromJSON(
+export function GetHobbyResHobbyGroupsInnerFromJSON(
   json: any
-): GetHobbyResponseInner {
-  return GetHobbyResponseInnerFromJSONTyped(json, false);
+): GetHobbyResHobbyGroupsInner {
+  return GetHobbyResHobbyGroupsInnerFromJSONTyped(json, false);
 }
 
-export function GetHobbyResponseInnerFromJSONTyped(
+export function GetHobbyResHobbyGroupsInnerFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): GetHobbyResponseInner {
+): GetHobbyResHobbyGroupsInner {
   if (json == null) {
     return json;
   }
@@ -76,8 +76,8 @@ export function GetHobbyResponseInnerFromJSONTyped(
   };
 }
 
-export function GetHobbyResponseInnerToJSON(
-  value?: GetHobbyResponseInner | null
+export function GetHobbyResHobbyGroupsInnerToJSON(
+  value?: GetHobbyResHobbyGroupsInner | null
 ): any {
   if (value == null) {
     return value;

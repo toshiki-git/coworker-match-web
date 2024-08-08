@@ -14,40 +14,40 @@
 
 import * as runtime from '../runtime';
 import type {
-  CreateQuestionRequest,
-  CreateQuestionResponse,
-  Question,
+  CreateQuestionReq,
+  CreateQuestionRes,
+  GetQuestionRes,
 } from '../models/index';
 import {
-  CreateQuestionRequestFromJSON,
-  CreateQuestionRequestToJSON,
-  CreateQuestionResponseFromJSON,
-  CreateQuestionResponseToJSON,
-  QuestionFromJSON,
-  QuestionToJSON,
+  CreateQuestionReqFromJSON,
+  CreateQuestionReqToJSON,
+  CreateQuestionResFromJSON,
+  CreateQuestionResToJSON,
+  GetQuestionResFromJSON,
+  GetQuestionResToJSON,
 } from '../models/index';
 
 export interface MatchingQuestionsPostRequest {
-  createQuestionRequest: CreateQuestionRequest;
+  createQuestionReq: CreateQuestionReq;
 }
 
 /**
  *
  */
-export class QuestionsApi extends runtime.BaseAPI {
+export class MatchingQuestionsApi extends runtime.BaseAPI {
   /**
    * Get user questions
    */
   async matchingQuestionsGetRaw(
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<runtime.ApiResponse<Array<Question>>> {
+  ): Promise<runtime.ApiResponse<GetQuestionRes>> {
     const queryParameters: any = {};
 
     const headerParameters: runtime.HTTPHeaders = {};
 
     const response = await this.request(
       {
-        path: `/matching_questions`,
+        path: `/matching-questions`,
         method: 'GET',
         headers: headerParameters,
         query: queryParameters,
@@ -56,7 +56,7 @@ export class QuestionsApi extends runtime.BaseAPI {
     );
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(QuestionFromJSON)
+      GetQuestionResFromJSON(jsonValue)
     );
   }
 
@@ -65,7 +65,7 @@ export class QuestionsApi extends runtime.BaseAPI {
    */
   async matchingQuestionsGet(
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<Array<Question>> {
+  ): Promise<GetQuestionRes> {
     const response = await this.matchingQuestionsGetRaw(initOverrides);
     return await response.value();
   }
@@ -76,11 +76,11 @@ export class QuestionsApi extends runtime.BaseAPI {
   async matchingQuestionsPostRaw(
     requestParameters: MatchingQuestionsPostRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<runtime.ApiResponse<CreateQuestionResponse>> {
-    if (requestParameters['createQuestionRequest'] == null) {
+  ): Promise<runtime.ApiResponse<CreateQuestionRes>> {
+    if (requestParameters['createQuestionReq'] == null) {
       throw new runtime.RequiredError(
-        'createQuestionRequest',
-        'Required parameter "createQuestionRequest" was null or undefined when calling matchingQuestionsPost().'
+        'createQuestionReq',
+        'Required parameter "createQuestionReq" was null or undefined when calling matchingQuestionsPost().'
       );
     }
 
@@ -92,19 +92,17 @@ export class QuestionsApi extends runtime.BaseAPI {
 
     const response = await this.request(
       {
-        path: `/matching_questions`,
+        path: `/matching-questions`,
         method: 'POST',
         headers: headerParameters,
         query: queryParameters,
-        body: CreateQuestionRequestToJSON(
-          requestParameters['createQuestionRequest']
-        ),
+        body: CreateQuestionReqToJSON(requestParameters['createQuestionReq']),
       },
       initOverrides
     );
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      CreateQuestionResponseFromJSON(jsonValue)
+      CreateQuestionResFromJSON(jsonValue)
     );
   }
 
@@ -114,7 +112,7 @@ export class QuestionsApi extends runtime.BaseAPI {
   async matchingQuestionsPost(
     requestParameters: MatchingQuestionsPostRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<CreateQuestionResponse> {
+  ): Promise<CreateQuestionRes> {
     const response = await this.matchingQuestionsPostRaw(
       requestParameters,
       initOverrides

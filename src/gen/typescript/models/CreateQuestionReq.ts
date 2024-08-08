@@ -19,37 +19,35 @@ import { AnswerFromJSON, AnswerFromJSONTyped, AnswerToJSON } from './Answer';
 /**
  *
  * @export
- * @interface CreateQuestionRequest
+ * @interface CreateQuestionReq
  */
-export interface CreateQuestionRequest {
+export interface CreateQuestionReq {
   /**
    *
    * @type {Array<Answer>}
-   * @memberof CreateQuestionRequest
+   * @memberof CreateQuestionReq
    */
   answers: Array<Answer>;
 }
 
 /**
- * Check if a given object implements the CreateQuestionRequest interface.
+ * Check if a given object implements the CreateQuestionReq interface.
  */
-export function instanceOfCreateQuestionRequest(
+export function instanceOfCreateQuestionReq(
   value: object
-): value is CreateQuestionRequest {
+): value is CreateQuestionReq {
   if (!('answers' in value) || value['answers'] === undefined) return false;
   return true;
 }
 
-export function CreateQuestionRequestFromJSON(
-  json: any
-): CreateQuestionRequest {
-  return CreateQuestionRequestFromJSONTyped(json, false);
+export function CreateQuestionReqFromJSON(json: any): CreateQuestionReq {
+  return CreateQuestionReqFromJSONTyped(json, false);
 }
 
-export function CreateQuestionRequestFromJSONTyped(
+export function CreateQuestionReqFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): CreateQuestionRequest {
+): CreateQuestionReq {
   if (json == null) {
     return json;
   }
@@ -58,9 +56,7 @@ export function CreateQuestionRequestFromJSONTyped(
   };
 }
 
-export function CreateQuestionRequestToJSON(
-  value?: CreateQuestionRequest | null
-): any {
+export function CreateQuestionReqToJSON(value?: CreateQuestionReq | null): any {
   if (value == null) {
     return value;
   }

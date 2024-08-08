@@ -14,21 +14,21 @@
 
 import * as runtime from '../runtime';
 import type {
-  CreateHobbyRequest,
-  CreateHobbyResponse,
-  GetHobbyResponseInner,
+  CreateHobbyReq,
+  CreateHobbyRes,
+  GetHobbyRes,
 } from '../models/index';
 import {
-  CreateHobbyRequestFromJSON,
-  CreateHobbyRequestToJSON,
-  CreateHobbyResponseFromJSON,
-  CreateHobbyResponseToJSON,
-  GetHobbyResponseInnerFromJSON,
-  GetHobbyResponseInnerToJSON,
+  CreateHobbyReqFromJSON,
+  CreateHobbyReqToJSON,
+  CreateHobbyResFromJSON,
+  CreateHobbyResToJSON,
+  GetHobbyResFromJSON,
+  GetHobbyResToJSON,
 } from '../models/index';
 
 export interface HobbiesPostRequest {
-  createHobbyRequest: CreateHobbyRequest;
+  createHobbyReq: CreateHobbyReq;
 }
 
 /**
@@ -40,7 +40,7 @@ export class HobbiesApi extends runtime.BaseAPI {
    */
   async hobbiesGetRaw(
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<runtime.ApiResponse<Array<GetHobbyResponseInner>>> {
+  ): Promise<runtime.ApiResponse<GetHobbyRes>> {
     const queryParameters: any = {};
 
     const headerParameters: runtime.HTTPHeaders = {};
@@ -56,7 +56,7 @@ export class HobbiesApi extends runtime.BaseAPI {
     );
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      jsonValue.map(GetHobbyResponseInnerFromJSON)
+      GetHobbyResFromJSON(jsonValue)
     );
   }
 
@@ -65,7 +65,7 @@ export class HobbiesApi extends runtime.BaseAPI {
    */
   async hobbiesGet(
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<Array<GetHobbyResponseInner>> {
+  ): Promise<GetHobbyRes> {
     const response = await this.hobbiesGetRaw(initOverrides);
     return await response.value();
   }
@@ -76,11 +76,11 @@ export class HobbiesApi extends runtime.BaseAPI {
   async hobbiesPostRaw(
     requestParameters: HobbiesPostRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<runtime.ApiResponse<CreateHobbyResponse>> {
-    if (requestParameters['createHobbyRequest'] == null) {
+  ): Promise<runtime.ApiResponse<CreateHobbyRes>> {
+    if (requestParameters['createHobbyReq'] == null) {
       throw new runtime.RequiredError(
-        'createHobbyRequest',
-        'Required parameter "createHobbyRequest" was null or undefined when calling hobbiesPost().'
+        'createHobbyReq',
+        'Required parameter "createHobbyReq" was null or undefined when calling hobbiesPost().'
       );
     }
 
@@ -96,13 +96,13 @@ export class HobbiesApi extends runtime.BaseAPI {
         method: 'POST',
         headers: headerParameters,
         query: queryParameters,
-        body: CreateHobbyRequestToJSON(requestParameters['createHobbyRequest']),
+        body: CreateHobbyReqToJSON(requestParameters['createHobbyReq']),
       },
       initOverrides
     );
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      CreateHobbyResponseFromJSON(jsonValue)
+      CreateHobbyResFromJSON(jsonValue)
     );
   }
 
@@ -112,7 +112,7 @@ export class HobbiesApi extends runtime.BaseAPI {
   async hobbiesPost(
     requestParameters: HobbiesPostRequest,
     initOverrides?: RequestInit | runtime.InitOverrideFunction
-  ): Promise<CreateHobbyResponse> {
+  ): Promise<CreateHobbyRes> {
     const response = await this.hobbiesPostRaw(
       requestParameters,
       initOverrides

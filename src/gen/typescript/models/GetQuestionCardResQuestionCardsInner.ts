@@ -16,35 +16,35 @@ import { mapValues } from '../runtime';
 /**
  *
  * @export
- * @interface GetQuestionCardResponseInner
+ * @interface GetQuestionCardResQuestionCardsInner
  */
-export interface GetQuestionCardResponseInner {
+export interface GetQuestionCardResQuestionCardsInner {
   /**
    *
    * @type {string}
-   * @memberof GetQuestionCardResponseInner
+   * @memberof GetQuestionCardResQuestionCardsInner
    */
   questionCardId: string;
   /**
    *
    * @type {string}
-   * @memberof GetQuestionCardResponseInner
+   * @memberof GetQuestionCardResQuestionCardsInner
    */
   questionCardText: string;
   /**
    *
    * @type {boolean}
-   * @memberof GetQuestionCardResponseInner
+   * @memberof GetQuestionCardResQuestionCardsInner
    */
   isUsed: boolean;
 }
 
 /**
- * Check if a given object implements the GetQuestionCardResponseInner interface.
+ * Check if a given object implements the GetQuestionCardResQuestionCardsInner interface.
  */
-export function instanceOfGetQuestionCardResponseInner(
+export function instanceOfGetQuestionCardResQuestionCardsInner(
   value: object
-): value is GetQuestionCardResponseInner {
+): value is GetQuestionCardResQuestionCardsInner {
   if (!('questionCardId' in value) || value['questionCardId'] === undefined)
     return false;
   if (!('questionCardText' in value) || value['questionCardText'] === undefined)
@@ -53,16 +53,16 @@ export function instanceOfGetQuestionCardResponseInner(
   return true;
 }
 
-export function GetQuestionCardResponseInnerFromJSON(
+export function GetQuestionCardResQuestionCardsInnerFromJSON(
   json: any
-): GetQuestionCardResponseInner {
-  return GetQuestionCardResponseInnerFromJSONTyped(json, false);
+): GetQuestionCardResQuestionCardsInner {
+  return GetQuestionCardResQuestionCardsInnerFromJSONTyped(json, false);
 }
 
-export function GetQuestionCardResponseInnerFromJSONTyped(
+export function GetQuestionCardResQuestionCardsInnerFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): GetQuestionCardResponseInner {
+): GetQuestionCardResQuestionCardsInner {
   if (json == null) {
     return json;
   }
@@ -73,8 +73,8 @@ export function GetQuestionCardResponseInnerFromJSONTyped(
   };
 }
 
-export function GetQuestionCardResponseInnerToJSON(
-  value?: GetQuestionCardResponseInner | null
+export function GetQuestionCardResQuestionCardsInnerToJSON(
+  value?: GetQuestionCardResQuestionCardsInner | null
 ): any {
   if (value == null) {
     return value;

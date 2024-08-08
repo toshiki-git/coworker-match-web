@@ -16,36 +16,36 @@ import { mapValues } from '../runtime';
 /**
  *
  * @export
- * @interface UpdateMessageRequest
+ * @interface UpdateMessageRes
  */
-export interface UpdateMessageRequest {
+export interface UpdateMessageRes {
   /**
    *
    * @type {string}
-   * @memberof UpdateMessageRequest
+   * @memberof UpdateMessageRes
    */
   messageText: string;
 }
 
 /**
- * Check if a given object implements the UpdateMessageRequest interface.
+ * Check if a given object implements the UpdateMessageRes interface.
  */
-export function instanceOfUpdateMessageRequest(
+export function instanceOfUpdateMessageRes(
   value: object
-): value is UpdateMessageRequest {
+): value is UpdateMessageRes {
   if (!('messageText' in value) || value['messageText'] === undefined)
     return false;
   return true;
 }
 
-export function UpdateMessageRequestFromJSON(json: any): UpdateMessageRequest {
-  return UpdateMessageRequestFromJSONTyped(json, false);
+export function UpdateMessageResFromJSON(json: any): UpdateMessageRes {
+  return UpdateMessageResFromJSONTyped(json, false);
 }
 
-export function UpdateMessageRequestFromJSONTyped(
+export function UpdateMessageResFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): UpdateMessageRequest {
+): UpdateMessageRes {
   if (json == null) {
     return json;
   }
@@ -54,9 +54,7 @@ export function UpdateMessageRequestFromJSONTyped(
   };
 }
 
-export function UpdateMessageRequestToJSON(
-  value?: UpdateMessageRequest | null
-): any {
+export function UpdateMessageResToJSON(value?: UpdateMessageRes | null): any {
   if (value == null) {
     return value;
   }

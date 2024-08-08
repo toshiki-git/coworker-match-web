@@ -13,45 +13,45 @@
  */
 
 import { mapValues } from '../runtime';
-import type { GetMessageResponseMessagesInnerMessagePair } from './GetMessageResponseMessagesInnerMessagePair';
+import type { GetMessageResMessagesInnerMessagePair } from './GetMessageResMessagesInnerMessagePair';
 import {
-  GetMessageResponseMessagesInnerMessagePairFromJSON,
-  GetMessageResponseMessagesInnerMessagePairFromJSONTyped,
-  GetMessageResponseMessagesInnerMessagePairToJSON,
-} from './GetMessageResponseMessagesInnerMessagePair';
+  GetMessageResMessagesInnerMessagePairFromJSON,
+  GetMessageResMessagesInnerMessagePairFromJSONTyped,
+  GetMessageResMessagesInnerMessagePairToJSON,
+} from './GetMessageResMessagesInnerMessagePair';
 
 /**
  *
  * @export
- * @interface GetMessageResponseMessagesInner
+ * @interface GetMessageResMessagesInner
  */
-export interface GetMessageResponseMessagesInner {
+export interface GetMessageResMessagesInner {
   /**
    *
    * @type {string}
-   * @memberof GetMessageResponseMessagesInner
+   * @memberof GetMessageResMessagesInner
    */
   questionCardId: string;
   /**
    *
    * @type {string}
-   * @memberof GetMessageResponseMessagesInner
+   * @memberof GetMessageResMessagesInner
    */
   questionCardText: string;
   /**
    *
-   * @type {GetMessageResponseMessagesInnerMessagePair}
-   * @memberof GetMessageResponseMessagesInner
+   * @type {GetMessageResMessagesInnerMessagePair}
+   * @memberof GetMessageResMessagesInner
    */
-  messagePair: GetMessageResponseMessagesInnerMessagePair;
+  messagePair: GetMessageResMessagesInnerMessagePair;
 }
 
 /**
- * Check if a given object implements the GetMessageResponseMessagesInner interface.
+ * Check if a given object implements the GetMessageResMessagesInner interface.
  */
-export function instanceOfGetMessageResponseMessagesInner(
+export function instanceOfGetMessageResMessagesInner(
   value: object
-): value is GetMessageResponseMessagesInner {
+): value is GetMessageResMessagesInner {
   if (!('questionCardId' in value) || value['questionCardId'] === undefined)
     return false;
   if (!('questionCardText' in value) || value['questionCardText'] === undefined)
@@ -61,30 +61,30 @@ export function instanceOfGetMessageResponseMessagesInner(
   return true;
 }
 
-export function GetMessageResponseMessagesInnerFromJSON(
+export function GetMessageResMessagesInnerFromJSON(
   json: any
-): GetMessageResponseMessagesInner {
-  return GetMessageResponseMessagesInnerFromJSONTyped(json, false);
+): GetMessageResMessagesInner {
+  return GetMessageResMessagesInnerFromJSONTyped(json, false);
 }
 
-export function GetMessageResponseMessagesInnerFromJSONTyped(
+export function GetMessageResMessagesInnerFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): GetMessageResponseMessagesInner {
+): GetMessageResMessagesInner {
   if (json == null) {
     return json;
   }
   return {
     questionCardId: json['questionCardId'],
     questionCardText: json['questionCardText'],
-    messagePair: GetMessageResponseMessagesInnerMessagePairFromJSON(
+    messagePair: GetMessageResMessagesInnerMessagePairFromJSON(
       json['messagePair']
     ),
   };
 }
 
-export function GetMessageResponseMessagesInnerToJSON(
-  value?: GetMessageResponseMessagesInner | null
+export function GetMessageResMessagesInnerToJSON(
+  value?: GetMessageResMessagesInner | null
 ): any {
   if (value == null) {
     return value;
@@ -92,7 +92,7 @@ export function GetMessageResponseMessagesInnerToJSON(
   return {
     questionCardId: value['questionCardId'],
     questionCardText: value['questionCardText'],
-    messagePair: GetMessageResponseMessagesInnerMessagePairToJSON(
+    messagePair: GetMessageResMessagesInnerMessagePairToJSON(
       value['messagePair']
     ),
   };

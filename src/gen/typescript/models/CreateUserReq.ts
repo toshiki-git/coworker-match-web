@@ -16,49 +16,47 @@ import { mapValues } from '../runtime';
 /**
  *
  * @export
- * @interface UpdateUserRequest
+ * @interface CreateUserReq
  */
-export interface UpdateUserRequest {
+export interface CreateUserReq {
   /**
    *
    * @type {string}
-   * @memberof UpdateUserRequest
+   * @memberof CreateUserReq
    */
   userName: string;
   /**
    *
    * @type {string}
-   * @memberof UpdateUserRequest
+   * @memberof CreateUserReq
    */
   email: string;
   /**
    *
    * @type {string}
-   * @memberof UpdateUserRequest
+   * @memberof CreateUserReq
    */
   avatarUrl: string;
 }
 
 /**
- * Check if a given object implements the UpdateUserRequest interface.
+ * Check if a given object implements the CreateUserReq interface.
  */
-export function instanceOfUpdateUserRequest(
-  value: object
-): value is UpdateUserRequest {
+export function instanceOfCreateUserReq(value: object): value is CreateUserReq {
   if (!('userName' in value) || value['userName'] === undefined) return false;
   if (!('email' in value) || value['email'] === undefined) return false;
   if (!('avatarUrl' in value) || value['avatarUrl'] === undefined) return false;
   return true;
 }
 
-export function UpdateUserRequestFromJSON(json: any): UpdateUserRequest {
-  return UpdateUserRequestFromJSONTyped(json, false);
+export function CreateUserReqFromJSON(json: any): CreateUserReq {
+  return CreateUserReqFromJSONTyped(json, false);
 }
 
-export function UpdateUserRequestFromJSONTyped(
+export function CreateUserReqFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): UpdateUserRequest {
+): CreateUserReq {
   if (json == null) {
     return json;
   }
@@ -69,7 +67,7 @@ export function UpdateUserRequestFromJSONTyped(
   };
 }
 
-export function UpdateUserRequestToJSON(value?: UpdateUserRequest | null): any {
+export function CreateUserReqToJSON(value?: CreateUserReq | null): any {
   if (value == null) {
     return value;
   }

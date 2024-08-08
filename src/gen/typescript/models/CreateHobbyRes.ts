@@ -16,69 +16,76 @@ import { mapValues } from '../runtime';
 /**
  *
  * @export
- * @interface CreateHobbyRequest
+ * @interface CreateHobbyRes
  */
-export interface CreateHobbyRequest {
+export interface CreateHobbyRes {
   /**
    *
    * @type {string}
-   * @memberof CreateHobbyRequest
+   * @memberof CreateHobbyRes
    */
-  creatorId: string;
+  hobbyId: string;
   /**
    *
    * @type {string}
-   * @memberof CreateHobbyRequest
+   * @memberof CreateHobbyRes
    */
   hobbyName: string;
   /**
    *
    * @type {string}
-   * @memberof CreateHobbyRequest
+   * @memberof CreateHobbyRes
+   */
+  creatorId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CreateHobbyRes
    */
   categoryId: string;
 }
 
 /**
- * Check if a given object implements the CreateHobbyRequest interface.
+ * Check if a given object implements the CreateHobbyRes interface.
  */
-export function instanceOfCreateHobbyRequest(
+export function instanceOfCreateHobbyRes(
   value: object
-): value is CreateHobbyRequest {
-  if (!('creatorId' in value) || value['creatorId'] === undefined) return false;
+): value is CreateHobbyRes {
+  if (!('hobbyId' in value) || value['hobbyId'] === undefined) return false;
   if (!('hobbyName' in value) || value['hobbyName'] === undefined) return false;
+  if (!('creatorId' in value) || value['creatorId'] === undefined) return false;
   if (!('categoryId' in value) || value['categoryId'] === undefined)
     return false;
   return true;
 }
 
-export function CreateHobbyRequestFromJSON(json: any): CreateHobbyRequest {
-  return CreateHobbyRequestFromJSONTyped(json, false);
+export function CreateHobbyResFromJSON(json: any): CreateHobbyRes {
+  return CreateHobbyResFromJSONTyped(json, false);
 }
 
-export function CreateHobbyRequestFromJSONTyped(
+export function CreateHobbyResFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): CreateHobbyRequest {
+): CreateHobbyRes {
   if (json == null) {
     return json;
   }
   return {
-    creatorId: json['creatorId'],
+    hobbyId: json['hobbyId'],
     hobbyName: json['hobbyName'],
+    creatorId: json['creatorId'],
     categoryId: json['categoryId'],
   };
 }
 
-export function CreateHobbyRequestToJSON(
-  value?: CreateHobbyRequest | null
-): any {
+export function CreateHobbyResToJSON(value?: CreateHobbyRes | null): any {
   if (value == null) {
     return value;
   }
   return {
-    creatorId: value['creatorId'],
+    hobbyId: value['hobbyId'],
     hobbyName: value['hobbyName'],
+    creatorId: value['creatorId'],
     categoryId: value['categoryId'],
   };
 }

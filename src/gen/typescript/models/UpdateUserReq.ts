@@ -16,71 +16,62 @@ import { mapValues } from '../runtime';
 /**
  *
  * @export
- * @interface User
+ * @interface UpdateUserReq
  */
-export interface User {
+export interface UpdateUserReq {
   /**
    *
    * @type {string}
-   * @memberof User
-   */
-  userId: string;
-  /**
-   *
-   * @type {string}
-   * @memberof User
+   * @memberof UpdateUserReq
    */
   userName: string;
   /**
    *
    * @type {string}
-   * @memberof User
+   * @memberof UpdateUserReq
    */
   email: string;
   /**
    *
    * @type {string}
-   * @memberof User
+   * @memberof UpdateUserReq
    */
   avatarUrl: string;
 }
 
 /**
- * Check if a given object implements the User interface.
+ * Check if a given object implements the UpdateUserReq interface.
  */
-export function instanceOfUser(value: object): value is User {
-  if (!('userId' in value) || value['userId'] === undefined) return false;
+export function instanceOfUpdateUserReq(value: object): value is UpdateUserReq {
   if (!('userName' in value) || value['userName'] === undefined) return false;
   if (!('email' in value) || value['email'] === undefined) return false;
   if (!('avatarUrl' in value) || value['avatarUrl'] === undefined) return false;
   return true;
 }
 
-export function UserFromJSON(json: any): User {
-  return UserFromJSONTyped(json, false);
+export function UpdateUserReqFromJSON(json: any): UpdateUserReq {
+  return UpdateUserReqFromJSONTyped(json, false);
 }
 
-export function UserFromJSONTyped(
+export function UpdateUserReqFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): User {
+): UpdateUserReq {
   if (json == null) {
     return json;
   }
   return {
-    userId: json['userId'],
     userName: json['userName'],
     email: json['email'],
     avatarUrl: json['avatarUrl'],
   };
 }
 
-export function UserToJSON(value?: User | null): any {
+export function UpdateUserReqToJSON(value?: UpdateUserReq | null): any {
   if (value == null) {
     return value;
   }
   return {
-    userId: value['userId'],
     userName: value['userName'],
     email: value['email'],
     avatarUrl: value['avatarUrl'],

@@ -16,47 +16,47 @@ import { mapValues } from '../runtime';
 /**
  *
  * @export
- * @interface GetMatchingResponseInner
+ * @interface GetMatchingResMatchingsInner
  */
-export interface GetMatchingResponseInner {
+export interface GetMatchingResMatchingsInner {
   /**
    *
    * @type {string}
-   * @memberof GetMatchingResponseInner
+   * @memberof GetMatchingResMatchingsInner
    */
   matchingId: string;
   /**
    *
    * @type {string}
-   * @memberof GetMatchingResponseInner
+   * @memberof GetMatchingResMatchingsInner
    */
   avatarUrl: string;
   /**
    *
    * @type {string}
-   * @memberof GetMatchingResponseInner
+   * @memberof GetMatchingResMatchingsInner
    */
   matchUserName: string;
   /**
    *
    * @type {string}
-   * @memberof GetMatchingResponseInner
+   * @memberof GetMatchingResMatchingsInner
    */
   lastMessage: string;
   /**
    *
    * @type {number}
-   * @memberof GetMatchingResponseInner
+   * @memberof GetMatchingResMatchingsInner
    */
   unreadMessageCount: number;
 }
 
 /**
- * Check if a given object implements the GetMatchingResponseInner interface.
+ * Check if a given object implements the GetMatchingResMatchingsInner interface.
  */
-export function instanceOfGetMatchingResponseInner(
+export function instanceOfGetMatchingResMatchingsInner(
   value: object
-): value is GetMatchingResponseInner {
+): value is GetMatchingResMatchingsInner {
   if (!('matchingId' in value) || value['matchingId'] === undefined)
     return false;
   if (!('avatarUrl' in value) || value['avatarUrl'] === undefined) return false;
@@ -72,16 +72,16 @@ export function instanceOfGetMatchingResponseInner(
   return true;
 }
 
-export function GetMatchingResponseInnerFromJSON(
+export function GetMatchingResMatchingsInnerFromJSON(
   json: any
-): GetMatchingResponseInner {
-  return GetMatchingResponseInnerFromJSONTyped(json, false);
+): GetMatchingResMatchingsInner {
+  return GetMatchingResMatchingsInnerFromJSONTyped(json, false);
 }
 
-export function GetMatchingResponseInnerFromJSONTyped(
+export function GetMatchingResMatchingsInnerFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean
-): GetMatchingResponseInner {
+): GetMatchingResMatchingsInner {
   if (json == null) {
     return json;
   }
@@ -94,8 +94,8 @@ export function GetMatchingResponseInnerFromJSONTyped(
   };
 }
 
-export function GetMatchingResponseInnerToJSON(
-  value?: GetMatchingResponseInner | null
+export function GetMatchingResMatchingsInnerToJSON(
+  value?: GetMatchingResMatchingsInner | null
 ): any {
   if (value == null) {
     return value;
