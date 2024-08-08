@@ -25,7 +25,7 @@ export function HobbiesPage() {
     GetHobbyResponseInner[]
   >('/hobbies', fetcher);
   const { data: userHobbies, error: userHobbiesError } = useSWR<Hobby[]>(
-    userId ? `/user_hobbies/${userId}` : null,
+    userId ? `/user-hobbies/${userId}` : null,
     fetcher
   );
   const [selectedHobbies, setSelectedHobbies] = useState<string[]>([]);
@@ -54,7 +54,7 @@ export function HobbiesPage() {
       const requestBody: UpdateUserHobbyRequest = {
         hobbyIds: selectedHobbies,
       };
-      await put('/user_hobbies', requestBody);
+      await put('/user-hobbies', requestBody);
       toast({
         title: '趣味の登録が完了しました！',
       });
@@ -69,7 +69,7 @@ export function HobbiesPage() {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-8">
+      <div className="px-4 py-8">
         <h1 className="text-2xl font-bold text-center mb-4">
           あなたの趣味を教えてください
         </h1>

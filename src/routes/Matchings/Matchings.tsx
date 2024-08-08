@@ -19,7 +19,7 @@ export function MatchingsPage() {
 
   return (
     <Layout>
-      <div className="container mt-5">
+      <div className="mt-5">
         {data.length === 0 ? (
           <div className="flex flex-col items-center justify-center">
             <p className="mb-4 text-lg">マッチングがまだありません。</p>
