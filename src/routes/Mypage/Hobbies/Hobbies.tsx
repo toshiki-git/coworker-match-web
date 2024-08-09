@@ -5,9 +5,9 @@ import { Layout } from '@/layouts';
 import { HobbyCheckbox } from '@/components/HobbyCheckbox';
 import { Button } from '@/components/ui/button';
 import {
-  GetHobbyResponseInner,
-  Hobby,
-  UpdateUserHobbyRequest,
+  GetHobbyRes,
+  UpdateUserHobbyReq,
+  GetUserHobbyRes,
 } from '@/gen/typescript';
 import { Plus } from 'lucide-react';
 import { fetcher, put } from '@/api/fetcher';
@@ -21,18 +21,17 @@ export function HobbiesPage() {
   const router = useRouter();
   const { data: session } = useSession();
   const userId = session?.userId;
-  const { data: allHobbies, error: hobbiesError } = useSWR<
-    GetHobbyResponseInner[]
-  >('/hobbies', fetcher);
-  const { data: userHobbies, error: userHobbiesError } = useSWR<Hobby[]>(
-    userId ? `/user-hobbies/${userId}` : null,
+  const { data: allHobbies, error: hobbiesError } = useSWR<GetHobbyRes>(
+    '/hobbies',
     fetcher
   );
+  const { data: userHobbies, error: userHobbiesError } =
+    useSWR<GetUserHobbyRes>(userId ? `/user-hobbies/${userId}` : null, fetcher);
   const [selectedHobbies, setSelectedHobbies] = useState<string[]>([]);
 
   useEffect(() => {
-    if (userHobbies) {
-      setSelectedHobbies(userHobbies.map((hobby) => hobby.hobbyId));
+    if (userHobbies?.hobbies) {
+      setSelectedHobbies(userHobbies.hobbies.map((hobby) => hobby.hobbyId));
     }
   }, [userHobbies]);
 
@@ -51,7 +50,7 @@ export function HobbiesPage() {
 
   const handleRegister = async () => {
     try {
-      const requestBody: UpdateUserHobbyRequest = {
+      const requestBody: UpdateUserHobbyReq = {
         hobbyIds: selectedHobbies,
       };
       await put('/user-hobbies', requestBody);
@@ -74,7 +73,7 @@ export function HobbiesPage() {
           あなたの趣味を教えてください
         </h1>
         <p className="text-center mb-8">Tell us about your hobbies</p>
-        {allHobbies.map((hobbies) => (
+        {allHobbies.hobbyGroups.map((hobbies) => (
           <div key={hobbies.categoryId} className="mb-8">
             <h2 className="text-xl font-semibold mb-4">
               {hobbies.categoryName}

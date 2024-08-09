@@ -2,14 +2,14 @@ import useSWR from 'swr';
 import { User } from '@/components/User';
 import { Layout } from '@/layouts';
 import { fetcher } from '@/api/fetcher';
-import { GetMatchingResponseInner } from '@/gen/typescript';
+import { GetMatchingRes } from '@/gen/typescript';
 import { Button } from '@/components/ui/button';
 import { Loading } from '@/components/Loading';
 import { ApiError } from '@/components/ApiError';
 import Link from 'next/link';
 
 export function MatchingsPage() {
-  const { data, error, isLoading } = useSWR<GetMatchingResponseInner[]>(
+  const { data, error, isLoading } = useSWR<GetMatchingRes>(
     '/matchings',
     fetcher
   );
@@ -20,7 +20,7 @@ export function MatchingsPage() {
   return (
     <Layout>
       <div className="mt-5">
-        {data.length === 0 ? (
+        {data.matchings.length === 0 ? (
           <div className="flex flex-col items-center justify-center">
             <p className="mb-4 text-lg">マッチングがまだありません。</p>
             <Button className="w-72 h-16" asChild>
@@ -28,7 +28,7 @@ export function MatchingsPage() {
             </Button>
           </div>
         ) : (
-          data.map((matching) => (
+          data.matchings.map((matching) => (
             <User
               key={matching.matchingId}
               matchingId={matching.matchingId}

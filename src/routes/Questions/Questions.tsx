@@ -8,9 +8,9 @@ import { ChoiceCard } from '@/components/ChoiceCard';
 import { Loading } from '@/components/Loading';
 import { ApiError } from '@/components/ApiError';
 import {
-  Question,
-  CreateQuestionRequest,
-  CreateQuestionResponse,
+  GetQuestionRes,
+  CreateQuestionReq,
+  CreateQuestionRes,
 } from '@/gen/typescript';
 
 export function QuestionsPage() {
@@ -20,8 +20,8 @@ export function QuestionsPage() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
 
-  const { data, error, isLoading } = useSWR<Question[]>(
-    '/matching_questions',
+  const { data, error, isLoading } = useSWR<GetQuestionRes>(
+    '/matching-questions',
     fetcher
   );
 
@@ -33,21 +33,21 @@ export function QuestionsPage() {
     newSelectedChoices[currentQuestionIndex] = choiceIndex;
     setSelectedChoices(newSelectedChoices);
 
-    if (currentQuestionIndex < data.length - 1) {
+    if (currentQuestionIndex < data.questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       setLoading(true);
 
-      const requestBody: CreateQuestionRequest = {
+      const requestBody: CreateQuestionReq = {
         answers: newSelectedChoices.map((choice, index) => ({
-          questionId: data[index].questionId,
+          questionId: data.questions[index].questionId,
           answer: choice === 1 ? 'yes' : 'no',
         })),
       };
 
       try {
-        const result: CreateQuestionResponse = await post(
-          '/matching_questions',
+        const result: CreateQuestionRes = await post(
+          '/matching-questions',
           requestBody
         );
 
@@ -71,7 +71,7 @@ export function QuestionsPage() {
     window.location.reload();
   };
 
-  const currentQuestion = data[currentQuestionIndex];
+  const currentQuestion = data.questions[currentQuestionIndex];
   const selectedChoice = selectedChoices[currentQuestionIndex];
 
   if (loading) {
@@ -98,7 +98,7 @@ export function QuestionsPage() {
                 <span className="text-4xl font-bold">
                   {currentQuestionIndex + 1}
                 </span>
-                <span className="text-xl">/{data.length}</span>
+                <span className="text-xl">/{data.questions.length}</span>
               </div>
               <div>
                 <p className="text-xl font-bold">

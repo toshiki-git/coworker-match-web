@@ -5,10 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Message } from '@/components/Message';
 import { fetcher, post } from '@/api/fetcher';
 import {
-  GetQuestionCardResponseInner,
-  GetMessageResponse,
-  CreateMessageRequest,
-  GetMatchingUserResponse,
+  GetQuestionCardRes,
+  GetMessageRes,
+  CreateMessageReq,
+  GetMatchingUserRes,
 } from '@/gen/typescript';
 import { QuestionCardsDialog } from '@/components/QuestionCardsDialog';
 import { useRouter } from 'next/router';
@@ -24,18 +24,17 @@ export function MatchingPage() {
   const { data: session } = useSession();
   const router = useRouter();
   const { matchingId } = router.query;
-  const { data: messages, error: messagesError } = useSWR<GetMessageResponse>(
+  const { data: messages, error: messagesError } = useSWR<GetMessageRes>(
     `/messages/${matchingId}`,
     fetcher
   );
-  const { data: questionCardsData, error: questionCardsError } = useSWR<
-    GetQuestionCardResponseInner[]
-  >(`/question_cards?matchingId=${matchingId}`, fetcher);
+  const { data: questionCardsData, error: questionCardsError } =
+    useSWR<GetQuestionCardRes>(`/question-cards/${matchingId}`, fetcher);
   const { data: matchUserData, error: matchUserError } =
-    useSWR<GetMatchingUserResponse>(`/matchings/${matchingId}`, fetcher);
+    useSWR<GetMatchingUserRes>(`/matchings/${matchingId}`, fetcher);
 
   const addQuestion = async (questionCardId: string) => {
-    const requestBody: CreateMessageRequest = {
+    const requestBody: CreateMessageReq = {
       questionCardId,
     };
     try {
@@ -59,8 +58,8 @@ export function MatchingPage() {
 
   if (!messages || !questionCardsData || !matchUserData) return <Loading />;
 
-  const filteredQuestionCards = questionCardsData.slice(0, -1);
-  const lastQuestionCard = questionCardsData.slice(-1)[0];
+  const filteredQuestionCards = questionCardsData.questionCards.slice(0, -1);
+  const lastQuestionCard = questionCardsData.questionCards.slice(-1)[0];
 
   return (
     <Layout>
@@ -75,7 +74,7 @@ export function MatchingPage() {
             </Link>
             <div className="mb-5 font-bold text-center">
               <p className="block sm:inline ">
-                {matchUserData.user.userName}さんとマッチングしました。
+                {matchUserData.userName}さんとマッチングしました。
               </p>
               <p className="block sm:inline">
                 さっそく質問を追加してみましょう。
@@ -93,7 +92,7 @@ export function MatchingPage() {
                   questionText={message.questionCardText}
                   myIconUrl={session?.user?.image as string}
                   myAnswer={message.messagePair.me.messageText}
-                  otherIconUrl={matchUserData.user.avatarUrl}
+                  otherIconUrl={matchUserData.avatarUrl}
                   otherAnswer={message.messagePair.you.messageText}
                 />
               </div>
