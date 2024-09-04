@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { Loading } from '@/components/Loading';
 import { fetcher, post } from '@/api/fetcher';
-import { CreateUserRequest } from '@/gen/typescript';
+import { CreateUserReq } from '@/gen/typescript';
 
 function Page() {
   const { data: session, status } = useSession();
@@ -20,7 +20,7 @@ function Page() {
         if (isExist) {
           router.push('/mypage');
         } else {
-          const requestBody: CreateUserRequest = {
+          const requestBody: CreateUserReq = {
             userName: session?.user?.name ?? '',
             email: session?.user?.email ?? '',
             avatarUrl: session?.user?.image ?? '',

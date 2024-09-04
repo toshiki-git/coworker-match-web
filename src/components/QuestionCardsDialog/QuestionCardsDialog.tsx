@@ -10,10 +10,10 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { GetQuestionCardResponseInner } from '@/gen/typescript';
+import { GetQuestionCardResQuestionCardsInner } from '@/gen/typescript';
 
 interface QuestionCardsDialogProps {
-  questionCards: GetQuestionCardResponseInner[];
+  questionCards: GetQuestionCardResQuestionCardsInner[];
   addQuestion: (question: string) => void;
 }
 
