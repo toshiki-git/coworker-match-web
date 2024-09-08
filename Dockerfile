@@ -4,6 +4,9 @@ FROM node:18-alpine AS build
 # 作業ディレクトリの設定
 WORKDIR /usr/src/app
 
+ENV NEXT_PUBLIC_API_URL=https://cwm-api-dev-45nffvaatq-an.a.run.app/api
+ENV NEXT_PUBLIC_ENABLE_MSW=false
+
 # pnpmをグローバルにインストールし、依存関係をインストール
 COPY package.json pnpm-lock.yaml ./
 RUN npm install -g pnpm@9.1.0 && pnpm install
@@ -24,6 +27,7 @@ RUN npm install -g pnpm@9.1.0
 
 # ビルドステージからビルド済みの成果物と必要なファイルをコピー
 COPY --from=build /usr/src/app/.next ./.next
+COPY --from=build /usr/src/app/next.config.mjs ./
 COPY --from=build /usr/src/app/package.json ./
 COPY --from=build /usr/src/app/pnpm-lock.yaml ./
 COPY --from=build /usr/src/app/public ./public
