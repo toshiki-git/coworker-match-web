@@ -2,6 +2,7 @@
 /* eslint-disable */
 export * from './Answer';
 export * from './Category';
+export * from './CategoryInterest';
 export * from './Choice';
 export * from './CreateHobbyReq';
 export * from './CreateHobbyRes';
@@ -24,6 +25,7 @@ export * from './GetMessageResMessagesInnerMessagePair';
 export * from './GetQuestionCardRes';
 export * from './GetQuestionCardResQuestionCardsInner';
 export * from './GetQuestionRes';
+export * from './GetUserCategoryPercentagesRes';
 export * from './GetUserHobbyRes';
 export * from './GetUserRes';
 export * from './Hobby';

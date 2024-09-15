@@ -10,6 +10,7 @@ apis/index.ts
 index.ts
 models/Answer.ts
 models/Category.ts
+models/CategoryInterest.ts
 models/Choice.ts
 models/CreateHobbyReq.ts
 models/CreateHobbyRes.ts
@@ -32,6 +33,7 @@ models/GetMessageResMessagesInnerMessagePair.ts
 models/GetQuestionCardRes.ts
 models/GetQuestionCardResQuestionCardsInner.ts
 models/GetQuestionRes.ts
+models/GetUserCategoryPercentagesRes.ts
 models/GetUserHobbyRes.ts
 models/GetUserRes.ts
 models/Hobby.ts
