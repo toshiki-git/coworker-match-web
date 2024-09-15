@@ -1,7 +1,11 @@
 import { fetcher } from '@/api/fetcher';
 import { ApiError } from '@/components/ApiError';
 import { Loading } from '@/components/Loading';
-import { GetUserHobbyRes, GetUserRes } from '@/gen/typescript';
+import {
+  GetUserHobbyRes,
+  GetUserRes,
+  GetUserCategoryPercentagesRes,
+} from '@/gen/typescript';
 import { Layout } from '@/layouts';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
@@ -11,15 +15,6 @@ import useSWR from 'swr';
 import { Button } from '@/components/ui/button';
 import { MessageCircle } from 'lucide-react';
 import Link from 'next/link';
-
-const categoryInterest = [
-  { name: 'インドア', value: 80 },
-  { name: 'アウトドア', value: 70 },
-  { name: '技術', value: 90 },
-  { name: 'スポーツ', value: 60 },
-  { name: '音楽', value: 25 },
-  { name: 'ゲーム', value: 10 },
-];
 
 export function ProfilePage() {
   const router = useRouter();
@@ -31,10 +26,17 @@ export function ProfilePage() {
   const { data: userHobbies, error: userHobbiesError } =
     useSWR<GetUserHobbyRes>(`/user-hobbies/${userId}`, fetcher);
 
+  const { data: categoryInterest, error: categoryInterestError } =
+    useSWR<GetUserCategoryPercentagesRes>(
+      `/user-hobbies/${userId}/category-percentages`,
+      fetcher
+    );
+
   if (userDataError) return <ApiError error={userDataError} />;
   if (userHobbiesError) return <ApiError error={userHobbiesError} />;
+  if (categoryInterestError) return <ApiError error={categoryInterestError} />;
 
-  if (!userData || !userHobbies) return <Loading />;
+  if (!userData || !userHobbies || !categoryInterest) return <Loading />;
 
   return (
     <Layout>
@@ -56,13 +58,13 @@ export function ProfilePage() {
         <div className="w-full">
           <h3 className="font-bold mb-2">興味・趣味</h3>
           <div>
-            {categoryInterest.map((category) => (
-              <div key={category.name} className="mb-3">
+            {categoryInterest.categories.map((category) => (
+              <div key={category.categoryId} className="mb-3">
                 <div className="flex justify-between">
-                  <p>{category.name}</p>
-                  <p>{category.value}%</p>
+                  <p>{category.categoryName}</p>
+                  <p>{category.interestPercentage}%</p>
                 </div>
-                <Progress value={category.value} />
+                <Progress value={category.interestPercentage} />
               </div>
             ))}
           </div>
